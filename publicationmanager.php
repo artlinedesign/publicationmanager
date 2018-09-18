@@ -80,3 +80,5 @@ function run_publicationmanager() {
 
 }
 run_publicationmanager();
+
+/* test hehehe */
