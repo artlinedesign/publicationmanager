@@ -84,7 +84,7 @@ run_publicationmanager();
 /**
 * Adds Admin Menu
 *
-* 
+*
 * Start function init
 *
 */
@@ -95,9 +95,11 @@ add_action('admin_menu', 'test_plugin_setup_menu');
 function test_plugin_setup_menu(){
         add_menu_page( 'Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager', 'init' );
 }
- 
+
 function init(){
         echo "<h1>seas beidl</h1>";
+				echo "<h1>TEST</h1>";
+
 }
- 
+
 ?>
