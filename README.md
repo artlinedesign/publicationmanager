@@ -1,2 +1,2 @@
-# publicationmanager
-WordPress Publication Manager
+# Publication Manager
+hab nur gschaut. wiederschaun. 
