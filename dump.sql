@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Sep 18, 2018 at 01:27 PM
+-- Generation Time: Sep 18, 2018 at 01:34 PM
 -- Server version: 10.1.16-MariaDB
 -- PHP Version: 7.0.9
 
@@ -315,6 +315,21 @@ INSERT INTO `wp_posts` (`ID`, `post_author`, `post_date`, `post_date_gmt`, `post
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `wp_publicationmanager_articles`
+--
+
+CREATE TABLE `wp_publicationmanager_articles` (
+  `id` int(11) NOT NULL,
+  `titel` varchar(255) NOT NULL,
+  `author_id` int(11) NOT NULL,
+  `datum` int(11) NOT NULL,
+  `link` varchar(255) NOT NULL,
+  `thumbnail_url` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `wp_publicationmanager_authors`
 --
 
@@ -336,7 +351,8 @@ CREATE TABLE `wp_publicationmanager_books` (
   `verlag_id` int(11) NOT NULL,
   `author_id` int(11) NOT NULL,
   `thumbnail_url` varchar(255) NOT NULL,
-  `titel` int(11) NOT NULL
+  `titel` int(11) NOT NULL,
+  `link` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -352,7 +368,8 @@ CREATE TABLE `wp_publicationmanager_publications` (
   `seiten` int(11) NOT NULL,
   `titel` varchar(255) NOT NULL,
   `thumbnail_url` varchar(255) NOT NULL,
-  `datum` datetime NOT NULL
+  `datum` datetime NOT NULL,
+  `link` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -559,6 +576,12 @@ ALTER TABLE `wp_posts`
   ADD KEY `post_author` (`post_author`);
 
 --
+-- Indexes for table `wp_publicationmanager_articles`
+--
+ALTER TABLE `wp_publicationmanager_articles`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `wp_publicationmanager_authors`
 --
 ALTER TABLE `wp_publicationmanager_authors`
@@ -664,6 +687,11 @@ ALTER TABLE `wp_postmeta`
 --
 ALTER TABLE `wp_posts`
   MODIFY `ID` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT for table `wp_publicationmanager_articles`
+--
+ALTER TABLE `wp_publicationmanager_articles`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `wp_publicationmanager_authors`
 --
