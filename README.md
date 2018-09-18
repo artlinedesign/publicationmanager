@@ -1,0 +1,2 @@
+# publicationmanager
+WordPress Publication Manager
