@@ -97,10 +97,12 @@ add_action('admin_menu', 'publicationmanager');
 function publicationmanager(){
 	add_menu_page('Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager', 'init' );
 	add_submenu_page('publicationmanager', 'Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager' );
-	add_submenu_page('publicationmanager', 'Autoren', 'Autoren', 'manage_options', 'Autoren', 'callSubMenu' );
-	add_submenu_page('publicationmanager', 'Bücher', 'Bücher', 'manage_options', 'buecher', 'callSubMenu' );
-	add_submenu_page('publicationmanager', 'Beiträge', 'Beiträge', 'manage_options', 'beitraege', 'callSubMenu' );
-	add_submenu_page('publicationmanager', 'Verläge', 'Verläge', 'manage_options', 'verlaege', 'callSubMenu' );
+	add_submenu_page('publicationmanager', 'Autoren', 'Autoren', 'manage_options', 'autoren', 'showauthors' );
+	add_submenu_page('publicationmanager', 'Bücher', 'Bücher', 'manage_options', 'buecher', 'showBooks' );
+	add_submenu_page('publicationmanager', 'Beiträge', 'Beiträge', 'manage_options', 'beitraege', 'showArticles' );
+	add_submenu_page('publicationmanager', 'Publikationen', 'Publikationen', 'manage_options', 'publikationen', 'showPublications' );
+	add_submenu_page('publicationmanager', 'Verläge', 'Verläge', 'manage_options', 'verlaege', 'showPublisher' );
+
 
 }
 
@@ -129,10 +131,11 @@ function buildForm() {
 }
 
 
-function callSubMenu() {
-	require plugin_dir_path( __FILE__ ) . 'includes/class-call-submenu.php';
-	SubMenu::callMenu();
+function showauthors() {
+	require plugin_dir_path( __FILE__ ) . 'includes/.php';
 }
+
+
 
 
 
