@@ -90,16 +90,52 @@ run_publicationmanager();
 */
 
 
-add_action('admin_menu', 'test_plugin_setup_menu');
- 
-function test_plugin_setup_menu(){
-        add_menu_page( 'Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager', 'init' );
+
+
+add_action('admin_menu', 'publicationmanager');
+
+function publicationmanager(){
+	add_menu_page('Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager', 'init' );
+	add_submenu_page('publicationmanager', 'Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager' );
+	add_submenu_page('publicationmanager', 'Autoren', 'Autoren', 'manage_options', 'Autoren', 'callSubMenu' );
+	add_submenu_page('publicationmanager', 'Bücher', 'Bücher', 'manage_options', 'buecher', 'callSubMenu' );
+	add_submenu_page('publicationmanager', 'Beiträge', 'Beiträge', 'manage_options', 'beitraege', 'callSubMenu' );
+	add_submenu_page('publicationmanager', 'Verläge', 'Verläge', 'manage_options', 'verlaege', 'callSubMenu' );
+
 }
+
+
 
 function init(){
-        echo "<h1>seas beidl</h1>";
-				echo "<h1>TEST</h1>";
+	echo "<h1>Seas btp, hier kannst du deine publikationen usw selber online stellen. viel spass. haha.</h1> ";
+				createDatabase();
+				buildForm();
+
 
 }
+
+function createDatabase() {
+	register_activation_hook( __FILE__, 'createCustomDatabase' );
+	require plugin_dir_path( __FILE__ ) . 'includes/class-create-database.php';
+	DatabaseCreator::createCustomDatabase();
+}
+
+
+
+function buildForm() {
+	require plugin_dir_path( __FILE__ ) . 'includes/class-addfields.php';
+	Formbuilder::addInput();
+
+}
+
+
+function callSubMenu() {
+	require plugin_dir_path( __FILE__ ) . 'includes/class-call-submenu.php';
+	SubMenu::callMenu();
+}
+
+
+
+
 
 ?>
