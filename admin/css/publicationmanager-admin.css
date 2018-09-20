@@ -14,7 +14,22 @@
   #publicationmanager-wrapper h1 {
     margin-bottom: 25px;
   }
+#publicationmanager tr {
+  height: 40px;
+}
+
+#publicationmanager-table td {
+  height: 20px;
+}
 
 .firstname, .lastname, .authorid {
-  font-size: 22px;
+  font-size: 18px;
+}
+
+.authorid {
+  width: 50px;
+}
+
+.firstname, .lastname {
+  width: 250px;
 }
