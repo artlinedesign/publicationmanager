@@ -132,7 +132,7 @@ function buildForm() {
 
 
 function showauthors() {
-	require plugin_dir_path( __FILE__ ) . 'includes/.php';
+	require plugin_dir_path( __FILE__ ) . 'admin/authors/view.phtml';
 }
 
 

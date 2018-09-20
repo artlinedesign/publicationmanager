@@ -1,0 +1,40 @@
+<?php
+
+
+
+require plugin_dir_path( __FILE__ ) . 'model.php';
+
+
+$authors = getAllAuthors();
+
+
+?>
+
+<h1>Autoren</h1>
+
+<ul>
+  <li>
+    <div class="">
+
+    </div>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <td>ID</td>
+      <td>First Name</td>
+      <td>Last Name</td>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($authors as $author): ?>
+    <tr>
+      <td><?php echo $author->id ?></td>
+      <td><?php echo $author->firstname ?></td>
+      <td><?php echo $author->lastname ?></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
