@@ -2,3 +2,19 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+
+ #publicationmanager-wrapper {
+   padding: 20px;
+   margin: 50px;
+   border: 2px solid #333;
+   background-color: #fff;
+ }
+
+  #publicationmanager-wrapper h1 {
+    margin-bottom: 25px;
+  }
+
+.firstname, .lastname, .authorid {
+  font-size: 22px;
+}

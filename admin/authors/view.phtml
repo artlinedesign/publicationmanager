@@ -10,6 +10,9 @@ $authors = getAllAuthors();
 
 ?>
 
+<div class="autoren" id ="publicationmanager-wrapper">
+
+
 <h1>Autoren</h1>
 
 <ul>
@@ -20,12 +23,12 @@ $authors = getAllAuthors();
   </li>
 </ul>
 
-<table>
+<table id="publicationmanager-table">
   <thead>
     <tr>
-      <td>ID</td>
-      <td>First Name</td>
-      <td>Last Name</td>
+      <td class="authorid">ID</td>
+      <td class="firstname">First Name</td>
+      <td class="lastname">Last Name</td>
     </tr>
   </thead>
   <tbody>
@@ -38,3 +41,7 @@ $authors = getAllAuthors();
     <?php endforeach; ?>
   </tbody>
 </table>
+
+
+
+</div>
