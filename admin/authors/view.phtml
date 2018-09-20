@@ -4,7 +4,6 @@
 
 require plugin_dir_path( __FILE__ ) . 'model.php';
 
-
 $authors = getAllAuthors();
 
 
@@ -14,6 +13,8 @@ $authors = getAllAuthors();
 
 
 <h1>Autoren</h1>
+
+
 
 <ul>
   <li>
@@ -45,3 +46,9 @@ $authors = getAllAuthors();
 
 
 </div>
+
+
+
+<?php echo Formbuilder::addInput("firstname", "text", "author-input", "", "First Name"); ?>
+<?php echo Formbuilder::addInput("lastname", "text", "author-input", "", "Last Name"); ?>
+<?php echo Formbuilder::addInput("submit", "submit", "author-button", "", null, "Submit"); ?>

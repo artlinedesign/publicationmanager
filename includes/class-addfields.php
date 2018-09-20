@@ -4,11 +4,11 @@
 
 class Formbuilder {
 
-  static function addInput ($name=null, $type='text', $class=null, $id=null, $label=null) {
+  static function addInput ($name=null, $type='text', $class=null, $id=null, $label=null, $value=null) {
 
     $input = "";
     if($label !== null){
-      $input = $input . "<label for='" . $name . "'>";
+      $input = $input . "<label for='" . $name . "'>" . $label;
     }
     $input = $input . "<input type='". $type ."' name='". $name ."' value='". $value ."' class='". $class ."' id='" . $id . "'>";
     if($label !== null){

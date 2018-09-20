@@ -13,4 +13,8 @@ function getAllAuthors() {
 
 }
 
+function createAthor() {
+  
+}
+
 ?>
