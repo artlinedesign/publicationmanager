@@ -1,0 +1,56 @@
+<?php
+
+
+
+require plugin_dir_path( __FILE__ ) . 'model.php';
+
+
+$publications = getAllPublications();
+
+
+?>
+
+<div class="publications" id ="publicationmanager-wrapper">
+
+
+<h1>Publikationen</h1>
+
+<ul>
+  <li>
+    <div class="">
+
+    </div>
+  </li>
+</ul>
+
+<table id="publicationmanager-table">
+  <thead>
+    <tr>
+      <td class="">ID</td>
+      <td class="">authro id</td>
+      <td class="">verlag id</td>
+      <td class="">seiten</td>
+      <td class="">thumbnail url</td>
+      <td class="">datum</td>
+      <td class="">pdf_url</td>
+    </tr>
+  </thead>
+  <tbody>
+    <?php foreach ($publications as $publication): ?>
+    <tr>
+      <td><?php echo $publication->id ?></td>
+      <td><?php echo $publication->author_id ?></td>
+      <td><?php echo $publication->verlag_id ?></td>
+      <td><?php echo $publication->seiten ?></td>
+      <td><?php echo $publication->thumbnail_url ?></td>
+      <td><?php echo $publication->datum ?></td>
+      <td><?php echo $publication->pdf_url ?></td>
+    </tr>
+    <?php endforeach; ?>
+  </tbody>
+</table>
+
+
+
+
+</div>

@@ -136,6 +136,10 @@ function showauthors() {
 }
 
 
+function showPublications() {
+	require plugin_dir_path( __FILE__ ) . 'admin/publications/view.phtml';
+}
+
 
 
 
