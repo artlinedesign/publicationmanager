@@ -15,7 +15,6 @@ $authors = getAllAuthors();
 <h1>Autoren</h1>
 
 
-
 <ul>
   <li>
     <div class="">
@@ -47,8 +46,6 @@ $authors = getAllAuthors();
 
 </div>
 
-
-
-<?php echo Formbuilder::addInput("firstname", "text", "author-input", "", "First Name"); ?>
-<?php echo Formbuilder::addInput("lastname", "text", "author-input", "", "Last Name"); ?>
-<?php echo Formbuilder::addInput("submit", "submit", "author-button", "", null, "Submit"); ?>
+  <?php echo Formbuilder::addInput("firstname", "text", "author-input", "firstname-input", "First Name"); ?>
+  <?php echo Formbuilder::addInput("lastname", "text", "author-input", "lastname-input", "Last Name"); ?>
+  <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>

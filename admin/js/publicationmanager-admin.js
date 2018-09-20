@@ -1,6 +1,22 @@
 (function( $ ) {
 	'use strict';
 
+	console.log("test");
+
+
+	$( window ).load(function() {
+		$('#submit_authors').on('click', function(){
+			console.log("clicked");
+			let firstname = $('#firstname-input').val();
+			let lastname = $('#lastname-input').val();
+			$.ajax({
+			  url: "admin.php",
+			  data: { firstname: firstname, lastname : lastname}
+			}).done(function() {
+			  $( this ).addClass( "done" );
+			});
+		});
+	});
 	/**
 	 * All of the code for your admin-facing JavaScript source
 	 * should reside in this file.
