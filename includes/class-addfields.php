@@ -14,23 +14,25 @@ class Formbuilder {
     if($label !== null){
       $input = $input . "</label>";
     }
-
+    return $input;
   }
 
-  function addButton ($type, $name, $class, $id) {
-
+  function addButton ($name, $class, $id, $text) {
+    $btn = "<button name='". $name ."' class='". $class ."' id='". $id ."'>" . $text . "</button>";
+    return $btn;
   }
-
-
 
   function addSeperator($class) {
-
+    return "<hr class='". $class ."'>";
   }
 
-
-  function addSelect($options, $class) {
-
+  function addSelect($options = [], $class) {
+    $select = "<select class='". $class ."'>";
+    foreach($options as $opt){
+      $select = $select . "<option value='". $opt ."'>";
+    }
+    $select = $select . "</select>";
+    return $select;
   }
-
 
 }
