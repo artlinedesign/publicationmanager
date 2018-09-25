@@ -3,9 +3,10 @@
 Plugin Name: Test List Table Example
 */
 
-if( ! class_exists( 'WP_List_Table' ) ) {
-    require_once( __FILE__ . '../../includes/class-wp-list-table.php');
+if ( ! class_exists( 'WP_List_Table' ) ) {
+    require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
+
 
 class My_Example_List_Table extends WP_List_Table {
 

@@ -111,7 +111,7 @@ function publicationmanager(){
 function init(){
 	echo "<h1>Seas btp, hier kannst du deine publikationen usw selber online stellen. viel spass. haha.</h1> ";
 				createDatabase();
-
+	require plugin_dir_path( __FILE__ ) . 'includes/class-authors-list.php';
 
 }
 

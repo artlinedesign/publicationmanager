@@ -7,9 +7,15 @@ require plugin_dir_path( __FILE__ ) . 'model.php';
 $authors = getAllAuthors();
 
 
-require plugin_dir_path(__FILE__) . 'class-authors-list.php';
+require plugin_dir_path(__FILE__) . '../../includes/class-authors-list.php';
+
+$list = new Authors_List();
+
+$list->display();
+
 
 ?>
+
 
 <div class="autoren" id ="publicationmanager-wrapper">
 
