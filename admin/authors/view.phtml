@@ -9,17 +9,19 @@ require plugin_dir_path(__FILE__) . 'class-authors-list.php';
 
 $list = new Authors_List();
 
-if(isset($_POST['submit']) && $_POST['submit'] === 'Submit'){
+if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
     createAuthor();
 }
+
+
 ?>
 
 
 <div class="wrap">
-    <h2>WP_List_Table Class Example</h2>
+    <h2>Authors</h2>
 
     <div id="poststuff">
-        <div id="post-body" class="metabox-holder columns-2">
+        <div id="post-body" style="width:100%" class="metabox-holder columns-2">
             <div id="post-body-content">
                 <div class="meta-box-sortables ui-sortable">
                     <form method="post">
@@ -34,9 +36,9 @@ if(isset($_POST['submit']) && $_POST['submit'] === 'Submit'){
     </div>
 </div>
 
-<form action="/btp/wp-admin/admin.php?page=autoren&action=edit" method="POST">
+<form action="/btp/wp-admin/admin.php?page=autoren&action=add" method="POST">
   <?php echo Formbuilder::addInput("title", "text", "author-input", "title-input", "Title"); ?>
-  <?php echo Formbuilder::addInput("firstname", "text", "author-input", "firstname-input", "First Name"); ?>
-  <?php echo Formbuilder::addInput("lastname", "text", "author-input", "lastname-input", "Last Name"); ?>
+  <?php echo Formbuilder::addInput("firstname", "text", "author-input", "firstname-input", "First Name *"); ?>
+  <?php echo Formbuilder::addInput("lastname", "text", "author-input", "lastname-input", "Last Name *"); ?>
   <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>
 </form>

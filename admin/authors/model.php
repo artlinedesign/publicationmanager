@@ -14,11 +14,17 @@ function getAllAuthors() {
 }
 
 function createAuthor() {
-  var_dump($_POST);
   global $wpdb;
   $title = isset($_POST['title']) ? $_POST['title'] : '';
-  $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : '';
-  $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : '';
+  $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : null;
+  $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : null;
+
+  if($firstname === null
+      || $lastname === null
+      || $firstname === ''
+      || $lastname === '') {
+      showAdminErrorMessage( "Please fill out all required (*) fields");
+  }
 
   $wpdb->insert("{$wpdb->prefix}publicationmanager_authors", array(
       'title' => $title,

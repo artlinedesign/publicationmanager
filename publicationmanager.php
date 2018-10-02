@@ -133,6 +133,14 @@ function showPublications() {
 }
 
 
+function showAdminErrorMessage($errMessage) {
+    $class = 'notice notice-error';
+    $message = __( $errMessage, 'sample-text-domain' );
+
+    printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+}
+add_action( 'showAdminError', 'showAdminErrorMessage' );
+
 
 
 

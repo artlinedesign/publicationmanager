@@ -286,7 +286,7 @@ class Authors_List extends WP_List_Table {
         /**
          * First, lets decide how many records per page to show
          */
-        $per_page     = $this->get_items_per_page( 'authors_per_page', 5 );
+        $per_page     = $this->get_items_per_page( 'authors_per_page', 10 );
         $current_page = $this->get_pagenum();
 
 
@@ -417,10 +417,6 @@ class Authors_List extends WP_List_Table {
         ) );
     }
 
-    public static function get_authors($per_page = 5, $page_number =  1){
-
-
-    }
 
 
 }
