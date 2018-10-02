@@ -13,8 +13,19 @@ function getAllAuthors() {
 
 }
 
-function createAthor() {
-  
+function createAuthor() {
+  var_dump($_POST);
+  global $wpdb;
+  $title = isset($_POST['title']) ? $_POST['title'] : '';
+  $firstname = isset($_POST['firstname']) ? $_POST['firstname'] : '';
+  $lastname = isset($_POST['lastname']) ? $_POST['lastname'] : '';
+
+  $wpdb->insert("{$wpdb->prefix}publicationmanager_authors", array(
+      'title' => $title,
+      'firstname' => $firstname,
+      'lastname' => $lastname
+  ));
+
 }
 
 ?>

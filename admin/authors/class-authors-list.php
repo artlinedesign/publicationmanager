@@ -77,31 +77,6 @@ if( ! class_exists( 'WP_List_Table' ) ) {
  */
 class Authors_List extends WP_List_Table {
 
-    /** ************************************************************************
-     * Normally we would be querying data from a database and manipulating that
-     * for use in your list table. For this example, we're going to simplify it
-     * slightly and create a pre-built array. Think of this as the data that might
-     * be returned by $wpdb->query()
-     *
-     * In a real-world scenario, you would make your own custom query inside
-     * this class' prepare_items() method.
-     *
-     **************************************************************************/
-    var $example_data = array(
-        array(
-            'ID'        => 1,
-            'title'     => 'Dr.',
-            'firstname'    => 'Huan',
-            'lastname'  => 'Beidl'
-        ),
-        array(
-            'ID'        => 2,
-            'title'     => 'BSA.',
-            'firstname'    => 'Heast',
-            'lastname'  => 'Oida'
-        ),
-    );
-
 
     /** ************************************************************************
      * REQUIRED. Set up a constructor that references the parent constructor. We
@@ -370,7 +345,7 @@ class Authors_List extends WP_List_Table {
 
 
         /**
-         * This checks for sorting input and sorts the data in our array accordingly.
+         * This checks for sorting input and sorts the data in our array accordingly
          *
          * In a real-world situation involving a database, you would probably want
          * to handle sorting by passing the 'orderby' and 'order' values directly
