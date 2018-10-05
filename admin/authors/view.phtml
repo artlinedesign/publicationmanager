@@ -36,7 +36,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submi
     </div>
 </div>
 
-<form action="/btp/wp-admin/admin.php?page=autoren&action=add" method="POST">
+<form action="admin.php?page=autoren&action=add" method="POST">
   <?php echo Formbuilder::addInput("title", "text", "author-input", "title-input", "Title"); ?>
   <?php echo Formbuilder::addInput("firstname", "text", "author-input", "firstname-input", "First Name *"); ?>
   <?php echo Formbuilder::addInput("lastname", "text", "author-input", "lastname-input", "Last Name *"); ?>
