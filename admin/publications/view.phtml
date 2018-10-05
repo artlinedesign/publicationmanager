@@ -1,56 +1,40 @@
 <?php
 
-
-
 require plugin_dir_path( __FILE__ ) . 'model.php';
 
 
-$publications = getAllPublications();
+require plugin_dir_path(__FILE__) . 'class-publications-list.php';
+
+$list = new Publications_List();
+
+if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
+    createVerlag();
+}
 
 
 ?>
 
-<div class="publications" id ="publicationmanager-wrapper">
 
+<div class="wrap">
+    <h2>Publikationen</h2>
 
-<h1>Publikationen</h1>
-
-<ul>
-  <li>
-    <div class="">
-
+    <div id="poststuff">
+        <div id="post-body" style="width:100%" class="metabox-holder columns-2">
+            <div id="post-body-content">
+                <div class="meta-box-sortables ui-sortable">
+                    <form method="post">
+                        <?php
+                        $list->prepare_items();
+                        $list->display(); ?>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <br class="clear">
     </div>
-  </li>
-</ul>
-
-<table id="publicationmanager-table">
-  <thead>
-    <tr>
-      <td class="">ID</td>
-      <td class="">authro id</td>
-      <td class="">verlag id</td>
-      <td class="">seiten</td>
-      <td class="">thumbnail url</td>
-      <td class="">datum</td>
-      <td class="">pdf_url</td>
-    </tr>
-  </thead>
-  <tbody>
-    <?php foreach ($publications as $publication): ?>
-    <tr>
-      <td><?php echo $publication->id ?></td>
-      <td><?php echo $publication->author_id ?></td>
-      <td><?php echo $publication->verlag_id ?></td>
-      <td><?php echo $publication->seiten ?></td>
-      <td><?php echo $publication->thumbnail_url ?></td>
-      <td><?php echo $publication->datum ?></td>
-      <td><?php echo $publication->pdf_url ?></td>
-    </tr>
-    <?php endforeach; ?>
-  </tbody>
-</table>
-
-
-
-
 </div>
+
+<form action="admin.php?page=verlaege&action=add" method="POST">
+    <?php echo Formbuilder::addInput("name", "text", "author-input", "name-input", "Name"); ?>
+    <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>
+</form>

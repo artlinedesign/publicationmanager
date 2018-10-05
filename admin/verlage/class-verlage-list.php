@@ -338,7 +338,6 @@ class Verlage_List extends WP_List_Table {
 
         $data = $wpdb->get_results( $sql, 'ARRAY_A' );
 
-
         /**
          * This checks for sorting input and sorts the data in our array accordingly
          *
