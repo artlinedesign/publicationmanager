@@ -97,7 +97,7 @@ add_action('admin_menu', 'publicationmanager');
 function publicationmanager(){
 	add_menu_page('Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager', 'init' );
 	add_submenu_page('publicationmanager', 'Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager' );
-	add_submenu_page('publicationmanager', 'Autoren', 'Autoren', 'manage_options', 'autoren', 'showauthors' );
+	add_submenu_page('publicationmanager', 'Autoren', 'Autoren', 'manage_options', 'autoren', 'showAuthors' );
 	add_submenu_page('publicationmanager', 'Bücher', 'Bücher', 'manage_options', 'buecher', 'showBooks' );
 	add_submenu_page('publicationmanager', 'Beiträge', 'Beiträge', 'manage_options', 'beitraege', 'showArticles' );
 	add_submenu_page('publicationmanager', 'Publikationen', 'Publikationen', 'manage_options', 'publikationen', 'showPublications' );
@@ -123,9 +123,15 @@ function createDatabase() {
 
 
 require plugin_dir_path( __FILE__ ) . 'includes/class-addfields.php';
-function showauthors() {
+function showAuthors() {
 	require plugin_dir_path( __FILE__ ) . 'admin/authors/view.phtml';
 }
+
+function showPublisher() {
+    require plugin_dir_path( __FILE__ ) . 'admin/verlage/view.phtml';
+}
+
+
 
 
 function showPublications() {

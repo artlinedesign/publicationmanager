@@ -3,12 +3,12 @@
 require plugin_dir_path( __FILE__ ) . 'model.php';
 
 
-require plugin_dir_path(__FILE__) . 'class-authors-list.php';
+require plugin_dir_path(__FILE__) . 'class-verlage-list.php';
 
-$list = new Authors_List();
+$list = new Verlage_List();
 
 if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
-    createAuthor();
+    createVerlag();
 }
 
 
@@ -16,7 +16,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submi
 
 
 <div class="wrap">
-    <h2>Authors</h2>
+    <h2>Verlage</h2>
 
     <div id="poststuff">
         <div id="post-body" style="width:100%" class="metabox-holder columns-2">
@@ -34,9 +34,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submi
     </div>
 </div>
 
-<form action="admin.php?page=autoren&action=add" method="POST">
-  <?php echo Formbuilder::addInput("title", "text", "author-input", "title-input", "Title"); ?>
-  <?php echo Formbuilder::addInput("firstname", "text", "author-input", "firstname-input", "First Name *"); ?>
-  <?php echo Formbuilder::addInput("lastname", "text", "author-input", "lastname-input", "Last Name *"); ?>
+<form action="admin.php?page=verlaege&action=add" method="POST">
+  <?php echo Formbuilder::addInput("name", "text", "author-input", "name-input", "Name"); ?>
   <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>
 </form>

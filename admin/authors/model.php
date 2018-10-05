@@ -1,16 +1,17 @@
 <?php
 
-function getAllAuthors() {
+function checkDuplicates($firstname, $lastname) {
+    global $wpdb;
+    $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_authors";
 
+    $authors = $wpdb->get_results( $sql, 'ARRAY_A' );
 
-  global $wpdb;
-    $version = get_option( 'my_plugin_version', '1.0' );
-  $charset_collate = $wpdb->get_charset_collate();
-  return $wpdb->get_results("select * from wp_publicationmanager_authors");
-
-
-
-
+    foreach($authors as $author){
+        if($author['firstname'] === $firstname && $author['lastname'] === $lastname){
+            return true;
+        }
+    }
+    return false;
 }
 
 function createAuthor() {
@@ -24,6 +25,12 @@ function createAuthor() {
       || $firstname === ''
       || $lastname === '') {
       showAdminErrorMessage( "Please fill out all required (*) fields");
+      return;
+  }
+
+  if(checkDuplicates($firstname, $lastname)){
+      showAdminErrorMessage('Author already exists.');
+      return;
   }
 
   $wpdb->insert("{$wpdb->prefix}publicationmanager_authors", array(
