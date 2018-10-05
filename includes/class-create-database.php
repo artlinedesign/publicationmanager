@@ -16,6 +16,7 @@ class DatabaseCreator {
 
 			$sql = "CREATE TABLE $table_name (
 				id int(11) NOT NULL,
+				title varchar(255),
 		  	firstname varchar(255) NOT NULL,
 		  	lastname varchar(255) NOT NULL
 			) $charset_collate;";
