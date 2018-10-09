@@ -15,10 +15,11 @@ class DatabaseCreator {
 
 
 			$sql = "CREATE TABLE $table_name (
-				id int(11) NOT NULL,
+				ID int(11) NOT NULL AUTO_INCREMENT,
 				title varchar(255),
 		  	firstname varchar(255) NOT NULL,
-		  	lastname varchar(255) NOT NULL
+		  	lastname varchar(255) NOT NULL,
+		  	PRIMARY KEY (ID)
 			) $charset_collate;";
 
 
@@ -27,9 +28,10 @@ class DatabaseCreator {
 
 			if ( version_compare( $version, '2.0' ) < 0 ) {
 				$sql = "CREATE TABLE $table_name (
-					id int(11) NOT NULL,
+					ID int(11) NOT NULL AUTO_INCREMENT,
 					firstname varchar(255) NOT NULL,
-					lastname varchar(255) NOT NULL
+					lastname varchar(255) NOT NULL,
+					PRIMARY KEY (ID)
 				) $charset_collate;";
 				dbDelta( $sql );
 
@@ -48,12 +50,14 @@ class DatabaseCreator {
 
 
 			$sql = "CREATE TABLE $table_name (
-				id int(11) NOT NULL,
-		  auflage varchar(255) NOT NULL,
+				ID int(11) NOT NULL AUTO_INCREMENT,
+		  edition varchar(255) NOT NULL,
 		  verlag_id int(11) NOT NULL,
 		  author_id int(11) NOT NULL,
 		  thumbnail_url varchar(255) NOT NULL,
-		  titel int(11) NOT NULL
+		  url varchar(255) NOT NULL,
+		  title varchar(255) NOT NULL,
+		  PRIMARY KEY (ID)
 			) $charset_collate;";
 
 
@@ -62,12 +66,14 @@ class DatabaseCreator {
 
 			if ( version_compare( $version, '2.0' ) < 0 ) {
 				$sql = "CREATE TABLE $table_name (
-					id int(11) NOT NULL,
-				auflage varchar(255) NOT NULL,
+					ID int(11) NOT NULL AUTO_INCREMENT,
+				edition varchar(255) NOT NULL,
 				verlag_id int(11) NOT NULL,
 				author_id int(11) NOT NULL,
 				thumbnail_url varchar(255) NOT NULL,
-				titel int(11) NOT NULL
+				url varchar(255) NOT NULL,
+				title varchar(255) NOT NULL,
+				PRIMARY KEY (ID)
 				) $charset_collate;";
 				dbDelta( $sql );
 
@@ -86,13 +92,15 @@ class DatabaseCreator {
 
 
 			$sql = "CREATE TABLE $table_name (
-				id int(11) NOT NULL,
+				ID int(11) NOT NULL AUTO_INCREMENT,
 		  author_id int(11) NOT NULL,
 		  verlag_id int(11) NOT NULL,
-		  seiten int(11) NOT NULL,
-		  titel varchar(255) NOT NULL,
+		  sites int(11) NOT NULL,
+		  title varchar(255) NOT NULL,
 		  thumbnail_url varchar(255) NOT NULL,
-		  datum datetime NOT NULL
+		  url varchar(255) NOT NULL,
+		  date datetime NOT NULL,
+		  PRIMARY KEY (ID)
 			) $charset_collate;";
 
 
@@ -101,13 +109,15 @@ class DatabaseCreator {
 
 			if ( version_compare( $version, '2.0' ) < 0 ) {
 				$sql = "CREATE TABLE $table_name (
-					id int(11) NOT NULL,
+					ID int(11) NOT NULL AUTO_INCREMENT,
 			  author_id int(11) NOT NULL,
 			  verlag_id int(11) NOT NULL,
-			  seiten int(11) NOT NULL,
-			  titel varchar(255) NOT NULL,
+			  sites int(11) NOT NULL,
+			  title varchar(255) NOT NULL,
 			  thumbnail_url varchar(255) NOT NULL,
-			  datum datetime NOT NULL
+			  url varchar(255) NOT NULL,
+			  date datetime NOT NULL,
+			  PRIMARY KEY (ID)
 				) $charset_collate;";
 				dbDelta( $sql );
 
@@ -125,8 +135,9 @@ class DatabaseCreator {
 
 
 			$sql = "CREATE TABLE $table_name (
-				id int(11) NOT NULL,
-		  	name varchar(255) NOT NULL
+				ID int(11) NOT NULL AUTO_INCREMENT,
+		  	name varchar(255) NOT NULL,
+		  	PRIMARY KEY (ID)
 			) $charset_collate;";
 
 
@@ -135,8 +146,9 @@ class DatabaseCreator {
 
 			if ( version_compare( $version, '2.0' ) < 0 ) {
 				$sql = "CREATE TABLE $table_name (
-					id int(11) NOT NULL,
-					name varchar(255) NOT NULL
+					ID int(11) NOT NULL AUTO_INCREMENT,
+					name varchar(255) NOT NULL,
+					PRIMARY KEY (ID)
 				) $charset_collate;";
 				dbDelta( $sql );
 

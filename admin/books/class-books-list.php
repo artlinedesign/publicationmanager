@@ -75,7 +75,7 @@ if( ! class_exists( 'WP_List_Table' ) ) {
  *
  * Our theme for this list table is going to be movies.
  */
-class Publications_List extends WP_List_Table {
+class Books_List extends WP_List_Table {
 
 
     /** ************************************************************************
@@ -87,8 +87,8 @@ class Publications_List extends WP_List_Table {
 
         //Set parent defaults
         parent::__construct( array(
-            'singular'  => 'publication',     //singular name of the listed records
-            'plural'    => 'publications ',    //plural name of the listed records
+            'singular'  => 'buch',     //singular name of the listed records
+            'plural'    => 'buecher',    //plural name of the listed records
             'ajax'      => false        //does this table support ajax?
         ) );
 
@@ -118,15 +118,17 @@ class Publications_List extends WP_List_Table {
      **************************************************************************/
     function column_default($item, $column_name){
         switch($column_name){
-            case 'title':
-                return $item[$column_name];
-            case 'date':
+            case 'edition':
                 return $item[$column_name];
             case 'verlag':
                 return $item[$column_name];
-            case 'sites':
-                return $item[$column_name];
             case 'author':
+                return $item[$column_name];
+            case 'thumbnail_url':
+                return $item[$column_name];
+            case 'url':
+                return $item[$column_name];
+            case 'title':
                 return $item[$column_name];
             default:
                 return print_r($item,true); //Show the whole array for troubleshooting purposes
@@ -201,11 +203,12 @@ class Publications_List extends WP_List_Table {
     function get_columns(){
         $columns = array(
             'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
-            'author'  => 'Author',
+            'edition'  => 'Auflage',
             'verlag'  => 'Verlag',
-            'sites'  => 'Seiten',
+            'author'  => 'Author',
+            'thumbnail_url'  => 'Thumbnail URL',
+            'url'  => 'Url',
             'title'  => 'Titel',
-            'date'  => 'Datum'
         );
         return $columns;
     }
@@ -227,11 +230,12 @@ class Publications_List extends WP_List_Table {
      **************************************************************************/
     function get_sortable_columns() {
         $sortable_columns = array(
-            'author'     => array('author',false),     //true means it's already sorted
-            'publisher'     => array('publisher',false),     //true means it's already sorted
-            'sites'     => array('sites',false),     //true means it's already sorted
-            'title'     => array('title',false),     //true means it's already sorted
-            'date'     => array('date',false),     //true means it's already sorted
+            'edition'     => array('edition',false),
+            'verlag'     => array('verlag',false),
+            'author'     => array('author',false),
+            'thumbnail'     => array('thumbnail',false),
+            'url'     => array('url',false),
+            'title'     => array('title',false),
         );
         return $sortable_columns;
     }
@@ -337,15 +341,16 @@ class Publications_List extends WP_List_Table {
          * our data. In a real-world implementation, you will probably want to
          * use sort and pagination data to build a custom query instead, as you'll
          * be able to use your precisely-queried data immediately.
-         *
-         *
-         *
-         * SELECT *, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id
          */
 
 
-
-        $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, sites, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
+        $sql = "SELECT {$wpdb->prefix}publicationmanager_books.ID, {$wpdb->prefix}publicationmanager_authors.title AS author_title,
+        {$wpdb->prefix}publicationmanager_authors.firstname, 
+        {$wpdb->prefix}publicationmanager_authors.lastname, edition, url, thumbnail_url, 
+        {$wpdb->prefix}publicationmanager_books.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag 
+        FROM {$wpdb->prefix}publicationmanager_books
+        LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id 
+        LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
 
 
         if ( ! empty( $_REQUEST['orderby'] ) ) {
@@ -358,12 +363,13 @@ class Publications_List extends WP_List_Table {
 //        $sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
 
 
+
         $data = $wpdb->get_results( $sql, 'ARRAY_A' );
+
 
         foreach($data as $i=>$d){
             $data[$i]['author'] = $d['author_title'] . ". " . $d['firstname'] . " " . $d['lastname'];
         }
-
         /**
          * This checks for sorting input and sorts the data in our array accordingly
          *

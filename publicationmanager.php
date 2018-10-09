@@ -131,6 +131,11 @@ function showPublisher() {
     require plugin_dir_path( __FILE__ ) . 'admin/verlage/view.phtml';
 }
 
+function showBooks() {
+    require plugin_dir_path( __FILE__ ) . 'admin/books/view.phtml';
+}
+
+
 
 
 
