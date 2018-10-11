@@ -75,7 +75,7 @@ if( ! class_exists( 'WP_List_Table' ) ) {
  *
  * Our theme for this list table is going to be movies.
  */
-class Verlage_List extends WP_List_Table {
+class Articles_List extends WP_List_Table {
 
 
     /** ************************************************************************
@@ -87,8 +87,8 @@ class Verlage_List extends WP_List_Table {
 
         //Set parent defaults
         parent::__construct( array(
-            'singular'  => 'verlag',     //singular name of the listed records
-            'plural'    => 'verlage',    //plural name of the listed records
+            'singular'  => 'publication',     //singular name of the listed records
+            'plural'    => 'publications ',    //plural name of the listed records
             'ajax'      => false        //does this table support ajax?
         ) );
 
@@ -118,7 +118,13 @@ class Verlage_List extends WP_List_Table {
      **************************************************************************/
     function column_default($item, $column_name){
         switch($column_name){
-            case 'name':
+            case 'title':
+                return $item[$column_name];
+            case 'date':
+                return $item[$column_name];
+            case 'verlag':
+                return $item[$column_name];
+            case 'author':
                 return $item[$column_name];
             default:
                 return print_r($item,true); //Show the whole array for troubleshooting purposes
@@ -193,7 +199,10 @@ class Verlage_List extends WP_List_Table {
     function get_columns(){
         $columns = array(
             'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
-            'name'  => 'Name'
+            'author'  => 'Author',
+            'verlag'  => 'Verlag',
+            'title'  => 'Titel',
+            'date'  => 'Datum'
         );
         return $columns;
     }
@@ -215,7 +224,10 @@ class Verlage_List extends WP_List_Table {
      **************************************************************************/
     function get_sortable_columns() {
         $sortable_columns = array(
-            'name'     => array('name',true),     //true means it's already sorted
+            'author'     => array('author',false),     //true means it's already sorted
+            'publisher'     => array('publisher',false),     //true means it's already sorted
+            'title'     => array('title',false),     //true means it's already sorted
+            'date'     => array('date',false),     //true means it's already sorted
         );
         return $sortable_columns;
     }
@@ -321,9 +333,15 @@ class Verlage_List extends WP_List_Table {
          * our data. In a real-world implementation, you will probably want to
          * use sort and pagination data to build a custom query instead, as you'll
          * be able to use your precisely-queried data immediately.
+         *
+         *
+         *
+         * SELECT *, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id
          */
 
-        $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_verlage";
+
+
+        $sql = "SELECT {$wpdb->prefix}publicationmanager_articles.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, date, {$wpdb->prefix}publicationmanager_articles.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_articles LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
 
 
         if ( ! empty( $_REQUEST['orderby'] ) ) {
@@ -338,6 +356,10 @@ class Verlage_List extends WP_List_Table {
 
         $data = $wpdb->get_results( $sql, 'ARRAY_A' );
 
+        foreach($data as $i=>$d){
+            $data[$i]['author'] = $d['author_title'] . ". " . $d['firstname'] . " " . $d['lastname'];
+        }
+
         /**
          * This checks for sorting input and sorts the data in our array accordingly
          *
@@ -347,7 +369,7 @@ class Verlage_List extends WP_List_Table {
          * sorting technique would be unnecessary.
          */
         function usort_reorder($a,$b){
-            $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'name'; //If no sort, default to title
+            $orderby = (!empty($_REQUEST['orderby'])) ? $_REQUEST['orderby'] : 'title'; //If no sort, default to title
             $order = (!empty($_REQUEST['order'])) ? $_REQUEST['order'] : 'asc'; //If no order, default to asc
             $result = strcmp($a[$orderby], $b[$orderby]); //Determine sort order
             return ($order==='asc') ? $result : -$result; //Send final sort direction to usort

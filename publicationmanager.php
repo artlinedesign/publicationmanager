@@ -102,16 +102,15 @@ function publicationmanager(){
 	add_submenu_page('publicationmanager', 'Beiträge', 'Beiträge', 'manage_options', 'beitraege', 'showArticles' );
 	add_submenu_page('publicationmanager', 'Publikationen', 'Publikationen', 'manage_options', 'publikationen', 'showPublications' );
 	add_submenu_page('publicationmanager', 'Verläge', 'Verläge', 'manage_options', 'verlaege', 'showPublisher' );
-
+	add_submenu_page('publicationmanager', 'Erstellen', 'Erstellen', 'manage_options', 'create', 'create' );
 
 }
 
 
 
 function init(){
-	echo "<h1>Seas btp, hier kannst du deine publikationen usw selber online stellen. viel spass. haha.</h1> ";
-				createDatabase();
-
+	createDatabase();
+    require plugin_dir_path( __FILE__ ) . 'admin/index.php';
 }
 
 function createDatabase() {
@@ -135,8 +134,13 @@ function showBooks() {
     require plugin_dir_path( __FILE__ ) . 'admin/books/view.phtml';
 }
 
+function showArticles() {
+    require plugin_dir_path( __FILE__ ) . 'admin/articles/view.phtml';
+}
 
-
+function create() {
+    require plugin_dir_path( __FILE__ ) . 'admin/create/create.phtml';
+}
 
 
 function showPublications() {
@@ -152,6 +156,13 @@ function showAdminErrorMessage($errMessage) {
 }
 add_action( 'showAdminError', 'showAdminErrorMessage' );
 
+function showAdminSuccessMessage($msg) {
+    $class = 'notice notice-success';
+    $message = __( $msg, 'sample-text-domain' );
+
+    printf( '<div class="%1$s"><p>%2$s</p></div>', esc_attr( $class ), esc_html( $message ) );
+}
+add_action( 'showAdminSuccess', 'showAdminSuccessMessage' );
 
 
 

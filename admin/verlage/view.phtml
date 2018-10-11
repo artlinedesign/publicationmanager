@@ -1,22 +1,16 @@
 <?php
 
-require plugin_dir_path( __FILE__ ) . 'model.php';
-
 
 require plugin_dir_path(__FILE__) . 'class-verlage-list.php';
 
 $list = new Verlage_List();
-
-if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
-    createVerlag();
-}
 
 
 ?>
 
 
 <div class="wrap">
-    <h2>Verlage</h2>
+    <h2>Verlage <a href="admin.php?page=create&mode=verlaege" class="page-title-action">Erstellen</a></h2>
 
     <div id="poststuff">
         <div id="post-body" style="width:100%" class="metabox-holder columns-2">
@@ -33,8 +27,3 @@ if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submi
         <br class="clear">
     </div>
 </div>
-
-<form action="admin.php?page=verlaege&action=add" method="POST">
-  <?php echo Formbuilder::addInput("name", "text", "author-input", "name-input", "Name"); ?>
-  <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>
-</form>

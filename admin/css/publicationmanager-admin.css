@@ -33,3 +33,69 @@
 .firstname, .lastname {
   width: 250px;
 }
+
+
+.box-wrapper {
+    position: relative;
+    width:calc(100% - 20px);
+}
+.big-box-list {
+    width: 100%;
+}
+
+.big-box-item {
+    display:inline-block;
+    width:49.5%;
+    background: #f9f9f9;
+}
+.big-box-content {
+    padding: 15px;
+}
+
+.small-box-list {
+    width: 100%;
+}
+
+.small-box-item {
+    display: inline-block;
+    width:33%;
+    background: #f9f9f9;
+}
+
+.small-box-content {
+    padding: 15px;
+}
+.box-wrapper h3 {
+    margin-top:0;
+}
+
+.create-section {
+    background: #f9f9f9;
+    padding: 1.5em;
+    margin: 1.2em;
+    transition: all 0.8s ease-in-out;
+}
+.create-section h2 {
+    margin:0;
+    font-size:1.6em;
+    display: inline-block;
+}
+
+.create-section h2:hover {
+    cursor: pointer;
+}
+
+.form-wrapper {
+    margin-top:15px;
+}
+.form-group {
+    margin-bottom: 15px;
+    font-size: 1.2em;
+}
+.form-group input, .form-group select {
+    min-width: 500px;
+}
+.form-group-label {
+    display:block;
+    margin-bottom: 5px;
+}

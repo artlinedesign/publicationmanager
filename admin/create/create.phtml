@@ -1,0 +1,194 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: max
+ * Date: 11.10.18
+ * Time: 10:52
+ */
+require plugin_dir_path( __FILE__ ) . 'model.php';
+$authors = getAuthorsList();
+$verlage = getVerlageList();
+$mode = isset($_GET['mode']) ? $_GET['mode'] : '';
+
+if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
+    switch($mode){
+        case 'authors':
+            createAuthor();
+            break;
+        case 'books':
+            createBook();
+            break;
+        case 'articles':
+            createArticle();
+            break;
+        case 'publications':
+            createPublication();
+            break;
+        case 'verlaege':
+            createVerlag();
+            break;
+    }
+}
+
+
+?>
+<div class="authors-section create-section ">
+    <h2 class="create-toggle">Authoren <span class="dashicons dashicons-arrow-<?= $mode === 'authors' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <div class="authors-form-wrapper form-wrapper <?= $mode === 'authors' ? '' : 'hidden' ?>">
+        <form action="admin.php?page=create&mode=authors&action=create" method="POST">
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("title", "text", "author-input", "title-input", "Title"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("firstname", "text", "author-input", "firstname-input", "First Name *"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("lastname", "text", "author-input", "lastname-input", "Last Name *"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="books-section create-section">
+    <h2 class="create-toggle">Bücher <span class="dashicons dashicons-arrow-<?= $mode === 'books' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <div class="books-form-wrapper form-wrapper <?= $mode === 'books' ? '' : 'hidden' ?>">
+        <form action="admin.php?page=create&mode=books&action=create" method="POST">
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel"); ?>
+            </div>
+            <div class="form-group">
+            <?php
+            $authorsSelect = [];
+            foreach($authors as $a){
+                array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
+            }
+            echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
+            ?>
+            </div>
+            <div class="form-group">
+            <?php
+            $verlageList = [];
+            foreach($verlage as $v){
+                array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+            }
+            echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+            ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="articles-section create-section">
+    <h2 class="create-toggle">Beiträge <span class="dashicons dashicons-arrow-<?= $mode === 'articles' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <div class="articles-form-wrapper form-wrapper <?= $mode === 'articles' ? '' : 'hidden' ?>">
+        <form action="admin.php?page=create&mode=articles&action=create" method="POST">
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel"); ?>
+            </div>
+            <div class="form-group">
+            <?php
+            $authorsSelect = [];
+            foreach($authors as $a){
+                array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
+            }
+            echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
+            ?>
+            </div>
+            <div class="form-group">
+            <?php
+            $verlageList = [];
+            foreach($verlage as $v){
+                array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+            }
+            echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+            ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="publications-section create-section">
+    <h2 class="create-toggle">Publikationen <span class="dashicons dashicons-arrow-<?= $mode === 'publications' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <div class="publications-form-wrapper form-wrapper <?= $mode === 'publications' ? '' : 'hidden' ?>">
+        <form action="admin.php?page=create&mode=publications&action=create" method="POST">
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("title", "text", "publication-input", "title-input", "Titel"); ?>
+            </div>
+            <div class="form-group">
+            <?php
+            $authorsSelect = [];
+            foreach($authors as $a){
+                array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
+            }
+            echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
+            ?>
+            </div>
+            <div class="form-group">
+                <?php
+            $verlageList = [];
+            foreach($verlage as $v){
+                array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+            }
+            echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+            ?>
+            </div>
+            <div class="form-group">
+                <label for="date"><span class="form-group-label">Datum</span>
+                    <input type="date" name="date" />
+                </label>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
+            </div>
+
+        </form>
+    </div>
+
+</div>
+
+<div class="verlaege-section create-section">
+    <h2 class="create-toggle">Verläge <span class="dashicons dashicons-arrow-<?= $mode === 'verlaege' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <div class="verlaege-form-wrapper form-wrapper <?= $mode === 'verlaege' ? '' : 'hidden' ?>">
+        <form action="admin.php?page=create&mode=verlaege&action=create" method="POST">
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("name", "text", "author-input", "name-input", "Name"); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>
+            </div>
+        </form>
+    </div>
+</div>

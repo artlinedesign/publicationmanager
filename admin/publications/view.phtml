@@ -1,22 +1,14 @@
 <?php
 
-require plugin_dir_path( __FILE__ ) . 'model.php';
-
-
 require plugin_dir_path(__FILE__) . 'class-publications-list.php';
 
 $list = new Publications_List();
-
-if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
-    createPublication();
-}
-
 
 ?>
 
 
 <div class="wrap">
-    <h2>Publikationen</h2>
+    <h2>Publikationen <a href="admin.php?page=create&mode=publications" class="page-title-action">Erstellen</a></h2>
 
     <div id="poststuff">
         <div id="post-body" style="width:100%" class="metabox-holder columns-2">
@@ -34,34 +26,3 @@ if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submi
     </div>
 </div>
 
-<form action="admin.php?page=publikationen&action=add" method="POST">
-    <?php echo Formbuilder::addInput("title", "text", "publication-input", "title-input", "Titel"); ?>
-    <br>
-    <?php
-    $authors = getAuthorsList();
-    $authorsSelect = [];
-    foreach($authors as $a){
-        array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
-    }
-    echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
-    echo "<br>";
-    $verlage = getVerlageList();
-    $verlageList = [];
-    foreach($verlage as $v){
-        array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
-    }
-    echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
-    ?>
-    <br>
-    <label for="date"> Datum
-        <input type="date" name="date" />
-    </label>
-    <br>
-    <?php echo Formbuilder::addInput("sites", "text", "publication-input", "sites-input", "Seitenanzahl"); ?>
-    <br>
-    <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
-    <br>
-    <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
-    <br>
-    <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
-</form>

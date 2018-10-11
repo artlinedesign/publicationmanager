@@ -1,16 +1,15 @@
 <?php
 
+require plugin_dir_path(__FILE__) . 'class-articles-list.php';
 
-require plugin_dir_path(__FILE__) . 'class-authors-list.php';
-
-$list = new Authors_List();
+$list = new Articles_List();
 
 
 ?>
 
 
 <div class="wrap">
-    <h2>Authors <a href="admin.php?page=create&mode=authors" class="page-title-action">Erstellen</a></h2>
+    <h2>Beiträge <a href="admin.php?page=create&mode=articles" class="page-title-action">Erstellen</a></h2>
 
     <div id="poststuff">
         <div id="post-body" style="width:100%" class="metabox-holder columns-2">

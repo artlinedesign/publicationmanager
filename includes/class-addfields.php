@@ -8,7 +8,7 @@ class Formbuilder {
 
     $input = "";
     if($label !== null){
-      $input = $input . "<label for='" . $name . "'>" . $label;
+      $input = $input . "<label for='" . $name . "'><span class='form-group-label'>" . $label ."</span>";
     }
     $input = $input . "<input type='". $type ."' name='". $name ."' value='". $value ."' class='". $class ."' id='" . $id . "'>";
     if($label !== null){
@@ -29,7 +29,7 @@ class Formbuilder {
   static function addSelect($options = [], $name, $class = null, $label = null) {
       $select = "";
       if($label !== null){
-          $select = $select . "<label>" . $label;
+          $select = $select . "<label><span class='form-group-label'>" . $label ."</span>";;
       }
     $select = $select . "<select name='". $name ."' class='". $class ."'>";
     foreach($options as $opt){

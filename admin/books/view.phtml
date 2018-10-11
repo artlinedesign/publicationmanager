@@ -1,22 +1,15 @@
 <?php
 
-require plugin_dir_path( __FILE__ ) . 'model.php';
-
-
 require plugin_dir_path(__FILE__) . 'class-books-list.php';
 
 $list = new Books_List();
-
-if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
-    createBook();
-}
 
 
 ?>
 
 
 <div class="wrap">
-    <h2>Bücher</h2>
+    <h2>Bücher <a href="admin.php?page=create&mode=books" class="page-title-action">Erstellen</a></h2>
 
     <div id="poststuff">
         <div id="post-body" style="width:100%" class="metabox-holder columns-2">
@@ -33,32 +26,3 @@ if((isset($_GET['action']) && $_GET['action'] === 'add') && (isset($_POST['submi
         <br class="clear">
     </div>
 </div>
-
-<form action="admin.php?page=buecher&action=add" method="POST">
-    <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel"); ?>
-    <br>
-    <?php
-    $authors = getAuthorsList();
-    $authorsSelect = [];
-    foreach($authors as $a){
-        array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
-    }
-    echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
-    echo "<br>";
-    $verlage = getVerlageList();
-    $verlageList = [];
-    foreach($verlage as $v){
-        array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
-    }
-    echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
-    ?>
-    <br>
-    <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
-    <br>
-    <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
-    <br>
-    <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage"); ?>
-    <br>
-
-    <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
-</form>

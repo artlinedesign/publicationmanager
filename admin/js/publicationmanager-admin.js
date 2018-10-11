@@ -1,22 +1,5 @@
 (function( $ ) {
 	'use strict';
-
-	console.log("test");
-
-
-	$( window ).load(function() {
-		$('#submit_authors').on('click', function(){
-			console.log("clicked");
-			let firstname = $('#firstname-input').val();
-			let lastname = $('#lastname-input').val();
-			$.ajax({
-			  url: "admin.php",
-			  data: { firstname: firstname, lastname : lastname}
-			}).done(function() {
-			  $( this ).addClass( "done" );
-			});
-		});
-	});
 	/**
 	 * All of the code for your admin-facing JavaScript source
 	 * should reside in this file.
@@ -44,5 +27,22 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+
+	$( window ).load(function() {
+        $('.create-toggle').on("click", function(){
+        	let form = $(this).siblings();
+        	let arrowSpan = $(this).children();
+        	console.log(arrowSpan);
+        	if($(arrowSpan).hasClass('dashicons-arrow-down-alt2')){
+				$(arrowSpan).removeClass('dashicons-arrow-down-alt2');
+				$(arrowSpan).addClass('dashicons-arrow-right-alt2');
+			}else {
+                $(arrowSpan).removeClass('dashicons-arrow-right-alt2');
+                $(arrowSpan).addClass('dashicons-arrow-down-alt2');
+            }
+			$(form).slideToggle();
+        });
+    });
+
 
 })( jQuery );
