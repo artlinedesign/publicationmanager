@@ -28,5 +28,20 @@
 	 * Although scripts in the WordPress core, Plugins and Themes may be
 	 * practising this, we should strive to set a better example in our own work.
 	 */
+    $( window ).load(function() {
+        $('.publication-next-btn').on("click", function(){
+			let site = $(this).attr('id').split('-')[1];
+            $.ajax({
+                method: "POST",
+                url: "http://localhost/btp/",
+                data: { publications: site }
+            })
+                .done(function( msg ) {
+                    $('.publication-list').html($(msg).find('.publication-list'));
+                });
+        });
+
+    });
+
 
 })( jQuery );

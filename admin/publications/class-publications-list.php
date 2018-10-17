@@ -345,7 +345,7 @@ class Publications_List extends WP_List_Table {
 
 
 
-        $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, sites, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
+        $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
 
 
         if ( ! empty( $_REQUEST['orderby'] ) ) {

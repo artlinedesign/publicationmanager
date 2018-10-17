@@ -1,0 +1,25 @@
+<?php
+
+function publicationsShortcode(){
+    $site = isset($_POST['publications']) ? $_POST['publications'] : 1;
+    $publications = getPublications($site === 1 ? 0 : ($site*5) - 5, $site*5);
+
+    ?>
+<ul class="publication-list">
+    <?php foreach($publications as $pubs): ?>
+    <li class="publication-list-item">
+        <div class="list-img"><img src="<?php echo $pubs['thumbnail_url'] ?>" alt=""></div>
+        <div class="list-content">
+            <p><a href="<?php echo $pubs['url'] ?>"><?php echo $pubs['title']; ?></a></p>
+            <small><i><?php echo $pubs['author_title'].'. ' . $pubs['firstname'] . ' ' . $pubs['lastname'] ?>, <?php echo $pubs['verlag'] ?>, <?php echo $pubs['date'] ?></i></small>
+        </div>
+        <hr>
+    </li>
+    <?php endforeach; ?>
+</ul>
+    <a class="publication-next-btn" id="site-<?php echo $site + 1 ?>">next site</a>
+<?php
+
+}
+
+?>

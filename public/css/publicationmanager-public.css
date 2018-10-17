@@ -2,3 +2,22 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
+
+.publication-list {
+    list-style: none;
+}
+.publication-list-item p{
+    margin: 0 0 5px 0;
+}
+
+.publication-list-item .list-content {
+    min-width:80%;
+    width:calc(100% - 70px);
+    display: inline-block;
+    float:right;
+}
+.publication-list-item .list-img {
+    max-width: 20%;
+    width: 55px;
+    display: inline-block;
+}

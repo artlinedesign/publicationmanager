@@ -206,21 +206,20 @@ function checkPublicationDuplicates($title){
 
 function createPublication(){
     global $wpdb;
+
+
     $title = isset($_POST['title']) ? $_POST['title'] : '';
     $author = isset($_POST['author']) ? $_POST['author'] : '';
     $verlag = isset($_POST['verlag']) ? $_POST['verlag'] : '';
     $date = isset($_POST['date']) ? $_POST['date'] : '';
-    $sites = isset($_POST['sites']) ? $_POST['sites'] : '';
     $thumbnailUrl = isset($_POST['thumbnailUrl']) ? $_POST['thumbnailUrl'] : '';
     $url = isset($_POST['url']) ? $_POST['url'] : '';
-
 
     if($title === null
         || $author === null
         || $author === null
         || $verlag === null
         || $date === null
-        || $sites === null
         || $thumbnailUrl === null
         || $url === null
         || $title === ''
@@ -228,8 +227,7 @@ function createPublication(){
         || $verlag === ''
         || $date === ''
         || $thumbnailUrl === ''
-        || $url === ''
-        || $sites === '') {
+        || $url === '') {
         showAdminErrorMessage( "Please fill out all fields");
         return;
     }
@@ -243,7 +241,6 @@ function createPublication(){
         'title' => $title,
         'author_id' => $author,
         'verlag_id' => $verlag,
-        'sites' => $sites,
         'date' => $date,
         'thumbnail_url' => $thumbnailUrl,
         'url' => $url,
@@ -287,6 +284,18 @@ function checkVerlagDuplicates($name) {
         }
     }
     return false;
+}
+
+function getPublications($start = 0, $end = 5) {
+    global $wpdb;
+
+    $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id LIMIT " . $start . ", ". $end;
+
+
+    $publications = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+    return $publications;
+
 }
 
 ?>
