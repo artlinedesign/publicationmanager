@@ -65,6 +65,8 @@ function createBook() {
         'url' => $url,
     ));
 
+    echo '<meta http-equiv="refresh" content="2" />';
+
     showAdminSuccessMessage("Book has been created.");
 
 
@@ -123,6 +125,8 @@ function createAuthor() {
         'firstname' => $firstname,
         'lastname' => $lastname
     ));
+
+    echo '<meta http-equiv="refresh" content="2" />';
 
     showAdminSuccessMessage("Author has been created.");
 
@@ -185,6 +189,8 @@ function createArticle(){
         'url' => $url,
     ));
 
+    echo '<meta http-equiv="refresh" content="2" />';
+
     showAdminSuccessMessage("Article has been created.");
 
 
@@ -197,7 +203,7 @@ function checkPublicationDuplicates($title){
     $publication = $wpdb->get_results( $sql, 'ARRAY_A' );
 
     foreach($publication as $p){
-        if($p['name'] === $title){
+        if($p['title'] === $title){
             return true;
         }
     }
@@ -246,6 +252,9 @@ function createPublication(){
         'url' => $url,
     ));
 
+    echo '<meta http-equiv="refresh" content="2" />';
+
+
     showAdminSuccessMessage("Publication has been created.");
 
 
@@ -269,6 +278,9 @@ function createVerlag() {
     $wpdb->insert("{$wpdb->prefix}publicationmanager_verlage", array(
         'name' => $name,
     ));
+
+    echo '<meta http-equiv="refresh" content="2" />';
+
     showAdminSuccessMessage("Publisher has been created.");
 }
 
@@ -286,15 +298,28 @@ function checkVerlagDuplicates($name) {
     return false;
 }
 
-function getPublications($start = 0, $end = 5) {
+function getPublications($start = 0, $amount = 5) {
     global $wpdb;
 
-    $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id LIMIT " . $start . ", ". $end;
+    $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id LIMIT " . $start . ", ". $amount;
 
 
     $publications = $wpdb->get_results( $sql, 'ARRAY_A' );
 
     return $publications;
+
+}
+
+function getPublicationEntryAmount(){
+    global $wpdb;
+
+    $sql = "SELECT COUNT(*) AS amount FROM {$wpdb->prefix}publicationmanager_publications";
+
+
+    $amount = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+
+    return $amount[0]['amount'];
 
 }
 

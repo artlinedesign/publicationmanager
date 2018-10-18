@@ -124,7 +124,7 @@ class Publications_List extends WP_List_Table {
                 return $item[$column_name];
             case 'verlag':
                 return $item[$column_name];
-            case 'sites':
+            case 'url':
                 return $item[$column_name];
             case 'author':
                 return $item[$column_name];
@@ -203,7 +203,7 @@ class Publications_List extends WP_List_Table {
             'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
             'author'  => 'Author',
             'verlag'  => 'Verlag',
-            'sites'  => 'Seiten',
+            'url'  => 'Datei URL',
             'title'  => 'Titel',
             'date'  => 'Datum'
         );
@@ -229,7 +229,7 @@ class Publications_List extends WP_List_Table {
         $sortable_columns = array(
             'author'     => array('author',false),     //true means it's already sorted
             'publisher'     => array('publisher',false),     //true means it's already sorted
-            'sites'     => array('sites',false),     //true means it's already sorted
+            'url'     => array('url',false),     //true means it's already sorted
             'title'     => array('title',false),     //true means it's already sorted
             'date'     => array('date',false),     //true means it's already sorted
         );
@@ -345,7 +345,7 @@ class Publications_List extends WP_List_Table {
 
 
 
-        $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
+        $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
 
 
         if ( ! empty( $_REQUEST['orderby'] ) ) {
