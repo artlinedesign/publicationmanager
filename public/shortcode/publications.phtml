@@ -4,6 +4,7 @@
 function publicationsShortcode(){
     $site = isset($_POST['publications']) ? $_POST['publications'] : 1;
     $publications = getPublications($site === 1 ? 0 : ($site*5) - 5, 5);
+    $amount = intval(getPublicationEntryAmount());
     ?>
 <div class="publications-viewer">
     <ul class="publications-list" data-site-amount="<?php echo getPublicationEntryAmount(); ?>">
@@ -19,11 +20,11 @@ function publicationsShortcode(){
 
         <?php endforeach; ?>
     </ul>
-    <a class="publication-pagination-btn dashicons dashicons dashicons-arrow-left-alt" id="pp-start" data-site="1"></a>
-    <a class="publication-pagination-btn dashicons dashicons-arrow-left-alt2" id="pp-prev" data-site="" style="display:none"></a>
+    <a class="publication-pagination-btn dashicons dashicons dashicons-arrow-left-alt <?php echo count($publications) < 5 ? 'hidden' : '' ?>" id="pp-start" data-site="1"></a>
+    <a class="publication-pagination-btn dashicons dashicons-arrow-left-alt2 hidden" id="pp-prev" data-site=""></a>
     <span id="page-indicator"></span>
-    <a class="publication-pagination-btn dashicons dashicons-arrow-right-alt2" id="pp-next" data-site="2"></a>
-    <a class="publication-pagination-btn dashicons dashicons dashicons-arrow-right-alt" id="pp-end" data-site="<?php echo ceil(getPublicationEntryAmount() / 5); ?>"></a>
+    <a class="publication-pagination-btn dashicons dashicons-arrow-right-alt2 <?php echo $amount < 5 ? 'hidden' : '' ?>" id="pp-next" data-site="<?php echo $amount > 5 ? '2' : '' ?>"></a>
+    <a class="publication-pagination-btn dashicons dashicons dashicons-arrow-right-alt <?php echo $amount < 5 ? 'hidden' : '' ?>" id="pp-end" data-site="<?php echo ceil(getPublicationEntryAmount() / 5); ?>"></a>
 
 </div>
 
