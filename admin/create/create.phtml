@@ -124,7 +124,9 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
                 <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
             </div>
             <div class="form-group">
-                <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage"); ?>
+                <label for="date"><span class="form-group-label">Datum</span>
+                    <input type="date" name="date" />
+                </label>
             </div>
             <div class="form-group">
                 <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
@@ -168,6 +170,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
             </div>
             <div class="form-group">
                 <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
+                <button class="publications-pdf-upload"></button>
             </div>
             <div class="form-group">
                 <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>

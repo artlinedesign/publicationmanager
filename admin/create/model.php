@@ -323,4 +323,41 @@ function getPublicationEntryAmount(){
 
 }
 
+function getArticles($start = 0, $amount = 5) {
+    global $wpdb;
+
+    $sql = "SELECT {$wpdb->prefix}publicationmanager_articles.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url,date, {$wpdb->prefix}publicationmanager_articles.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_articles LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id LIMIT " . $start . ", ". $amount;
+
+
+    $publications = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+    return $publications;
+
+}
+
+function getArticlesEntryAmount(){
+    global $wpdb;
+
+    $sql = "SELECT COUNT(*) AS amount FROM {$wpdb->prefix}publicationmanager_articles";
+
+
+    $amount = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+
+    return $amount[0]['amount'];
+
+}
+
+function getAllBooks() {
+    global $wpdb;
+
+    $sql = "SELECT {$wpdb->prefix}publicationmanager_books.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url,edition, {$wpdb->prefix}publicationmanager_books.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_books LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
+
+
+    $publications = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+    return $publications;
+
+}
+
 ?>

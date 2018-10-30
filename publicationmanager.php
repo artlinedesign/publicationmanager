@@ -110,7 +110,7 @@ require plugin_dir_path( __FILE__ ) . 'admin/create/model.php';
 
 function init(){
 	createDatabase();
-    require plugin_dir_path( __FILE__ ) . 'admin/index.php';
+    require plugin_dir_path( __FILE__ ) . 'admin/landing.phtml';
 }
 
 function createDatabase() {
@@ -168,6 +168,17 @@ add_action( 'showAdminSuccess', 'showAdminSuccessMessage' );
 add_shortcode('publications', 'publicationsShortcode');
 
 require plugin_dir_path( __FILE__ ) . 'public/shortcode/publications.phtml';
+
+
+add_shortcode('articles', 'articlesShortcode');
+
+require plugin_dir_path( __FILE__ ) . 'public/shortcode/articles.phtml';
+
+
+add_shortcode('books', 'booksShortcode');
+
+require plugin_dir_path( __FILE__ ) . 'public/shortcode/books.phtml';
+
 
 
 ?>

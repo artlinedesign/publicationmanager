@@ -6,11 +6,12 @@ function publicationsShortcode(){
     $publications = getPublications($site === 1 ? 0 : ($site*5) - 5, 5);
     $amount = intval(getPublicationEntryAmount());
     ?>
+    <h3><?php echo _e('Publications')?></h3>
 <div class="publications-viewer">
     <ul class="publications-list" data-site-amount="<?php echo getPublicationEntryAmount(); ?>">
         <?php foreach($publications as $pubs): ?>
         <li class="publication-list-item">
-            <div class="list-img"><img src="<?php echo $pubs['thumbnail_url'] ?>" alt=""></div>
+            <div class="list-img"><img src="<?php echo $pubs['thumbnail_url'] === "" ? "https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg" : $pubs['thumbnail_url'] ?>" alt=""></div>
             <div class="list-content">
                 <p><a href="<?php echo $pubs['url'] ?>"><?php echo $pubs['title']; ?></a></p>
                 <small><i><?php echo $pubs['author_title'].'. ' . $pubs['firstname'] . ' ' . $pubs['lastname'] ?>, <?php echo $pubs['verlag'] ?>, <?php echo $pubs['date'] ?></i></small>
@@ -22,7 +23,7 @@ function publicationsShortcode(){
     </ul>
     <a class="publication-pagination-btn dashicons dashicons dashicons-arrow-left-alt <?php echo count($publications) < 5 ? 'hidden' : '' ?>" id="pp-start" data-site="1"></a>
     <a class="publication-pagination-btn dashicons dashicons-arrow-left-alt2 hidden" id="pp-prev" data-site=""></a>
-    <span id="page-indicator"></span>
+    <span id="publications-page-indicator"></span>
     <a class="publication-pagination-btn dashicons dashicons-arrow-right-alt2 <?php echo $amount < 5 ? 'hidden' : '' ?>" id="pp-next" data-site="<?php echo $amount > 5 ? '2' : '' ?>"></a>
     <a class="publication-pagination-btn dashicons dashicons dashicons-arrow-right-alt <?php echo $amount < 5 ? 'hidden' : '' ?>" id="pp-end" data-site="<?php echo ceil(getPublicationEntryAmount() / 5); ?>"></a>
 

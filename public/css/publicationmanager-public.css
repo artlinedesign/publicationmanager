@@ -3,29 +3,29 @@
  * included in this file.
  */
 
-.publications-list {
+.publications-list, .articles-list {
     list-style: none;
 }
-.publication-list-item p{
+.publication-list-item p, .article-list-item p{
     margin: 0 0 5px 0;
 }
 
-.publication-list-item .list-content {
+.publication-list-item .list-content, .article-list-item .list-content {
     min-width:80%;
     width:calc(100% - 70px);
     display: inline-block;
     float:right;
 }
-.publication-list-item .list-img {
+.publication-list-item .list-img, .article-list-item .list-img {
     max-width: 20%;
     width: 55px;
     display: inline-block;
 }
 
-.publication-pagination-btn:hover {
+.publication-pagination-btn:hover, .article-pagination-btn:hover {
     text-decoration: none;
 }
-.publication-pagination-btn {
+.publication-pagination-btn, .article-pagination-btn {
     cursor:pointer;
     text-decoration: none;
     -webkit-box-shadow: none !important;
@@ -35,4 +35,16 @@
 
 .hidden {
     display:none;
+}
+
+.books-viewer .book-item {
+    width:32%;
+    float:left;
+}
+.books-viewer .book-item:nth-child(3n + 5) {
+    margin:0 2%;
+}
+.books-viewer .book-item:nth-child(2) {
+    margin:0 2%;
+
 }
