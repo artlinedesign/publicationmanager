@@ -90,6 +90,7 @@ run_publicationmanager();
 */
 
 
+add_thickbox();
 
 
 add_action('admin_menu', 'publicationmanager');

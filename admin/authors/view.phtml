@@ -5,6 +5,29 @@ require plugin_dir_path(__FILE__) . 'class-authors-list.php';
 
 $list = new Authors_List();
 
+$authorEditId = $_GET['action'] === 'edit' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
+$authorDeleteId = $_GET['action'] === 'delete' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
+$authorChangeId = $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+
+function getSingleAuthor($id){
+  global $wpdb;
+
+  $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_authors WHERE ID = " . $id;
+
+  $author = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+  return $author;
+}
+function editSingleAuthor($id, $title, $firstname, $lastname){
+  global $wpdb;
+  $wpdb->update( "{$wpdb->prefix}publicationmanager_authors", array( 'title' => $title, 'firstname' => $firstname, 'lastname' => $lastname), array( 'ID' => $id ) );
+}
+if($authorChangeId !== null) {
+  editSingleAuthor($authorChangeId, $_POST['title'], $_POST['firstname'], $_POST['lastname']);
+}
+
+
+
 
 ?>
 
@@ -27,3 +50,33 @@ $list = new Authors_List();
         <br class="clear">
     </div>
 </div>
+
+
+<?php if($authorEditId !== null): ?>
+<?php $author = getSingleAuthor($authorEditId); $author = $author[0];?>
+<script type="text/javascript">
+  jQuery(window).load(function(){
+    tb_show('Edit', '#TB_inline?width=600&height=300&inlineId=author-edit', false);
+  });
+</script>
+<div id="author-edit" class="hidden">
+    <h2 class="edit-header"><?php echo $author['title'] . " " . $author['firstname'] . " " . $author['lastname'] ?></h2>
+    <div class="authors-form-wrapper form-wrapper">
+        <form action="admin.php?page=autoren&action=change" method="POST">
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("title", "text", "author-input", "title-input", "Title", $author['title']); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("firstname", "text", "author-input", "firstname-input", "First Name *", $author['firstname']); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("lastname", "text", "author-input", "lastname-input", "Last Name *", $author['lastname']); ?>
+            </div>
+            <div class="form-group">
+                <?php echo Formbuilder::addInput("submit", "submit", "author-button", "submit_authors", null, "Submit"); ?>
+            </div>
+            <input type="hidden" name="change_id" value="<?php echo $author['ID']; ?>">
+        </form>
+    </div>
+</div>
+<?php endif; ?>

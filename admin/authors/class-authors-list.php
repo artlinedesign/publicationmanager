@@ -147,8 +147,8 @@ class Authors_List extends WP_List_Table {
 
         //Build row actions
         $actions = array(
-            'edit'      => sprintf('<a href="?page=%s&action=%s&movie=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+            'edit'      => sprintf('<a href="?page=%s&action=%s&author_id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&author_id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         );
 
         //Return the title contents
@@ -256,11 +256,15 @@ class Authors_List extends WP_List_Table {
      * @see $this->prepare_items()
      **************************************************************************/
     function process_bulk_action() {
-
+      $deleteId = $_GET['action'] === 'delete' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
+      if($deleteId !== null) {
+        global $wpdb;
+        $wpdb->delete( "{$wpdb->prefix}publicationmanager_authors", array( 'ID' => intval($deleteId) ) );
+      }
         //Detect when a bulk action is being triggered...
-        if( 'delete'===$this->current_action() ) {
-            wp_die('Items deleted (or they would be if we had items to delete)!');
-        }
+        // if( 'delete'===$this->current_action() ) {
+        //     wp_die('Items deleted (or they would be if we had items to delete)!');
+        // }
 
     }
 
