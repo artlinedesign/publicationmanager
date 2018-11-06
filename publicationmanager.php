@@ -89,7 +89,7 @@ run_publicationmanager();
 *
 */
 
-
+add_action( 'admin_enqueue_scripts', 'wp_enqueue_media' );
 add_thickbox();
 
 

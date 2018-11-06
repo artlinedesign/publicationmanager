@@ -8,19 +8,20 @@ function publicationsShortcode(){
     ?>
     <h3><?php echo _e('Publications')?></h3>
 <div class="publications-viewer">
-    <ul class="publications-list" data-site-amount="<?php echo getPublicationEntryAmount(); ?>">
-        <?php foreach($publications as $pubs): ?>
-        <li class="publication-list-item">
-            <div class="list-img"><img src="<?php echo $pubs['thumbnail_url'] === "" ? "https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg" : $pubs['thumbnail_url'] ?>" alt=""></div>
-            <div class="list-content">
-                <p><a href="<?php echo $pubs['url'] ?>"><?php echo $pubs['title']; ?></a></p>
-                <small><i><?php echo $pubs['author_title'].'. ' . $pubs['firstname'] . ' ' . $pubs['lastname'] ?>, <?php echo $pubs['verlag'] ?>, <?php echo $pubs['date'] ?></i></small>
-            </div>
-        </li>
-            <hr>
+    <div class="publications-list-wrapper">
+      <ul class="publications-list" data-site-amount="<?php echo getPublicationEntryAmount(); ?>">
+          <?php foreach($publications as $pubs): ?>
+          <li class="publication-list-item">
+              <div class="list-img"><a target="_blank" href="<?php echo $pubs['url'] ?>"><img src="<?php echo $pubs['thumbnail_url'] === "" ? "https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg" : $pubs['thumbnail_url'] ?>" alt=""></a></div>
+              <div class="list-content">
+                  <p><a target="_blank" href="<?php echo $pubs['url'] ?>"><?php echo $pubs['title']; ?></a></p>
+                  <small><i><?php echo $pubs['author_title'].'. ' . $pubs['firstname'] . ' ' . $pubs['lastname'] ?>, <?php echo $pubs['verlag'] ?>, <?php echo $pubs['date'] ?></i></small>
+              </div>
+          </li>
+          <?php endforeach; ?>
+      </ul>
+    </div>
 
-        <?php endforeach; ?>
-    </ul>
     <a class="publication-pagination-btn dashicons dashicons dashicons-arrow-left-alt <?php echo count($publications) < 5 ? 'hidden' : '' ?>" id="pp-start" data-site="1"></a>
     <a class="publication-pagination-btn dashicons dashicons-arrow-left-alt2 hidden" id="pp-prev" data-site=""></a>
     <span id="publications-page-indicator"></span>

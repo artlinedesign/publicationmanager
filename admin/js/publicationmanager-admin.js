@@ -43,7 +43,52 @@
 			$(form).slideToggle();
         });
 
+
+
+
+				$('.file_upload_button').on('click', function( event ){
+					var uploadBtn = $(event.currentTarget);
+					var file_frame;
+					var wp_media_post_id = wp.media.model.settings.post.id;
+					var set_to_post_id = uploadBtn.attr('id');
+					event.preventDefault();
+
+					if ( file_frame ) {
+						file_frame.uploader.uploader.param( 'post_id', set_to_post_id );
+						file_frame.open();
+						return;
+					} else {
+						wp.media.model.settings.post.id = set_to_post_id;
+					}
+
+					file_frame = wp.media.frames.file_frame = wp.media({
+						title: $(uploadBtn).hasClass('img-prev') ? 'Select image' : 'Select PDF',
+						button: {
+							text: $(uploadBtn).hasClass('img-prev') ? 'Use this image' : 'Use this file',
+						},
+						multiple: false
+					});
+
+					file_frame.on( 'select', function() {
+						var attachment = file_frame.state().get('selection').first().toJSON();
+						if($(uploadBtn).hasClass('img-prev')){
+							$(uploadBtn).siblings('.image-preview-wrapper').find('img').attr( 'src', attachment.url ).css( 'width', 'auto' );
+						}else {
+							$(uploadBtn).val(attachment.filename);
+						}
+						$(uploadBtn).siblings('.url_value').val( attachment.url );
+
+						wp.media.model.settings.post.id = wp_media_post_id;
+					});
+
+						file_frame.open();
+				});
+
+				jQuery( 'a.add_media' ).on( 'click', function() {
+					wp.media.model.settings.post.id = wp_media_post_id;
+				});
     });
+
 
 
 })( jQuery );

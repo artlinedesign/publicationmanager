@@ -5,6 +5,7 @@
 
 .publications-list, .articles-list {
     list-style: none;
+    padding-left: 0;
 }
 .publication-list-item p, .article-list-item p{
     margin: 0 0 5px 0;
@@ -15,11 +16,18 @@
     width:calc(100% - 70px);
     display: inline-block;
     float:right;
+    height: 55px;
 }
 .publication-list-item .list-img, .article-list-item .list-img {
     max-width: 20%;
+
     width: 55px;
     display: inline-block;
+
+}
+.list-img img {
+  max-height: 50px;
+  max-width: 50px;
 }
 
 .publication-pagination-btn:hover, .article-pagination-btn:hover {
@@ -37,14 +45,36 @@
     display:none;
 }
 
+.books-viewer {
+  display:block;
+}
+.books-viewer .book-item img{
+  width:100%;
+  height:60%;
+}
+.book-item-content {
+  height:40%;
+  width: 100%;
+}
 .books-viewer .book-item {
     width:32%;
+    max-width: 155px;
     float:left;
+    height: 280px;
+    margin-right: 4%;
+    margin-bottom: 20px;
 }
-.books-viewer .book-item:nth-child(3n + 5) {
-    margin:0 2%;
+.books-not-empty {
+  min-height:280px;
+  display:inline-block;
 }
-.books-viewer .book-item:nth-child(2) {
-    margin:0 2%;
 
+.article-list-item, .publication-list-item {
+  width:100%;
+  height:55px;
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 10px;
+}
+.list-content p {
+  margin-bottom: 7px !important;
 }

@@ -11,13 +11,12 @@ function articlesShortcode(){
     <ul class="articles-list" data-site-amount="<?php echo getArticlesEntryAmount(); ?>">
         <?php foreach($articles as $art): ?>
         <li class="article-list-item">
-            <div class="list-img"><img src="<?php echo $art['thumbnail_url'] === "" ? "https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg" : $art['thumbnail_url'] ?>" alt=""></div>
+            <div class="list-img"><a target="_blank" href="<?php echo $art['url'] ?>"><img src="<?php echo $art['thumbnail_url'] === "" ? "https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg" : $art['thumbnail_url'] ?>" alt=""></a></div>
             <div class="list-content">
-                <p><a href="<?php echo $art['url'] ?>"><?php echo $art['title']; ?></a></p>
+                <p><a target="_blank" href="<?php echo $art['url'] ?>"><?php echo $art['title']; ?></a></p>
                 <small><i><?php echo $art['author_title'].'. ' . $art['firstname'] . ' ' . $art['lastname'] ?>, <?php echo $art['verlag'] ?>, <?php echo $art['date'] ?></i></small>
             </div>
         </li>
-            <hr>
 
         <?php endforeach; ?>
     </ul>

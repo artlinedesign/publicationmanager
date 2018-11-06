@@ -57,7 +57,13 @@ if($authorChangeId !== null) {
 <script type="text/javascript">
   jQuery(window).load(function(){
     tb_show('Edit', '#TB_inline?width=600&height=300&inlineId=author-edit', false);
+    jQuery("#TB_closeWindowButton").click(function() {
+      history.pushState({}, "Authors", window.location.href.split('&')[0]);
+    });
+
+
   });
+
 </script>
 <div id="author-edit" class="hidden">
     <h2 class="edit-header"><?php echo $author['title'] . " " . $author['firstname'] . " " . $author['lastname'] ?></h2>

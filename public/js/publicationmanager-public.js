@@ -38,9 +38,9 @@
                     url: window.location.pathname,
                     data: { publications: site }
                 }).done(function( msg ) {
-                    let list = $('.publications-list');
-                    list.html($(msg).find('.publications-list'));
-                    let amount = list.data('site-amount');
+                    let viewer = $('.publications-list-wrapper');
+                    viewer.html($(msg).find('.publications-list'));
+                    let amount = viewer.data('site-amount');
                     let maxShown = site === 1 ? 5 : site * 5;
                     let minShown = site === 1 ? 0 : (site * 5) - 5;
                     if(amount >= minShown && amount <= maxShown){
@@ -107,4 +107,3 @@
 
 
 })( jQuery );
-

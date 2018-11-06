@@ -32,7 +32,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
 
 ?>
 <div class="authors-section create-section ">
-    <h2 class="create-toggle">Authoren <span class="dashicons dashicons-arrow-<?= $mode === 'authors' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <h2 class="create-toggle"><?php _e('Authors'); ?> <span class="dashicons dashicons-arrow-<?= $mode === 'authors' ? 'down' : 'right' ?>-alt2"></span></h2>
     <div class="authors-form-wrapper form-wrapper <?= $mode === 'authors' ? '' : 'hidden' ?>">
         <form action="admin.php?page=create&mode=authors&action=create" method="POST">
             <div class="form-group">
@@ -52,7 +52,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
 </div>
 
 <div class="books-section create-section">
-    <h2 class="create-toggle">Bücher <span class="dashicons dashicons-arrow-<?= $mode === 'books' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <h2 class="create-toggle"><?php _e('Books'); ?> <span class="dashicons dashicons-arrow-<?= $mode === 'books' ? 'down' : 'right' ?>-alt2"></span></h2>
     <div class="books-form-wrapper form-wrapper <?= $mode === 'books' ? '' : 'hidden' ?>">
         <form action="admin.php?page=create&mode=books&action=create" method="POST">
             <div class="form-group">
@@ -76,14 +76,23 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
             echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
             ?>
             </div>
+
             <div class="form-group">
-                <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
-            </div>
-            <div class="form-group">
-                <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
+              <label for="upload_book_url"> <?php _e('PDF'); ?> <br></label>
+                <?php echo Formbuilder::addInput("upload_book_url", "button", "file_upload_button", "1", null, "Upload book"); ?>
+                <?php echo Formbuilder::addInput("url", "hidden", "url_value"); ?>
             </div>
             <div class="form-group">
                 <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage"); ?>
+            </div>
+            <div class="form-group">
+              <label for="upload_book_img"><?php _e('Thumbnail'); ?></label>
+              <div class='image-preview-wrapper'>
+            		<img class='image-preview' src='https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' width='100' height='100' style='max-height: 100px; width: 100px;'>
+            	</div>
+              <?php echo Formbuilder::addInput("upload_book_img", "button", "file_upload_button img-prev", "2", null, "Upload image"); ?>
+              <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value"); ?>
+
             </div>
             <div class="form-group">
                 <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
@@ -93,7 +102,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
 </div>
 
 <div class="articles-section create-section">
-    <h2 class="create-toggle">Beiträge <span class="dashicons dashicons-arrow-<?= $mode === 'articles' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <h2 class="create-toggle"><?php _e('Articles'); ?> <span class="dashicons dashicons-arrow-<?= $mode === 'articles' ? 'down' : 'right' ?>-alt2"></span></h2>
     <div class="articles-form-wrapper form-wrapper <?= $mode === 'articles' ? '' : 'hidden' ?>">
         <form action="admin.php?page=create&mode=articles&action=create" method="POST">
             <div class="form-group">
@@ -118,13 +127,21 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
             ?>
             </div>
             <div class="form-group">
-                <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
+              <label for="upload_book_img"><?php _e('Thumbnail'); ?></label>
+              <div class='image-preview-wrapper'>
+                <img class='image-preview' src='https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' width='100' height='100' style='max-height: 100px; width: 100px;'>
+              </div>
+              <?php echo Formbuilder::addInput("upload_article_img", "button", "file_upload_button img-prev", "3", null, "Upload image"); ?>
+              <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value"); ?>
+
             </div>
             <div class="form-group">
-                <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
+              <label for="upload_book_url"> <?php _e('PDF'); ?> <br></label>
+                <?php echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, "Upload article"); ?>
+                <?php echo Formbuilder::addInput("url", "hidden", "url_value"); ?>
             </div>
             <div class="form-group">
-                <label for="date"><span class="form-group-label">Datum</span>
+                <label for="date"><span class="form-group-label"><?php _e('Date'); ?></span>
                     <input type="date" name="date" />
                 </label>
             </div>
@@ -136,7 +153,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
 </div>
 
 <div class="publications-section create-section">
-    <h2 class="create-toggle">Publikationen <span class="dashicons dashicons-arrow-<?= $mode === 'publications' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <h2 class="create-toggle"><?php _e('Publications'); ?> <span class="dashicons dashicons-arrow-<?= $mode === 'publications' ? 'down' : 'right' ?>-alt2"></span></h2>
     <div class="publications-form-wrapper form-wrapper <?= $mode === 'publications' ? '' : 'hidden' ?>">
         <form action="admin.php?page=create&mode=publications&action=create" method="POST">
             <div class="form-group">
@@ -161,16 +178,23 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
             ?>
             </div>
             <div class="form-group">
-                <label for="date"><span class="form-group-label">Datum</span>
+                <label for="date"><span class="form-group-label"><?php _e('Date'); ?></span>
                     <input type="date" name="date" />
                 </label>
             </div>
             <div class="form-group">
-                <?php echo Formbuilder::addInput("thumbnailUrl", "text", "publication-input", "thumbnail-input", "Thumbnail URL"); ?>
+              <label for="upload_book_img"><?php _e('Thumbnail'); ?></label>
+              <div class='image-preview-wrapper'>
+                <img class='image-preview' src='https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' width='100' height='100' style='max-height: 100px; width: 100px;'>
+              </div>
+              <?php echo Formbuilder::addInput("upload_publication_img", "button", "file_upload_button img-prev", "5", null, "Upload image"); ?>
+              <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value"); ?>
+
             </div>
             <div class="form-group">
-                <?php echo Formbuilder::addInput("url", "text", "publication-input", "url-input", "URL"); ?>
-                <button class="publications-pdf-upload"></button>
+              <label for="upload_book_url"> <?php _e('PDF'); ?> <br></label>
+                <?php echo Formbuilder::addInput("upload_publication_url", "button", "file_upload_button", "6", null, "Upload publication"); ?>
+                <?php echo Formbuilder::addInput("url", "hidden", "url_value"); ?>
             </div>
             <div class="form-group">
                 <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
@@ -182,7 +206,7 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
 </div>
 
 <div class="verlaege-section create-section">
-    <h2 class="create-toggle">Verläge <span class="dashicons dashicons-arrow-<?= $mode === 'verlaege' ? 'down' : 'right' ?>-alt2"></span></h2>
+    <h2 class="create-toggle"><?php _e('Publishers'); ?> <span class="dashicons dashicons-arrow-<?= $mode === 'verlaege' ? 'down' : 'right' ?>-alt2"></span></h2>
     <div class="verlaege-form-wrapper form-wrapper <?= $mode === 'verlaege' ? '' : 'hidden' ?>">
         <form action="admin.php?page=create&mode=verlaege&action=create" method="POST">
             <div class="form-group">

@@ -2,7 +2,30 @@
 
 require plugin_dir_path(__FILE__) . 'class-books-list.php';
 
+$authors = getAuthorsList();
+$verlage = getVerlageList();
 $list = new Books_List();
+
+$bookEditId = $_GET['action'] === 'edit' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
+$bookDeleteId = $_GET['action'] === 'delete' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
+$bookChangeId = $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+
+function getSinglebook($id){
+  global $wpdb;
+
+  $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_books WHERE ID = " . $id;
+
+  $book = $wpdb->get_results( $sql, 'ARRAY_A' );
+
+  return $book;
+}
+function editSinglebook($id, $title, $edition, $verlag_id, $author_id, $thumbnail_url, $url){
+  global $wpdb;
+  $wpdb->update( "{$wpdb->prefix}publicationmanager_books", array( 'title' => $title, 'edition' => $edition, 'verlag_id' => $verlag_id, 'thumbnail_url' => $thumbnail_url, 'url' => $url), array( 'ID' => $id ) );
+}
+if($bookChangeId !== null) {
+  editSinglebook($bookChangeId, $_POST['title'], $_POST['edition'], $_POST['verlag_id'], $_POST['author_id'], $_POST['thumbnail_url'],$_POST['url']);
+}
 
 
 ?>
@@ -26,3 +49,72 @@ $list = new Books_List();
         <br class="clear">
     </div>
 </div>
+
+
+<?php if($bookEditId !== null): ?>
+<?php $book = getSinglebook($bookEditId); $book = $book[0];?>
+<script type="text/javascript">
+  jQuery(window).load(function(){
+    tb_show('Edit', '#TB_inline?width=600&height=600&inlineId=books-edit', false);
+    $(window).bind('tb_unload', function () {
+      history.pushState({}, "Books", window.location.href.split('&')[0]);
+    });
+  });
+
+</script>
+<div id="books-edit" class="hidden">
+  <h2 class="create-toggle"><?php echo $book['title']; ?></h2>
+  <div class="books-form-wrapper form-wrapper">
+      <form action="admin.php?page=create&mode=books&action=create" method="POST">
+          <div class="form-group">
+              <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel", $book['title']); ?>
+          </div>
+          <div class="form-group">
+          <?php
+          $authorsSelect = [];
+          foreach($authors as $a){
+            var_dump($a['ID']);
+            var_dump($book['ID']);
+            if($a['ID'] === $book['ID']){
+              array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'], "selected" => true ]);
+            }else {
+              array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
+            }
+          }
+          echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
+          ?>
+          </div>
+          <div class="form-group">
+          <?php
+          $verlageList = [];
+          foreach($verlage as $v){
+              array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+          }
+          echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+          ?>
+          </div>
+
+          <div class="form-group">
+            <label for="upload_book_url"> <?php _e('PDF'); ?> <br></label>
+              <?php echo Formbuilder::addInput("upload_book_url", "button", "file_upload_button", "1", null, "Upload book"); ?>
+              <?php echo Formbuilder::addInput("url", "hidden", "url_value"); ?>
+          </div>
+          <div class="form-group">
+              <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage"); ?>
+          </div>
+          <div class="form-group">
+            <label for="upload_book_img"><?php _e('Thumbnail'); ?></label>
+            <div class='image-preview-wrapper'>
+              <img class='image-preview' src='https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' width='100' height='100' style='max-height: 100px; width: 100px;'>
+            </div>
+            <?php echo Formbuilder::addInput("upload_book_img", "button", "file_upload_button img-prev", "2", null, "Upload image"); ?>
+            <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value"); ?>
+
+          </div>
+          <div class="form-group">
+              <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
+          </div>
+      </form>
+  </div>
+</div>
+<?php endif; ?>
