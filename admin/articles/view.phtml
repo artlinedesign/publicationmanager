@@ -4,6 +4,29 @@ require plugin_dir_path(__FILE__) . 'class-articles-list.php';
 
 $list = new Articles_List();
 
+$authors = getAuthorsList();
+$verlage = getVerlageList();
+
+$articleEditId = isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['article_id']) ? $_GET['article_id'] : null;
+$articleDeleteId = isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['article_id']) ? $_GET['article_id'] : null;
+$articleChangeId = isset($_POST['submit']) && $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+
+function getSinglearticle($id){
+    global $wpdb;
+
+    $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_articles WHERE ID = " . $id;
+
+    $article = $wpdb->get_row( $sql );
+
+    return $article;
+}
+function editSingleArticle($id, $title, $date, $verlag_id, $article_id, $thumbnail_url, $url){
+    global $wpdb;
+    $wpdb->update( "{$wpdb->prefix}publicationmanager_articles", array('verlag_id' => $verlag_id, 'article_id' => $article_id, 'thumbnail_url' => $thumbnail_url, 'url' => $url, 'title' => $title, 'date' => $date), array( 'ID' => $id ) );
+}
+if($articleChangeId !== null) {
+    editSingleArticle($articleChangeId, $_POST['title'], $_POST['date'], $_POST['verlag_id'], $_POST['article_id'], $_POST['thumbnail_url'],$_POST['url']);
+}
 
 ?>
 
@@ -26,3 +49,75 @@ $list = new Articles_List();
         <br class="clear">
     </div>
 </div>
+
+
+<?php if($articleEditId !== null): ?>
+    <?php $article = getSinglearticle($articleEditId);?>
+    <script type="text/javascript">
+        jQuery(window).load(function(){
+            tb_show('Edit', '#TB_inline?width=600&height=600&inlineId=articles-edit', false);
+            $(window).bind('tb_unload', function () {
+                history.pushState({}, "articles", window.location.href.split('&')[0]);
+            });
+        });
+
+    </script>
+    <div id="articles-edit" class="hidden">
+        <h2 class="edit-header"><?php $article->title ?></h2>
+        <div class="articles-form-wrapper form-wrapper">
+            <form action="admin.php?page=create&mode=articles&action=create" method="POST">
+                <div class="form-group">
+                    <?php echo Formbuilder::addInput("title", "text", "articles-input", "title-input", "Titel", $article->title); ?>
+                </div>
+                <div class="form-group">
+                    <?php
+                    $articlesSelect = [];
+                    foreach($authors as $a){
+                        if($a['ID'] === $article->ID){
+                            array_push($articlesSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'], "selected" => true ]);
+                        }else {
+                            array_push($articlesSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
+                        }
+                    }
+                    echo Formbuilder::addSelect($articlesSelect, "article", null, "article");
+                    ?>
+                </div>
+                <div class="form-group">
+                    <?php
+                    $verlageList = [];
+                    foreach($verlage as $v){
+                        if($v['ID'] === $article->ID){
+                            array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name'], "selected" => true]);
+                        }else {
+                            array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+                        }
+                    }
+                    echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+                    ?>
+                </div>
+                <div class="form-group">
+                    <label for="upload_article_img"><?php _e('Thumbnail'); ?></label>
+                    <div class='image-preview-wrapper'>
+                        <img class='image-preview' src='<?php echo $article->thumbnail_url !== null || $article->thumbnail_url !== "" ? $article->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' ?>' width='100' height='100' style='max-height: 100px; width: 100px;'>
+                    </div>
+                    <?php echo Formbuilder::addInput("upload_article_img", "button", "file_upload_button img-prev", "3", null, "Upload image"); ?>
+                    <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value", null, null, $article->thumbnail_url);?>
+
+                </div>
+                <div class="form-group">
+                    <label for="upload_article_url"> <?php _e('PDF'); ?> <br></label>
+                    <?php echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, $article->url !== null || $article->url !== "" ? $tmp = explode("/", $article->url)[count($tmp)]: 'Upload article' );?>
+                    <?php echo Formbuilder::addInput("url", "hidden", "url_value", null, null, $article->url); ?>
+                </div>
+                <div class="form-group">
+                    <label for="date"><span class="form-group-label"><?php _e('Date'); ?></span>
+                        <input type="date" name="date" value="<?php echo $article->date ?>"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_articles", null, "Submit"); ?>
+                </div>
+            </form>
+        </div>
+    </div>
+<?php endif; ?>

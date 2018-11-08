@@ -32,7 +32,6 @@
         $('.create-toggle').on("click", function(){
         	let form = $(this).siblings();
         	let arrowSpan = $(this).children();
-        	console.log(arrowSpan);
         	if($(arrowSpan).hasClass('dashicons-arrow-down-alt2')){
 				$(arrowSpan).removeClass('dashicons-arrow-down-alt2');
 				$(arrowSpan).addClass('dashicons-arrow-right-alt2');
@@ -66,6 +65,9 @@
 						button: {
 							text: $(uploadBtn).hasClass('img-prev') ? 'Use this image' : 'Use this file',
 						},
+                        library: {
+                            type: $(uploadBtn).hasClass('img-prev') ? 'image/jpeg' : 'application/pdf'
+                        },
 						multiple: false
 					});
 

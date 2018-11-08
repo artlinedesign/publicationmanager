@@ -89,11 +89,12 @@ run_publicationmanager();
 *
 */
 
-add_action( 'admin_enqueue_scripts', 'wp_enqueue_media' );
-add_thickbox();
 
 
 add_action('admin_menu', 'publicationmanager');
+
+add_action( 'admin_enqueue_scripts', 'wp_enqueue_media' );
+
 
 function publicationmanager(){
 	add_menu_page('Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager', 'init' );
@@ -120,12 +121,11 @@ function createDatabase() {
 	DatabaseCreator::createCustomDatabase();
 }
 
-
-
 require plugin_dir_path( __FILE__ ) . 'includes/class-addfields.php';
 function showAuthors() {
 	require plugin_dir_path( __FILE__ ) . 'admin/authors/view.phtml';
 }
+add_thickbox();
 
 function showPublisher() {
     require plugin_dir_path( __FILE__ ) . 'admin/verlage/view.phtml';

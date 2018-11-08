@@ -35,7 +35,7 @@ class Formbuilder {
     foreach($options as $opt){
         $value = $opt['value'];
         $text = $opt['text'];
-        if($opt['selected']){
+        if(isset($opt['selected']) && $opt['selected']){
           $select = $select . "<option value='". $value ."' selected>". $text ."</option>";
 
         }else {

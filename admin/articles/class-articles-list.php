@@ -152,8 +152,8 @@ class Articles_List extends WP_List_Table {
 
         //Build row actions
         $actions = array(
-            'edit'      => sprintf('<a href="?page=%s&action=%s&movie=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+            'edit'      => sprintf('<a href="?page=%s&action=%s&article_id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&article_id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         );
 
         //Return the title contents
@@ -199,9 +199,9 @@ class Articles_List extends WP_List_Table {
     function get_columns(){
         $columns = array(
             'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
+            'title'  => 'Titel',
             'author'  => 'Author',
             'verlag'  => 'Verlag',
-            'title'  => 'Titel',
             'date'  => 'Datum'
         );
         return $columns;
@@ -224,9 +224,9 @@ class Articles_List extends WP_List_Table {
      **************************************************************************/
     function get_sortable_columns() {
         $sortable_columns = array(
+            'title'     => array('title',false),     //true means it's already sorted
             'author'     => array('author',false),     //true means it's already sorted
             'publisher'     => array('publisher',false),     //true means it's already sorted
-            'title'     => array('title',false),     //true means it's already sorted
             'date'     => array('date',false),     //true means it's already sorted
         );
         return $sortable_columns;

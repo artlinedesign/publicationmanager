@@ -118,6 +118,8 @@ class Books_List extends WP_List_Table {
      **************************************************************************/
     function column_default($item, $column_name){
         switch($column_name){
+            case 'title':
+                return $item[$column_name];
             case 'edition':
                 return $item[$column_name];
             case 'verlag':
@@ -127,8 +129,6 @@ class Books_List extends WP_List_Table {
             case 'thumbnail_url':
                 return $item[$column_name];
             case 'url':
-                return $item[$column_name];
-            case 'title':
                 return $item[$column_name];
             default:
                 return print_r($item,true); //Show the whole array for troubleshooting purposes
@@ -157,7 +157,7 @@ class Books_List extends WP_List_Table {
         //Build row actions
         $actions = array(
             'edit'      => sprintf('<a href="?page=%s&action=%s&book_id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&book_id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         );
 
         //Return the title contents
@@ -203,12 +203,12 @@ class Books_List extends WP_List_Table {
     function get_columns(){
         $columns = array(
             'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
+            'title'  => 'Titel',
             'edition'  => 'Auflage',
             'verlag'  => 'Verlag',
             'author'  => 'Author',
             'thumbnail_url'  => 'Thumbnail URL',
             'url'  => 'Url',
-            'title'  => 'Titel',
         );
         return $columns;
     }
@@ -271,10 +271,10 @@ class Books_List extends WP_List_Table {
      * @see $this->prepare_items()
      **************************************************************************/
     function process_bulk_action() {
-      $deleteId = $_GET['action'] === 'delete' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
+      $deleteId = isset($_GET['book_id']) && $_GET['action'] === 'delete' ? $_GET['book_id'] : null;
       if($deleteId !== null) {
         global $wpdb;
-        $wpdb->delete( "{$wpdb->prefix}publicationmanager_authors", array( 'ID' => intval($deleteId) ) );
+        $wpdb->delete( "{$wpdb->prefix}publicationmanager_books", array( 'ID' => intval($deleteId) ) );
       }
         //Detect when a bulk action is being triggered...
         //if( 'delete'===$this->current_action() ) {

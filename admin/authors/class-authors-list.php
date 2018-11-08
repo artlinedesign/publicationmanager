@@ -256,7 +256,7 @@ class Authors_List extends WP_List_Table {
      * @see $this->prepare_items()
      **************************************************************************/
     function process_bulk_action() {
-      $deleteId = $_GET['action'] === 'delete' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
+      $deleteId = isset($_GET['author_id']) && $_GET['action'] === 'delete' ? $_GET['author_id'] : null;
       if($deleteId !== null) {
         global $wpdb;
         $wpdb->delete( "{$wpdb->prefix}publicationmanager_authors", array( 'ID' => intval($deleteId) ) );

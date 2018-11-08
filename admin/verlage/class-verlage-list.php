@@ -143,16 +143,15 @@ class Verlage_List extends WP_List_Table {
      * @return string Text to be placed inside the column <td> (movie title only)
      **************************************************************************/
     function column_title($item){
-
         //Build row actions
         $actions = array(
-            'edit'      => sprintf('<a href="?page=%s&action=%s&movie=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+            'edit'      => sprintf('<a href="?page=%s&action=%s&publisher_id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&publisher_id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         );
 
         //Return the title contents
         return sprintf('%1$s <span style="color:silver">(id:%2$s)</span>%3$s',
-            /*$1%s*/ $item['title'],
+            /*$1%s*/ $item['name'],
             /*$2%s*/ $item['ID'],
             /*$3%s*/ $this->row_actions($actions)
         );
@@ -193,7 +192,7 @@ class Verlage_List extends WP_List_Table {
     function get_columns(){
         $columns = array(
             'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
-            'name'  => 'Name'
+            'title'  => 'Name'
         );
         return $columns;
     }
@@ -251,11 +250,15 @@ class Verlage_List extends WP_List_Table {
      * @see $this->prepare_items()
      **************************************************************************/
     function process_bulk_action() {
-
-        //Detect when a bulk action is being triggered...
-        if( 'delete'===$this->current_action() ) {
-            wp_die('Items deleted (or they would be if we had items to delete)!');
+        $deleteId = isset($_GET['publisher_id']) && $_GET['action'] === 'delete' ? $_GET['publisher_id'] : null;
+        if($deleteId !== null) {
+            global $wpdb;
+            $wpdb->delete( "{$wpdb->prefix}publicationmanager_verlage", array( 'ID' => intval($deleteId) ) );
         }
+        //Detect when a bulk action is being triggered...
+//        if( 'delete'===$this->current_action() ) {
+//            wp_die('Items deleted (or they would be if we had items to delete)!');
+//        }
 
     }
 

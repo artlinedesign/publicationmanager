@@ -6,11 +6,14 @@ $authors = getAuthorsList();
 $verlage = getVerlageList();
 $list = new Books_List();
 
-$bookEditId = $_GET['action'] === 'edit' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
-$bookDeleteId = $_GET['action'] === 'delete' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
-$bookChangeId = $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+$bookEditId = isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
+$bookDeleteId = isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
+$bookChangeId = isset($_POST['submit']) && $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+var_dump($_POST);
 
-function getSinglebook($id){
+
+
+function getSingleBook($id){
   global $wpdb;
 
   $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_books WHERE ID = " . $id;
@@ -19,14 +22,13 @@ function getSinglebook($id){
 
   return $book;
 }
-function editSinglebook($id, $title, $edition, $verlag_id, $author_id, $thumbnail_url, $url){
-  global $wpdb;
-  $wpdb->update( "{$wpdb->prefix}publicationmanager_books", array( 'title' => $title, 'edition' => $edition, 'verlag_id' => $verlag_id, 'thumbnail_url' => $thumbnail_url, 'url' => $url), array( 'ID' => $id ) );
+function editSingleBook($id, $title, $edition, $verlag_id, $author_id, $thumbnail_url, $url){
+    global $wpdb;
+    $wpdb->update( "{$wpdb->prefix}publicationmanager_books", array('edition' => $edition, 'verlag_id' => $verlag_id, 'author_id' => $author_id, 'thumbnail_url' => $thumbnail_url, 'url' => $url, 'title' => $title), array( 'ID' => $id ) );
 }
 if($bookChangeId !== null) {
-  editSinglebook($bookChangeId, $_POST['title'], $_POST['edition'], $_POST['verlag_id'], $_POST['author_id'], $_POST['thumbnail_url'],$_POST['url']);
+    editSingleBook($bookChangeId, $_POST['title'], $_POST['edition'], $_POST['verlag_id'], $_POST['author_id'], $_POST['thumbnail_url'],$_POST['url']);
 }
-
 
 ?>
 
@@ -52,7 +54,7 @@ if($bookChangeId !== null) {
 
 
 <?php if($bookEditId !== null): ?>
-<?php $book = getSinglebook($bookEditId); $book = $book[0];?>
+<?php $book = getSingleBook($bookEditId); $book = $book[0];?>
 <script type="text/javascript">
   jQuery(window).load(function(){
     tb_show('Edit', '#TB_inline?width=600&height=600&inlineId=books-edit', false);
@@ -63,9 +65,9 @@ if($bookChangeId !== null) {
 
 </script>
 <div id="books-edit" class="hidden">
-  <h2 class="create-toggle"><?php echo $book['title']; ?></h2>
+  <h2 class="edit-header"><?php echo $book['title']; ?></h2>
   <div class="books-form-wrapper form-wrapper">
-      <form action="admin.php?page=create&mode=books&action=create" method="POST">
+      <form id="modal-form" action="admin.php?page=buecher&action=change" method="POST">
           <div class="form-group">
               <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel", $book['title']); ?>
           </div>
@@ -73,8 +75,6 @@ if($bookChangeId !== null) {
           <?php
           $authorsSelect = [];
           foreach($authors as $a){
-            var_dump($a['ID']);
-            var_dump($book['ID']);
             if($a['ID'] === $book['ID']){
               array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'], "selected" => true ]);
             }else {
@@ -100,7 +100,7 @@ if($bookChangeId !== null) {
               <?php echo Formbuilder::addInput("url", "hidden", "url_value"); ?>
           </div>
           <div class="form-group">
-              <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage"); ?>
+              <?php echo Formbuilder::addInput("edition", "text", "publication-input", "edition-input", "Auflage", $book['edition']); ?>
           </div>
           <div class="form-group">
             <label for="upload_book_img"><?php _e('Thumbnail'); ?></label>
@@ -112,8 +112,9 @@ if($bookChangeId !== null) {
 
           </div>
           <div class="form-group">
-              <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
+              <?php echo Formbuilder::addInput("submit", "submit", "book-button", "submit_books", null, "Submit"); ?>
           </div>
+          <input type="hidden" name="change_id" value="<?php echo $book['ID']; ?>">
       </form>
   </div>
 </div>

@@ -1,9 +1,29 @@
 <?php
 
-
 require plugin_dir_path(__FILE__) . 'class-verlage-list.php';
 
 $list = new Verlage_List();
+
+$publisherEditId = isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['publisher_id']) ? $_GET['publisher_id'] : null;
+$publisherDeleteId = isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['publisher_id']) ? $_GET['publisher_id'] : null;
+$publisherChangeId = isset($_POST['submit']) && $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+var_dump($publisherChangeId);
+function getSinglePublisher($id){
+    global $wpdb;
+
+    $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_verlage WHERE ID = " . $id;
+
+    $publisher = $wpdb->get_row( $sql );
+
+    return $publisher;
+}
+function editSinglePublisher($id, $name){
+    global $wpdb;
+    $wpdb->update( "{$wpdb->prefix}publicationmanager_verlage", array( 'name' => $name), array( 'ID' => $id ) );
+}
+if($publisherChangeId !== null) {
+    editSinglePublisher($publisherChangeId, $_POST['name']);
+}
 
 
 ?>
@@ -27,3 +47,34 @@ $list = new Verlage_List();
         <br class="clear">
     </div>
 </div>
+
+
+<?php if($publisherEditId !== null): ?>
+    <?php $publisher = getSinglePublisher($publisherEditId);
+    ?>
+    <script type="text/javascript">
+        jQuery(window).load(function() {
+
+            tb_show('Edit', '#TB_inline?width=600&height=180&inlineId=publisher-edit', false);
+            $(window).bind('tb_unload', function () {
+                history.pushState({}, "publishers", window.location.href.split('&')[0]);
+            });
+        });
+
+
+    </script>
+    <div id="publisher-edit" class="hidden">
+        <h2 class="edit-header"><?php echo $publisher->name ?></h2>
+        <div class="verlaege-form-wrapper form-wrapper">
+            <form action="admin.php?page=verlaege&action=change" method="POST">
+                <div class="form-group">
+                    <?php echo Formbuilder::addInput("name", "text", "publisher-input", "name-input", "Name", $publisher->name); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo Formbuilder::addInput("submit", "submit", "publisher-button", "submit_publisher", null, "Submit"); ?>
+                </div>
+                <input type="hidden" name="change_id" value="<?php echo $publisher->ID; ?>">
+            </form>
+        </div>
+    </div>
+<?php endif; ?>
