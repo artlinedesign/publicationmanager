@@ -98,7 +98,7 @@ class DatabaseCreator {
 		  title varchar(255) NOT NULL,
 		  thumbnail_url varchar(255) NOT NULL,
 		  url varchar(255) NOT NULL,
-		  date datetime NOT NULL,
+		  date date NOT NULL,
 		  PRIMARY KEY (ID)
 			) $charset_collate;";
 
@@ -114,7 +114,7 @@ class DatabaseCreator {
 			  title varchar(255) NOT NULL,
 			  thumbnail_url varchar(255) NOT NULL,
 			  url varchar(255) NOT NULL,
-			  date datetime NOT NULL,
+			  date date NOT NULL,
 			  PRIMARY KEY (ID)
 				) $charset_collate;";
 				dbDelta( $sql );
@@ -167,7 +167,7 @@ class DatabaseCreator {
 		  title varchar(255) NOT NULL,
 		  thumbnail_url varchar(255) NOT NULL,
 		  url varchar(255) NOT NULL,
-		  date datetime NOT NULL,
+		  date date NOT NULL,
 		  PRIMARY KEY (ID)
 			) $charset_collate;";
 
@@ -183,7 +183,7 @@ class DatabaseCreator {
 			  title varchar(255) NOT NULL,
 			  thumbnail_url varchar(255) NOT NULL,
 			  url varchar(255) NOT NULL,
-			  date datetime NOT NULL,
+			  date date NOT NULL,
 			  PRIMARY KEY (ID)
 				) $charset_collate;";
             dbDelta( $sql );
