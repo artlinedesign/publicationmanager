@@ -9,16 +9,13 @@ $list = new Books_List();
 $bookEditId = isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
 $bookDeleteId = isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
 $bookChangeId = isset($_POST['submit']) && $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
-var_dump($_POST);
-
-
 
 function getSingleBook($id){
   global $wpdb;
 
   $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_books WHERE ID = " . $id;
 
-  $book = $wpdb->get_results( $sql, 'ARRAY_A' );
+  $book = $wpdb->get_row( $sql );
 
   return $book;
 }
@@ -54,7 +51,7 @@ if($bookChangeId !== null) {
 
 
 <?php if($bookEditId !== null): ?>
-<?php $book = getSingleBook($bookEditId); $book = $book[0];?>
+<?php $book = getSingleBook($bookEditId);?>
 <script type="text/javascript">
   jQuery(window).load(function(){
     tb_show('Edit', '#TB_inline?width=600&height=600&inlineId=books-edit', false);
@@ -65,17 +62,17 @@ if($bookChangeId !== null) {
 
 </script>
 <div id="books-edit" class="hidden">
-  <h2 class="edit-header"><?php echo $book['title']; ?></h2>
+  <h2 class="edit-header"><?php echo $book->title; ?></h2>
   <div class="books-form-wrapper form-wrapper">
       <form id="modal-form" action="admin.php?page=buecher&action=change" method="POST">
           <div class="form-group">
-              <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel", $book['title']); ?>
+              <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel", $book->title); ?>
           </div>
           <div class="form-group">
           <?php
           $authorsSelect = [];
           foreach($authors as $a){
-            if($a['ID'] === $book['ID']){
+            if($a['ID'] === $book->ID){
               array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'], "selected" => true ]);
             }else {
               array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
@@ -85,18 +82,29 @@ if($bookChangeId !== null) {
           ?>
           </div>
           <div class="form-group">
-          <?php
-          $verlageList = [];
-          foreach($verlage as $v){
-              array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
-          }
-          echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
-          ?>
+              <?php
+              $verlageList = [];
+              foreach($verlage as $v){
+                  if($v['ID'] === $book->ID){
+                      array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name'], "selected" => true]);
+                  }else {
+                      array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+                  }
+              }
+              echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+              ?>
           </div>
 
           <div class="form-group">
             <label for="upload_book_url"> <?php _e('PDF'); ?> <br></label>
-              <?php echo Formbuilder::addInput("upload_book_url", "button", "file_upload_button", "1", null, "Upload book"); ?>
+              <?php
+              if($book->url !== null || $book->url !== ""){
+                  $tmp = explode('/', $book->url);
+                  echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, $tmp[count($tmp) - 1]);
+              } else {
+                  echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, 'Upload article' );
+              }
+              ?>
               <?php echo Formbuilder::addInput("url", "hidden", "url_value"); ?>
           </div>
           <div class="form-group">
@@ -105,16 +113,16 @@ if($bookChangeId !== null) {
           <div class="form-group">
             <label for="upload_book_img"><?php _e('Thumbnail'); ?></label>
             <div class='image-preview-wrapper'>
-              <img class='image-preview' src='https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' width='100' height='100' style='max-height: 100px; width: 100px;'>
+              <img class='image-preview' src='<?php echo $book->thumbnail_url !== null || $book->thumbnail_url !== "" ? $book->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' ?>' width='100' height='100' style='max-height: 100px; width: 100px;'>
             </div>
             <?php echo Formbuilder::addInput("upload_book_img", "button", "file_upload_button img-prev", "2", null, "Upload image"); ?>
-            <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value"); ?>
+            <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value", null, null, $book->thumbnail_url !== null || $book->thumbnail_url !== "" ? $book->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg'); ?>
 
           </div>
           <div class="form-group">
               <?php echo Formbuilder::addInput("submit", "submit", "book-button", "submit_books", null, "Submit"); ?>
           </div>
-          <input type="hidden" name="change_id" value="<?php echo $book['ID']; ?>">
+          <input type="hidden" name="change_id" value="<?php echo $book->ID; ?>">
       </form>
   </div>
 </div>

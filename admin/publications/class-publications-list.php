@@ -154,8 +154,8 @@ class Publications_List extends WP_List_Table {
 
         //Build row actions
         $actions = array(
-            'edit'      => sprintf('<a href="?page=%s&action=%s&movie=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
-            'delete'    => sprintf('<a href="?page=%s&action=%s&movie=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
+            'edit'      => sprintf('<a href="?page=%s&action=%s&publication_id=%s">Edit</a>',$_REQUEST['page'],'edit',$item['ID']),
+            'delete'    => sprintf('<a href="?page=%s&action=%s&publication_id=%s">Delete</a>',$_REQUEST['page'],'delete',$item['ID']),
         );
 
         //Return the title contents
@@ -201,10 +201,10 @@ class Publications_List extends WP_List_Table {
     function get_columns(){
         $columns = array(
             'cb'        => '<input type="checkbox" />', //Render a checkbox instead of text
+            'title'  => 'Titel',
             'author'  => 'Author',
             'verlag'  => 'Verlag',
             'url'  => 'Datei URL',
-            'title'  => 'Titel',
             'date'  => 'Datum'
         );
         return $columns;
@@ -267,11 +267,15 @@ class Publications_List extends WP_List_Table {
      * @see $this->prepare_items()
      **************************************************************************/
     function process_bulk_action() {
-
-        //Detect when a bulk action is being triggered...
-        if( 'delete'===$this->current_action() ) {
-            wp_die('Items deleted (or they would be if we had items to delete)!');
+        $deleteId = isset($_GET['publication_id']) && $_GET['action'] === 'delete' ? $_GET['publication_id'] : null;
+        if($deleteId !== null) {
+            global $wpdb;
+            $wpdb->delete( "{$wpdb->prefix}publicationmanager_publications", array( 'ID' => intval($deleteId) ) );
         }
+        //Detect when a bulk action is being triggered...
+        //if( 'delete'===$this->current_action() ) {
+        //    wp_die('Items deleted (or they would be if we had items to delete)!');
+        //}
 
     }
 

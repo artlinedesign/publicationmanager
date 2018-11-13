@@ -59,10 +59,11 @@
 .books-viewer .book-item {
     width:32%;
     max-width: 155px;
+    min-width: 155px;
     float:left;
     height: 280px;
     margin-right: 4%;
-    margin-bottom: 20px;
+    margin-bottom: 50px;
 }
 .books-not-empty {
   min-height:280px;

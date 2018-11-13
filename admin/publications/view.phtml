@@ -3,7 +3,29 @@
 require plugin_dir_path(__FILE__) . 'class-publications-list.php';
 
 $list = new Publications_List();
+$authors = getAuthorsList();
+$verlage = getVerlageList();
 
+$publicationEditId = isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['publication_id']) ? $_GET['publication_id'] : null;
+$publicationDeleteId = isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['publication_id']) ? $_GET['publication_id'] : null;
+$publicationChangeId = isset($_POST['submit']) && $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+var_dump($_POST);
+function getSinglePublication($id){
+    global $wpdb;
+
+    $sql = "SELECT * FROM {$wpdb->prefix}publicationmanager_publications WHERE ID = " . $id;
+
+    $publication = $wpdb->get_row( $sql );
+
+    return $publication;
+}
+function editSinglePublication($id, $title, $date, $verlag_id, $author_id, $thumbnail_url, $url){
+    global $wpdb;
+    $wpdb->update( "{$wpdb->prefix}publicationmanager_publications", array('date' => $date, 'verlag_id' => $verlag_id, 'author_id' => $author_id, 'thumbnail_url' => $thumbnail_url, 'url' => $url, 'title' => $title), array( 'ID' => $id ) );
+}
+if($publicationChangeId !== null) {
+    editSinglePublication($publicationChangeId, $_POST['title'], $_POST['date'], $_POST['verlag_id'], $_POST['author_id'], $_POST['thumbnail_url'],$_POST['url']);
+}
 ?>
 
 
@@ -26,3 +48,82 @@ $list = new Publications_List();
     </div>
 </div>
 
+
+<?php if($publicationEditId !== null): ?>
+    <?php $publication = getSinglePublication($publicationEditId);?>
+    <script type="text/javascript">
+        jQuery(window).load(function(){
+            tb_show('Edit', '#TB_inline?width=600&height=600&inlineId=publications-edit', false);
+            $(window).bind('tb_unload', function () {
+                history.pushState({}, "publications", window.location.href.split('&')[0]);
+            });
+        });
+
+    </script>
+    <div id="publications-edit" class="hidden">
+        <h2 class="edit-header"><?php echo $publication->title ?></h2>
+        <div class="publications-form-wrapper form-wrapper">
+            <form action="admin.php?page=publikationen&action=change" method="POST">
+                <div class="form-group">
+                    <?php echo Formbuilder::addInput("title", "text", "publication-input", "title-input", "Titel", $publication->title); ?>
+                </div>
+                <div class="form-group">
+                    <?php
+                    $authorsSelect = [];
+                    foreach($authors as $a){
+                        if($a['ID'] === $publication->ID){
+                            array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'], "selected" => true ]);
+                        }else {
+                            array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
+                        }
+                    }
+                    echo Formbuilder::addSelect($authorsSelect, "author_id", null, "Author");
+                    ?>
+                </div>
+                <div class="form-group">
+                    <?php
+                    $verlageList = [];
+                    foreach($verlage as $v){
+                        if($v['ID'] === $publication->ID){
+                            array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name'], "selected" => true]);
+                        }else {
+                            array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+                        }
+                    }
+                    echo Formbuilder::addSelect($verlageList,"verlag_id", null,"Verlag");
+                    ?>
+                </div>
+                <div class="form-group">
+                    <label for="date"><span class="form-group-label"><?php _e('Date'); ?></span>
+                        <input type="date" name="date" value="<?php echo $publication->date ?>"/>
+                    </label>
+                </div>
+                <div class="form-group">
+                    <label for="upload_publication_img"><?php _e('Thumbnail'); ?></label>
+                    <div class='image-preview-wrapper'>
+                        <img class='image-preview' src='<?php echo $publication->thumbnail_url !== null || $publication->thumbnail_url !== "" ? $publication->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' ?>' width='100' height='100' style='max-height: 100px; width: 100px;'>
+                    </div>
+                    <?php echo Formbuilder::addInput("upload_publication_img", "button", "file_upload_button img-prev", "5", null, "Upload image"); ?>
+                    <?php echo Formbuilder::addInput("thumbnail_url", "hidden", "url_value", null, null, $publication->thumbnail_url !== null || $publication->thumbnail_url !== "" ? $publication->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg'); ?>
+
+                </div>
+                <div class="form-group">
+                    <label for="upload_publication_url"> <?php _e('PDF'); ?> <br></label>
+                    <?php
+                    if($publication->url !== null || $publication->url !== ""){
+                        $tmp = explode('/', $publication->url);
+                        echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, $tmp[count($tmp) - 1]);
+                    } else {
+                        echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, 'Upload publication' );
+                    }
+                    ?>
+                    <?php echo Formbuilder::addInput("url", "hidden", "url_value"); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_authors", null, "Submit"); ?>
+                </div>
+                <input type="hidden" name="change_id" value="<?php echo $publication->ID; ?>">
+            </form>
+        </div>
+    </div>
+<?php endif; ?>

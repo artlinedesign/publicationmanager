@@ -5,9 +5,9 @@ require plugin_dir_path(__FILE__) . 'class-authors-list.php';
 
 $list = new Authors_List();
 
-$authorEditId = $_GET['action'] === 'edit' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
-$authorDeleteId = $_GET['action'] === 'delete' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
-$authorChangeId = $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
+$authorEditId = isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
+$authorDeleteId = isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['author_id']) ? $_GET['author_id'] : null;
+$authorChangeId = isset($_POST['submit']) && $_POST['submit'] === 'Submit' && isset($_POST) ? $_POST['change_id'] : null;
 
 function getSingleAuthor($id){
   global $wpdb;

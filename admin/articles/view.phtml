@@ -65,7 +65,7 @@ if($articleChangeId !== null) {
     <div id="articles-edit" class="hidden">
         <h2 class="edit-header"><?php $article->title ?></h2>
         <div class="articles-form-wrapper form-wrapper">
-            <form action="admin.php?page=create&mode=articles&action=create" method="POST">
+            <form action="admin.php?page=buecher&action=change" method="POST">
                 <div class="form-group">
                     <?php echo Formbuilder::addInput("title", "text", "articles-input", "title-input", "Titel", $article->title); ?>
                 </div>
@@ -101,12 +101,20 @@ if($articleChangeId !== null) {
                         <img class='image-preview' src='<?php echo $article->thumbnail_url !== null || $article->thumbnail_url !== "" ? $article->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' ?>' width='100' height='100' style='max-height: 100px; width: 100px;'>
                     </div>
                     <?php echo Formbuilder::addInput("upload_article_img", "button", "file_upload_button img-prev", "3", null, "Upload image"); ?>
-                    <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value", null, null, $article->thumbnail_url);?>
+                    <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value", null, null, $article->thumbnail_url !== null || $article->thumbnail_url !== "" ? $article->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg');?>
 
                 </div>
                 <div class="form-group">
                     <label for="upload_article_url"> <?php _e('PDF'); ?> <br></label>
-                    <?php echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, $article->url !== null || $article->url !== "" ? $tmp = explode("/", $article->url)[count($tmp)]: 'Upload article' );?>
+                    <?php
+                        if($article->url !== null || $article->url !== ""){
+                            $tmp = explode('/', $article->url);
+                            echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, $tmp[count($tmp) - 1]);
+                        } else {
+                            echo Formbuilder::addInput("upload_article_url", "button", "file_upload_button", "4", null, 'Upload article' );
+
+                        }
+                    ?>
                     <?php echo Formbuilder::addInput("url", "hidden", "url_value", null, null, $article->url); ?>
                 </div>
                 <div class="form-group">
