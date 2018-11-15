@@ -52,6 +52,11 @@
   width:100%;
   height:60%;
 }
+
+.book-items-wrapper {
+    width: 100%;
+}
+
 .book-item-content {
   height:40%;
   width: 100%;

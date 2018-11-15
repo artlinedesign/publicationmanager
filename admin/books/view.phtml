@@ -2,9 +2,10 @@
 
 require plugin_dir_path(__FILE__) . 'class-books-list.php';
 
+$list = new Books_List();
+
 $authors = getAuthorsList();
 $verlage = getVerlageList();
-$list = new Books_List();
 
 $bookEditId = isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
 $bookDeleteId = isset($_GET['action']) && $_GET['action'] === 'delete' && isset($_GET['book_id']) ? $_GET['book_id'] : null;
@@ -64,7 +65,7 @@ if($bookChangeId !== null) {
 <div id="books-edit" class="hidden">
   <h2 class="edit-header"><?php echo $book->title; ?></h2>
   <div class="books-form-wrapper form-wrapper">
-      <form id="modal-form" action="admin.php?page=buecher&action=change" method="POST">
+      <form action="admin.php?page=buecher&action=change" method="POST">
           <div class="form-group">
               <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel", $book->title); ?>
           </div>
@@ -78,7 +79,7 @@ if($bookChangeId !== null) {
               array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
             }
           }
-          echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
+          echo Formbuilder::addSelect($authorsSelect, "author_id", null, "Author");
           ?>
           </div>
           <div class="form-group">
@@ -91,7 +92,7 @@ if($bookChangeId !== null) {
                       array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
                   }
               }
-              echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+              echo Formbuilder::addSelect($verlageList,"verlag_id", null,"Verlag");
               ?>
           </div>
 
@@ -116,7 +117,7 @@ if($bookChangeId !== null) {
               <img class='image-preview' src='<?php echo $book->thumbnail_url !== null || $book->thumbnail_url !== "" ? $book->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' ?>' width='100' height='100' style='max-height: 100px; width: 100px;'>
             </div>
             <?php echo Formbuilder::addInput("upload_book_img", "button", "file_upload_button img-prev", "2", null, "Upload image"); ?>
-            <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value", null, null, $book->thumbnail_url !== null || $book->thumbnail_url !== "" ? $book->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg'); ?>
+            <?php echo Formbuilder::addInput("thumbnail_url", "hidden", "url_value", null, null, $book->thumbnail_url !== null || $book->thumbnail_url !== "" ? $book->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg'); ?>
 
           </div>
           <div class="form-group">

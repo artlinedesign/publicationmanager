@@ -33,6 +33,11 @@ function createBook() {
     $thumbnailUrl = isset($_POST['thumbnailUrl']) ? $_POST['thumbnailUrl'] : '';
     $url = isset($_POST['url']) ? $_POST['url'] : '';
     $title = isset($_POST['title']) ? $_POST['title'] : '';
+    $english = isset($_POST['english']) ? $_POST['english'] : '';
+    $german = isset($_POST['german']) ? $_POST['german'] : '';
+
+    isset($english) && $english === "isEnglish" ? $english = 1 : $english = 0;
+    isset($german) && $german === "isGerman"? $german = 1 : $german = 0;
 
 
     if($title === null
@@ -63,9 +68,9 @@ function createBook() {
         'author_id' => $author,
         'thumbnail_url' => $thumbnailUrl,
         'url' => $url,
+        'english' => $english,
+        'german' => $german
     ));
-
-    echo '<meta http-equiv="refresh" content="2" />';
 
     showAdminSuccessMessage("Book has been created.");
 
@@ -126,8 +131,6 @@ function createAuthor() {
         'lastname' => $lastname
     ));
 
-    echo '<meta http-equiv="refresh" content="2" />';
-
     showAdminSuccessMessage("Author has been created.");
 
 
@@ -156,6 +159,11 @@ function createArticle(){
     $date = isset($_POST['date']) ? $_POST['date'] : '';
     $thumbnailUrl = isset($_POST['thumbnailUrl']) ? $_POST['thumbnailUrl'] : '';
     $url = isset($_POST['url']) ? $_POST['url'] : '';
+    $english = isset($_POST['english']) ? $_POST['english'] : '';
+    $german = isset($_POST['german']) ? $_POST['german'] : '';
+
+    isset($english) && $english === "isEnglish" ? $english = 1 : $english = 0;
+    isset($german) && $german === "isGerman"? $german = 1 : $german = 0;
 
 
     if($title === null
@@ -187,9 +195,9 @@ function createArticle(){
         'date' => $date,
         'thumbnail_url' => $thumbnailUrl,
         'url' => $url,
+        'english' => $english,
+        'german' => $german
     ));
-
-    echo '<meta http-equiv="refresh" content="2" />';
 
     showAdminSuccessMessage("Article has been created.");
 
@@ -220,6 +228,11 @@ function createPublication(){
     $date = isset($_POST['date']) ? $_POST['date'] : '';
     $thumbnailUrl = isset($_POST['thumbnailUrl']) ? $_POST['thumbnailUrl'] : '';
     $url = isset($_POST['url']) ? $_POST['url'] : '';
+    $english = isset($_POST['english']) ? $_POST['english'] : '';
+    $german = isset($_POST['german']) ? $_POST['german'] : '';
+
+    isset($english) && $english === "isEnglish" ? $english = 1 : $english = 0;
+    isset($german) && $german === "isGerman"? $german = 1 : $german = 0;
 
     if($title === null
         || $author === null
@@ -250,10 +263,9 @@ function createPublication(){
         'date' => $date,
         'thumbnail_url' => $thumbnailUrl,
         'url' => $url,
+        'english' => $english,
+        'german' => $german
     ));
-
-    echo '<meta http-equiv="refresh" content="2" />';
-
 
     showAdminSuccessMessage("Publication has been created.");
 
@@ -278,8 +290,6 @@ function createVerlag() {
     $wpdb->insert("{$wpdb->prefix}publicationmanager_verlage", array(
         'name' => $name,
     ));
-
-    echo '<meta http-equiv="refresh" content="2" />';
 
     showAdminSuccessMessage("Publisher has been created.");
 }

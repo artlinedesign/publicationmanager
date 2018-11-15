@@ -95,14 +95,21 @@ add_action('admin_menu', 'publicationmanager');
 
 add_action( 'admin_enqueue_scripts', 'wp_enqueue_media' );
 
+function load_thickbox() {
+    wp_enqueue_script('thickbox');
+    wp_enqueue_style('thickbox');
+}
+
+add_action( 'admin_enqueue_scripts', 'load_thickbox' );
+
 
 function publicationmanager(){
 	add_menu_page('Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager', 'init' );
 	add_submenu_page('publicationmanager', 'Publication Manager', 'Publication Manager', 'manage_options', 'publicationmanager' );
 	add_submenu_page('publicationmanager', 'Autoren', 'Autoren', 'manage_options', 'autoren', 'showAuthors' );
-	add_submenu_page('publicationmanager', 'Bücher', 'Bücher', 'manage_options', 'buecher', 'showBooks' );
 	add_submenu_page('publicationmanager', 'Beiträge', 'Beiträge', 'manage_options', 'beitraege', 'showArticles' );
-	add_submenu_page('publicationmanager', 'Publikationen', 'Publikationen', 'manage_options', 'publikationen', 'showPublications' );
+    add_submenu_page('publicationmanager', 'Bücher', 'Bücher', 'manage_options', 'buecher', 'showBooks' );
+    add_submenu_page('publicationmanager', 'Publikationen', 'Publikationen', 'manage_options', 'publikationen', 'showPublications' );
 	add_submenu_page('publicationmanager', 'Verläge', 'Verläge', 'manage_options', 'verlaege', 'showPublisher' );
 	add_submenu_page('publicationmanager', 'Erstellen', 'Erstellen', 'manage_options', 'create', 'create' );
 
@@ -125,19 +132,20 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-addfields.php';
 function showAuthors() {
 	require plugin_dir_path( __FILE__ ) . 'admin/authors/view.phtml';
 }
-add_thickbox();
 
 function showPublisher() {
     require plugin_dir_path( __FILE__ ) . 'admin/verlage/view.phtml';
+}
+
+
+function showArticles() {
+    require plugin_dir_path( __FILE__ ) . 'admin/articles/view.phtml';
 }
 
 function showBooks() {
     require plugin_dir_path( __FILE__ ) . 'admin/books/view.phtml';
 }
 
-function showArticles() {
-    require plugin_dir_path( __FILE__ ) . 'admin/articles/view.phtml';
-}
 
 function create() {
     require plugin_dir_path( __FILE__ ) . 'admin/create/create.phtml';

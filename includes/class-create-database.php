@@ -57,6 +57,8 @@ class DatabaseCreator {
 		  author_id int(11) NOT NULL,
 		  thumbnail_url varchar(255) NOT NULL,
 		  url varchar(255) NOT NULL,
+		  english tinyint(1) NOT NULL,
+		  german tinyint(1) NOT NULL,
 		  title varchar(255) NOT NULL,
 		  PRIMARY KEY (ID)
 			) $charset_collate;";
@@ -73,6 +75,8 @@ class DatabaseCreator {
 				author_id int(11) NOT NULL,
 				thumbnail_url varchar(255) NOT NULL,
 				url varchar(255) NOT NULL,
+				english tinyint(1) NOT NULL,
+		  		german tinyint(1) NOT NULL,
 				title varchar(255) NOT NULL,
 				PRIMARY KEY (ID)
 				) $charset_collate;";
@@ -98,6 +102,8 @@ class DatabaseCreator {
 		  title varchar(255) NOT NULL,
 		  thumbnail_url varchar(255) NOT NULL,
 		  url varchar(255) NOT NULL,
+		  english tinyint(1) NOT NULL,
+		  german tinyint(1) NOT NULL,
 		  date date NOT NULL,
 		  PRIMARY KEY (ID)
 			) $charset_collate;";
@@ -114,6 +120,8 @@ class DatabaseCreator {
 			  title varchar(255) NOT NULL,
 			  thumbnail_url varchar(255) NOT NULL,
 			  url varchar(255) NOT NULL,
+			  english tinyint(1) NOT NULL,
+		  	  german tinyint(1) NOT NULL,
 			  date date NOT NULL,
 			  PRIMARY KEY (ID)
 				) $charset_collate;";
@@ -167,6 +175,8 @@ class DatabaseCreator {
 		  title varchar(255) NOT NULL,
 		  thumbnail_url varchar(255) NOT NULL,
 		  url varchar(255) NOT NULL,
+		  english tinyint(1) NOT NULL,
+		  german tinyint(1) NOT NULL,
 		  date date NOT NULL,
 		  PRIMARY KEY (ID)
 			) $charset_collate;";
@@ -183,6 +193,8 @@ class DatabaseCreator {
 			  title varchar(255) NOT NULL,
 			  thumbnail_url varchar(255) NOT NULL,
 			  url varchar(255) NOT NULL,
+			  english tinyint(1) NOT NULL,
+		  	  german tinyint(1) NOT NULL,
 			  date date NOT NULL,
 			  PRIMARY KEY (ID)
 				) $charset_collate;";

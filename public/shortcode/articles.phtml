@@ -3,6 +3,7 @@
 
 function articlesShortcode(){
     $site = isset($_POST['articles']) ? $_POST['articles'] : 1;
+    isset($_GET['articles']) ? $site = $_GET['articles'] : null;
     $articles = getArticles($site === 1 ? 0 : ($site*5) - 5, 5);
     $amount = intval(getArticlesEntryAmount());
     ?>
@@ -22,13 +23,14 @@ function articlesShortcode(){
     </ul>
     <a class="article-pagination-btn dashicons dashicons dashicons-arrow-left-alt <?php echo count($articles) < 5 ? 'hidden' : '' ?>" id="ap-start" data-site="1"></a>
     <a class="article-pagination-btn dashicons dashicons-arrow-left-alt2 hidden" id="ap-prev" data-site=""></a>
-    <span id="articles-page-indicator"></span>
+    <span id="articles-page-indicator"><?php echo $site; ?> von <?php echo $amount; ?></span>
     <a class="article-pagination-btn dashicons dashicons-arrow-right-alt2 <?php echo $amount < 5 ? 'hidden' : '' ?>" id="ap-next" data-site="<?php echo $amount > 5 ? '2' : '' ?>"></a>
     <a class="article-pagination-btn dashicons dashicons dashicons-arrow-right-alt <?php echo $amount < 5 ? 'hidden' : '' ?>" id="ap-end" data-site="<?php echo ceil(getArticlesEntryAmount() / 5); ?>"></a>
 
 </div>
 
 <?php
+
 }
 //
 /*   <a class="article-pagination-btn" data-site="<?php echo $site === 1 ? 1 : $site - 1 ?>">previous site</a>*/

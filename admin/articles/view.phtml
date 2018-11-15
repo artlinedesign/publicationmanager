@@ -20,12 +20,14 @@ function getSinglearticle($id){
 
     return $article;
 }
-function editSingleArticle($id, $title, $date, $verlag_id, $article_id, $thumbnail_url, $url){
+function editSingleArticle($id, $title, $date, $verlag_id, $author_id, $thumbnail_url, $url, $english = 0, $german = 0){
     global $wpdb;
-    $wpdb->update( "{$wpdb->prefix}publicationmanager_articles", array('verlag_id' => $verlag_id, 'article_id' => $article_id, 'thumbnail_url' => $thumbnail_url, 'url' => $url, 'title' => $title, 'date' => $date), array( 'ID' => $id ) );
+    $wpdb->update( "{$wpdb->prefix}publicationmanager_articles", array('verlag_id' => $verlag_id, 'author_id' => $author_id, 'thumbnail_url' => $thumbnail_url, 'url' => $url, 'english' => $english, 'german' => $german, 'title' => $title, 'date' => $date), array( 'ID' => $id ) );
 }
 if($articleChangeId !== null) {
-    editSingleArticle($articleChangeId, $_POST['title'], $_POST['date'], $_POST['verlag_id'], $_POST['article_id'], $_POST['thumbnail_url'],$_POST['url']);
+    isset($_POST['english']) && $_POST['english'] === "isEnglish" ? $english = 1 : $english = 0;
+    isset($_POST['german']) && $_POST['german'] === "isGerman"? $german = 1 : $german = 0;
+    editSingleArticle($articleChangeId, $_POST['title'], $_POST['date'], $_POST['verlag_id'], $_POST['author_id'], $_POST['thumbnail_url'],$_POST['url'], $english, $german);
 }
 
 ?>
@@ -55,7 +57,7 @@ if($articleChangeId !== null) {
     <?php $article = getSinglearticle($articleEditId);?>
     <script type="text/javascript">
         jQuery(window).load(function(){
-            tb_show('Edit', '#TB_inline?width=600&height=600&inlineId=articles-edit', false);
+            tb_show('Edit', '#TB_inline?width=600&height=650&inlineId=articles-edit', false);
             $(window).bind('tb_unload', function () {
                 history.pushState({}, "articles", window.location.href.split('&')[0]);
             });
@@ -65,7 +67,7 @@ if($articleChangeId !== null) {
     <div id="articles-edit" class="hidden">
         <h2 class="edit-header"><?php $article->title ?></h2>
         <div class="articles-form-wrapper form-wrapper">
-            <form action="admin.php?page=buecher&action=change" method="POST">
+            <form action="admin.php?page=beitraege&action=change" method="POST">
                 <div class="form-group">
                     <?php echo Formbuilder::addInput("title", "text", "articles-input", "title-input", "Titel", $article->title); ?>
                 </div>
@@ -79,7 +81,7 @@ if($articleChangeId !== null) {
                             array_push($articlesSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
                         }
                     }
-                    echo Formbuilder::addSelect($articlesSelect, "article", null, "article");
+                    echo Formbuilder::addSelect($articlesSelect, "author_id", null, "article");
                     ?>
                 </div>
                 <div class="form-group">
@@ -92,7 +94,7 @@ if($articleChangeId !== null) {
                             array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
                         }
                     }
-                    echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+                    echo Formbuilder::addSelect($verlageList,"verlag_id", null,"Verlag");
                     ?>
                 </div>
                 <div class="form-group">
@@ -101,7 +103,7 @@ if($articleChangeId !== null) {
                         <img class='image-preview' src='<?php echo $article->thumbnail_url !== null || $article->thumbnail_url !== "" ? $article->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg' ?>' width='100' height='100' style='max-height: 100px; width: 100px;'>
                     </div>
                     <?php echo Formbuilder::addInput("upload_article_img", "button", "file_upload_button img-prev", "3", null, "Upload image"); ?>
-                    <?php echo Formbuilder::addInput("thumbnailUrl", "hidden", "url_value", null, null, $article->thumbnail_url !== null || $article->thumbnail_url !== "" ? $article->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg');?>
+                    <?php echo Formbuilder::addInput("thumbnail_url", "hidden", "url_value", null, null, $article->thumbnail_url !== null || $article->thumbnail_url !== "" ? $article->thumbnail_url : 'https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg');?>
 
                 </div>
                 <div class="form-group">
@@ -123,8 +125,15 @@ if($articleChangeId !== null) {
                     </label>
                 </div>
                 <div class="form-group">
+                    <?php echo Formbuilder::addInput("english", "checkbox", "pm-checkbox", null, "English", "isEnglish", boolval($article->english) ? true : false); ?>
+                </div>
+                <div class="form-group">
+                    <?php echo Formbuilder::addInput("german", "checkbox", "pm-checkbox", null, "German", "isGerman", boolval($article->german) ? true : false); ?>
+                </div>
+                <div class="form-group">
                     <?php echo Formbuilder::addInput("submit", "submit", "publication-button", "submit_articles", null, "Submit"); ?>
                 </div>
+                <input type="hidden" name="change_id" value="<?php echo $article->ID; ?>">
             </form>
         </div>
     </div>

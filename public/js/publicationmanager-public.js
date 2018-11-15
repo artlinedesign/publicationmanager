@@ -29,10 +29,21 @@
 	 * practising this, we should strive to set a better example in our own work.
 	 */
     $( window ).load(function() {
+        let currentUrl = window.location.href.split('/');
+        currentUrl = currentUrl[currentUrl.length-1];
 		if($('.publications-viewer').length > 0){
-            renderPublicationsAmount();
+		    console.log(currentUrl);
+		    if(currentUrl.indexOf('publication') !== -1){
+		        console.log("hier");
+                if(currentUrl.indexOf('?') !== -1){
+                    history.pushState({}, "publications", "?publication=");
+                }else {
+                    history.pushState({}, "publications", "&publication=");
+                }
+            }
             $('.publication-pagination-btn').on("click", function(){
                 let site = $(this).data('site');
+
                 $.ajax({
                     method: "POST",
                     url: window.location.pathname,
@@ -56,12 +67,14 @@
                     $('#pp-prev').data('site', site - 1);
                     $('#pp-next').data('site', site + 1);
                     renderPublicationsAmount(site);
+                    let pushStateRegex = /publications=[0-9][0-9]*/gi;
+                    console.log(window.location.href.replace( pushStateRegex, "publications=" + site));
+                    history.pushState({}, "publications", window.location.href.replace( pushStateRegex, "publications=" + site));
                 });
             });
         }
 
         if($('.articles-viewer').length > 0) {
-            renderArticlesAmount();
             $('.article-pagination-btn').on("click", function () {
                 let site = $(this).data('site');
                 $.ajax({
@@ -87,6 +100,8 @@
                     $('#ap-prev').data('site', site - 1);
                     $('#ap-next').data('site', site + 1);
                     renderArticlesAmount(site);
+                    let pushStateRegex = /articles=[0-9][0-9]*/gi;
+                    history.pushState({}, "articles", window.location.href.replace( pushStateRegex, "articles=" + site));
                 });
             });
         }

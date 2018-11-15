@@ -4,13 +4,16 @@
 
 class Formbuilder {
 
-  static function addInput ($name=null, $type='text', $class=null, $id=null, $label=null, $value=null) {
+  static function addInput ($name=null, $type='text', $class=null, $id=null, $label=null, $value=null, $checked = false) {
 
     $input = "";
     if($label !== null){
       $input = $input . "<label for='" . $name . "'><span class='form-group-label'>" . $label ."</span>";
     }
-    $input = $input . "<input type='". $type ."' name='". $name ."' value='". $value ."' class='". $class ."' id='" . $id . "'>";
+    $input = $input . "<input type='". $type ."' name='". $name ."' value='". $value ."' class='". $class ."' id='" . $id . "'";
+    $input = $checked === true ? $input .'checked' : $input . '';
+    $input = $input . ">";
+
     if($label !== null){
       $input = $input . "</label>";
     }

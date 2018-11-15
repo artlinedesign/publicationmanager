@@ -29,6 +29,13 @@
 	 */
 
 	$( window ).load(function() {
+
+        if($('.notice.notice-success').length > 0 ){
+            setTimeout(function(){
+                $('.notice.notice-success').fadeOut("slow");
+            },2000);
+        }
+
         $('.create-toggle').on("click", function(){
         	let form = $(this).siblings();
         	let arrowSpan = $(this).children();
