@@ -32,18 +32,15 @@
         let currentUrl = window.location.href.split('/');
         currentUrl = currentUrl[currentUrl.length-1];
 		if($('.publications-viewer').length > 0){
-		    console.log(currentUrl);
-		    if(currentUrl.indexOf('publication') !== -1){
-		        console.log("hier");
-                if(currentUrl.indexOf('?') !== -1){
-                    history.pushState({}, "publications", "?publication=");
+		    if(currentUrl.indexOf('publications') === -1){
+                if(currentUrl.indexOf('?') === -1){
+                    history.pushState({}, "publications", "?publications=1");
                 }else {
-                    history.pushState({}, "publications", "&publication=");
+                    history.pushState({}, "publications", "&publications=1");
                 }
             }
             $('.publication-pagination-btn').on("click", function(){
                 let site = $(this).data('site');
-
                 $.ajax({
                     method: "POST",
                     url: window.location.pathname,
@@ -68,13 +65,22 @@
                     $('#pp-next').data('site', site + 1);
                     renderPublicationsAmount(site);
                     let pushStateRegex = /publications=[0-9][0-9]*/gi;
-                    console.log(window.location.href.replace( pushStateRegex, "publications=" + site));
                     history.pushState({}, "publications", window.location.href.replace( pushStateRegex, "publications=" + site));
+
                 });
             });
         }
 
         if($('.articles-viewer').length > 0) {
+            let newUrl = window.location.href.split('/');
+            newUrl = newUrl[newUrl.length-1];
+            if(newUrl.indexOf('articles') === -1){
+                if(newUrl.indexOf('?') === -1){
+                    history.pushState({}, "articles", "?articles=1");
+                }else {
+                    history.pushState({}, "articles", window.location.href + "&articles=1");
+                }
+            }
             $('.article-pagination-btn').on("click", function () {
                 let site = $(this).data('site');
                 $.ajax({

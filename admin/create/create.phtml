@@ -7,6 +7,7 @@
  */
 $authors = getAuthorsList();
 $verlage = getVerlageList();
+
 $mode = isset($_GET['mode']) ? $_GET['mode'] : '';
 
 if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['submit']) && $_POST['submit'] === 'Submit')){
@@ -50,7 +51,6 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
         </form>
     </div>
 </div>
-
 <div class="books-section create-section">
     <h2 class="create-toggle"><?php _e('Books'); ?> <span class="dashicons dashicons-arrow-<?= $mode === 'books' ? 'down' : 'right' ?>-alt2"></span></h2>
     <div class="books-form-wrapper form-wrapper <?= $mode === 'books' ? '' : 'hidden' ?>">
@@ -58,22 +58,22 @@ if((isset($_GET['action']) && $_GET['action'] === 'create') && (isset($_POST['su
             <div class="form-group">
                 <?php echo Formbuilder::addInput("title", "text", "books-input", "title-input", "Titel"); ?>
             </div>
-            <div class="form-group">
+            <div class="form-group" id="reloadTest">
             <?php
-            $authorsSelect = [];
-            foreach($authors as $a){
-                array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " .$a['lastname'] ]);
-            }
-            echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
+                $authorsSelect = [];
+                foreach ($authors as $a) {
+                    array_push($authorsSelect, ['value' => $a['ID'], 'text' => $a['title'] . " " . $a['firstname'] . " " . $a['lastname']]);
+                }
+                echo Formbuilder::addSelect($authorsSelect, "author", null, "Author");
             ?>
             </div>
             <div class="form-group">
             <?php
-            $verlageList = [];
-            foreach($verlage as $v){
-                array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
-            }
-            echo Formbuilder::addSelect($verlageList,"verlag", null,"Verlag");
+                $verlageList = [];
+                foreach ($verlage as $v) {
+                    array_push($verlageList, ['value' => $v['ID'], 'text' => $v['name']]);
+                }
+                echo Formbuilder::addSelect($verlageList, "verlag", null, "Verlag");
             ?>
             </div>
 

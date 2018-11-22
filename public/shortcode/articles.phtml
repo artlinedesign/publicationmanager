@@ -21,10 +21,10 @@ function articlesShortcode(){
 
         <?php endforeach; ?>
     </ul>
-    <a class="article-pagination-btn dashicons dashicons dashicons-arrow-left-alt <?php echo count($articles) < 5 ? 'hidden' : '' ?>" id="ap-start" data-site="1"></a>
-    <a class="article-pagination-btn dashicons dashicons-arrow-left-alt2 hidden" id="ap-prev" data-site=""></a>
-    <span id="articles-page-indicator"><?php echo $site; ?> von <?php echo $amount; ?></span>
-    <a class="article-pagination-btn dashicons dashicons-arrow-right-alt2 <?php echo $amount < 5 ? 'hidden' : '' ?>" id="ap-next" data-site="<?php echo $amount > 5 ? '2' : '' ?>"></a>
+    <a class="article-pagination-btn dashicons dashicons dashicons-arrow-left-alt" id="ap-start" data-site="1"></a>
+    <a class="article-pagination-btn dashicons dashicons-arrow-left-alt2 <?php echo $site > 1 ? '' : 'hidden';?>" id="ap-prev" data-site="<?php echo $site - 1; ?>"></a>
+    <span id="articles-page-indicator"><?php echo $site; ?> von <?php echo ceil($amount / 5); ?></span>
+    <a class="article-pagination-btn dashicons dashicons-arrow-right-alt2 <?php echo $amount < 5 ? 'hidden' : '' ?>" id="ap-next" data-site="<?php echo $amount > 5 ? $site + 1 : '' ?>"></a>
     <a class="article-pagination-btn dashicons dashicons dashicons-arrow-right-alt <?php echo $amount < 5 ? 'hidden' : '' ?>" id="ap-end" data-site="<?php echo ceil(getArticlesEntryAmount() / 5); ?>"></a>
 
 </div>
