@@ -2,7 +2,8 @@
 
 
 function booksShortcode(){
-    $books = getAllBooks();
+    $language = get_locale();
+    $books = getAllBooks($language);
     ?>
     <h3><?php echo _e('Books')?></h3>
 <div class="books-viewer">

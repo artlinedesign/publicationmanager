@@ -2,9 +2,11 @@
 
 
 function publicationsShortcode(){
+    $language = get_locale();
     $site = isset($_POST['publications']) ? $_POST['publications'] : 1;
     isset($_GET['publications']) ? $site = intval($_GET['publications']) : null;
-    $publications = getPublications($site === 1 ? 0 : ($site*5) - 5, 5);
+
+    $publications = getPublications($site === 1 ? 0 : ($site*5) - 5, 5, $language);
     $amount = intval(getPublicationEntryAmount());
     ?>
     <h3><?php echo _e('Publications')?></h3>

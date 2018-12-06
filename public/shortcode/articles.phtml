@@ -2,9 +2,10 @@
 
 
 function articlesShortcode(){
+    $language = get_locale();
     $site = isset($_POST['articles']) ? $_POST['articles'] : 1;
     isset($_GET['articles']) ? $site = $_GET['articles'] : null;
-    $articles = getArticles($site === 1 ? 0 : ($site*5) - 5, 5);
+    $articles = getArticles($site === 1 ? 0 : ($site*5) - 5, 5, $language);
     $amount = intval(getArticlesEntryAmount());
     ?>
     <h3><?php echo _e('Articles')?></h3>

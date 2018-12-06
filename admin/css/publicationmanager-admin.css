@@ -95,6 +95,9 @@
 .form-group input, .form-group select {
     min-width: 500px;
 }
+.form-group input[type='radio'] {
+    min-width: auto;
+}
 .form-group-label {
     display:block;
     margin-bottom: 5px;

@@ -120,6 +120,11 @@ function createAuthor() {
         return;
     }
 
+    if(strlen($title < 2)){
+        showAdminErrorMessage( "The inserted title is too short");
+        return;
+    }
+
     if(checkAuthorDuplicates($firstname, $lastname)){
         showAdminErrorMessage('Author already exists.');
         return;
@@ -308,10 +313,22 @@ function checkVerlagDuplicates($name) {
     return false;
 }
 
-function getPublications($start = 0, $amount = 5) {
+function getPublications($start = 0, $amount = 5, $language) {
     global $wpdb;
 
-    $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id LIMIT " . $start . ", ". $amount;
+    switch($language){
+        case "de_DE":
+            $language = "german";
+            break;
+        case "en_EN":
+            $language = "english";
+            break;
+        default:
+            $language = "german";
+    }
+
+
+    $sql = "SELECT {$wpdb->prefix}publicationmanager_publications.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url, date, {$wpdb->prefix}publicationmanager_publications.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_publications LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id WHERE ". $language ." = 1 LIMIT " . $start . ", ". $amount;
 
 
     $publications = $wpdb->get_results( $sql, 'ARRAY_A' );
@@ -319,6 +336,8 @@ function getPublications($start = 0, $amount = 5) {
     return $publications;
 
 }
+
+
 
 function getPublicationEntryAmount(){
     global $wpdb;
@@ -333,10 +352,21 @@ function getPublicationEntryAmount(){
 
 }
 
-function getArticles($start = 0, $amount = 5) {
+function getArticles($start = 0, $amount = 5, $language) {
     global $wpdb;
 
-    $sql = "SELECT {$wpdb->prefix}publicationmanager_articles.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url,date, {$wpdb->prefix}publicationmanager_articles.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_articles LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id LIMIT " . $start . ", ". $amount;
+    switch($language){
+        case "de_DE":
+            $language = "german";
+            break;
+        case "en_EN":
+            $language = "english";
+            break;
+        default:
+            $language = "german";
+    }
+
+    $sql = "SELECT {$wpdb->prefix}publicationmanager_articles.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url,date, {$wpdb->prefix}publicationmanager_articles.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_articles LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id WHERE ". $language ." = 1 LIMIT " . $start . ", ". $amount;
 
 
     $publications = $wpdb->get_results( $sql, 'ARRAY_A' );
@@ -358,10 +388,21 @@ function getArticlesEntryAmount(){
 
 }
 
-function getAllBooks() {
+function getAllBooks($language) {
     global $wpdb;
 
-    $sql = "SELECT {$wpdb->prefix}publicationmanager_books.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url,edition, {$wpdb->prefix}publicationmanager_books.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_books LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id";
+    switch($language){
+        case "de_DE":
+            $language = "german";
+            break;
+        case "en_EN":
+            $language = "english";
+            break;
+        default:
+            $language = "german";
+    }
+
+    $sql = "SELECT {$wpdb->prefix}publicationmanager_books.ID,{$wpdb->prefix}publicationmanager_authors.title AS author_title, {$wpdb->prefix}publicationmanager_authors.firstname, {$wpdb->prefix}publicationmanager_authors.lastname, url,thumbnail_url,edition, {$wpdb->prefix}publicationmanager_books.title, {$wpdb->prefix}publicationmanager_verlage.name AS verlag FROM {$wpdb->prefix}publicationmanager_books LEFT JOIN {$wpdb->prefix}publicationmanager_authors ON author_id = {$wpdb->prefix}publicationmanager_authors.id LEFT JOIN {$wpdb->prefix}publicationmanager_verlage ON verlag_id = {$wpdb->prefix}publicationmanager_verlage.id WHERE ". $language ." = 1";
 
 
     $publications = $wpdb->get_results( $sql, 'ARRAY_A' );
@@ -369,5 +410,6 @@ function getAllBooks() {
     return $publications;
 
 }
+
 
 ?>
