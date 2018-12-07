@@ -104,10 +104,239 @@ function publicationmanager(){
 
 
 
+/**
+ * Register custom post type 
+ *
+ * Authors
+ * @name	Authors
+ * @type    authors
+ * @slug	auhtors
+ */
+
+ function registerAuthor() {
+	$labels = array(
+		'name'               => _x( 'Authors', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'author', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'Authors', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'author', 'add new on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Add New', 'author', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Add New author', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'New author', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Edit author', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'View author', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'All Authors', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Search Authors', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent Authors:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'No Authors found.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'No Authors found in Trash.', 'your-plugin-textdomain' )
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => false, //<--- HERE
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'authors' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'thumbnail' )
+	);
+
+	register_post_type( 'authors', $args );
+}
+
+add_action( 'init', 'registerAuthor' );
+
+
+/**
+ * Register custom post type 
+ *
+ * Books
+ * @name	Books
+ * @type    books
+ * @slug	books
+ */
+function registerBooks() {
+	$labels = array(
+		'name'               => _x( 'Books', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'Book', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'Books', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'Book', 'add new on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Add New', 'Book', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Add New Book', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'New Book', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Edit Book', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'View Book', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'All Books', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Search Books', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent Books:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'No Books found.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'No Books found in Trash.', 'your-plugin-textdomain' )
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => false, //<--- HERE
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'books' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'thumbnail' )
+	);
+
+	register_post_type( 'books', $args );
+}
+
+add_action( 'init', 'registerBooks' );
 
 
 
+/**
+ * Register custom post type 
+ *
+ * Publications
+ * @name	Publications
+ * @type    publicaitons
+ * @slug	publications
+ */
+function registerPublications() {
+	$labels = array(
+		'name'               => _x( 'Publications', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'Publication', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'Publications', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'Publication', 'add new on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Add New', 'Publication', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Add New Publication', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'New Publication', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Edit Publication', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'View Publication', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'All Publications', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Search Publications', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent Publications:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'No Publications found.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'No Publications found in Trash.', 'your-plugin-textdomain' )
+	);
 
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => false, //<--- HERE
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'publications' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'thumbnail' )
+	);
+
+	register_post_type( 'publications', $args );
+}
+
+add_action( 'init', 'registerPublications' );
+
+/**
+ * Register custom post type 
+ *
+ * Articles
+ * @name	Articles
+ * @type    articles
+ * @slug	articles
+ */
+function registerArticles() {
+	$labels = array(
+		'name'               => _x( 'Articles', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'Article', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'Articles', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'Article', 'add new on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Add New', 'Article', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Add New Article', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'New Article', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Edit Article', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'View Article', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'All Articles', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Search Articles', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent Articles:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'No Articles found.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'No Articles found in Trash.', 'your-plugin-textdomain' )
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => false, //<--- HERE
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'articles' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor', 'author', 'thumbnail' )
+	);
+
+	register_post_type( 'articles', $args );
+}
+
+add_action( 'init', 'registerArticles' );
+
+/**
+ * Register custom post type 
+ *
+ * Publisher
+ * @name	Publisher
+ * @type    publisher
+ * @slug	publisher
+ */
+function registerPublisher() {
+	$labels = array(
+		'name'               => _x( 'Publishers', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'Publisher', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'Publishers', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'Publisher', 'add new on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Add New', 'Publisher', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Add New Publisher', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'New Publisher', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Edit Publisher', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'View Publisher', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'All Publishers', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Search Publishers', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent Publishers:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'No Publishers found.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'No Publishers found in Trash.', 'your-plugin-textdomain' )
+	);
+
+	$args = array(
+		'labels'             => $labels,
+		'public'             => true,
+		'publicly_queryable' => true,
+		'show_ui'            => true,
+		'show_in_menu'       => false, //<--- HERE
+		'query_var'          => true,
+		'rewrite'            => array( 'slug' => 'publishers' ),
+		'capability_type'    => 'post',
+		'has_archive'        => true,
+		'hierarchical'       => false,
+		'menu_position'      => null,
+		'supports'           => array( 'title', 'editor' )
+	);
+
+	register_post_type( 'publishers', $args );
+}
+
+add_action( 'init', 'registerPublisher' );
 
 
 
