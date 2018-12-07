@@ -13,7 +13,7 @@
  * @package           Publicationmanager
  *
  * @wordpress-plugin
- * Plugin Name:       Publication Manager
+ * Plugin Name:       Publication Manager v2
  * Plugin URI:        https://www.artline-design.at
  * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
  * Version:           1.0.0
