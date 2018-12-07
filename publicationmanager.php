@@ -325,7 +325,7 @@ function registerPublisher() {
 		'show_ui'            => true,
 		'show_in_menu'       => false, //<--- HERE
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'publishers' ),
+		'rewrite'            => array( 'slug' => 'publisher' ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
@@ -333,7 +333,7 @@ function registerPublisher() {
 		'supports'           => array( 'title', 'editor' )
 	);
 
-	register_post_type( 'publishers', $args );
+	register_post_type( 'publisher', $args );
 }
 
 add_action( 'init', 'registerPublisher' );
