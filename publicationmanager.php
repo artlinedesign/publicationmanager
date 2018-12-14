@@ -89,12 +89,14 @@ run_publicationmanager();
 
 
 // Add Plugin into Admin Menu
+
+
 add_action('admin_menu', 'publicationmanager');
 
+
+
 function publicationmanager(){
-
-	add_menu_page('CM', 'CM', 'manage_options', 'cm', 'init' );
-
+	add_menu_page('CM', 'CM', 'manage_options', 'cm', 'init', 'dashicons-portfolio', 65);
 	add_submenu_page('cm', 'Autoren', 'Autoren', 'manage_options', 'edit.php?post_type=authors', NULL );
 	add_submenu_page('cm', 'Bücher', 'Bücher', 'manage_options', 'edit.php?post_type=books', NULL );
 	add_submenu_page('cm', 'Publikationen', 'Publikationen', 'manage_options', 'edit.php?post_type=publications', NULL );
@@ -190,7 +192,7 @@ function registerBooks() {
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => null,
-		'supports'           => array( 'title', 'editor', 'thumbnail' )
+		'supports'           => array( 'thumbnail' )
 	);
 
 	register_post_type( 'books', $args );
@@ -337,6 +339,273 @@ function registerPublisher() {
 }
 
 add_action( 'init', 'registerPublisher' );
+
+
+
+
+
+
+add_action ('init', 'booksField');
+
+
+
+// ADD CUSTOM POST TYPE TAXONOMIES 
+function cptui_register_my_taxes() {
+
+	/**
+	 * Taxonomy: books.
+	 */
+
+	$labels = array(
+		"name" => __( "books", "Avada" ),
+		"singular_name" => __( "book", "Avada" ),
+	);
+
+	$args = array(
+		"label" => __( "books", "Avada" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'books', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "books",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "books", array( "books" ), $args );
+
+	/**
+	 * Taxonomy: Autoren.
+	 */
+
+	$labels = array(
+		"name" => __( "Autoren", "Avada" ),
+		"singular_name" => __( "autor", "Avada" ),
+	);
+
+	$args = array(
+		"label" => __( "Autoren", "Avada" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'authors', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "authors",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "authors", array( "authors" ), $args );
+
+	/**
+	 * Taxonomy: Verläge.
+	 */
+
+	$labels = array(
+		"name" => __( "Verläge", "Avada" ),
+		"singular_name" => __( "verlag", "Avada" ),
+	);
+
+	$args = array(
+		"label" => __( "Verläge", "Avada" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'verlag', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "verlag",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "verlag", array( "publisher" ), $args );
+
+	/**
+	 * Taxonomy: Artikeln.
+	 */
+
+	$labels = array(
+		"name" => __( "Artikeln", "Avada" ),
+		"singular_name" => __( "Artikel", "Avada" ),
+	);
+
+	$args = array(
+		"label" => __( "Artikeln", "Avada" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => false,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'articles', 'with_front' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => true,
+		"rest_base" => "articles",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "articles", array( "articles" ), $args );
+}
+add_action( 'init', 'cptui_register_my_taxes' );
+
+
+
+
+
+
+
+if( function_exists('acf_add_local_field_group') ):
+
+	acf_add_local_field_group(array(
+		'key' => 'group_5c0a6ca5397c3',
+		'title' => 'Books',
+		'fields' => array(
+			array(
+				'key' => 'field_5c0a6cb784af2',
+				'label' => 'Buchtitel',
+				'name' => 'buchtitel',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 1,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_5c0a6d0484af3',
+				'label' => 'Auflage',
+				'name' => 'auflage',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_5c0a6d3084af4',
+				'label' => 'Verlag',
+				'name' => 'verlag',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 1,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_5c0a6d3d84af5',
+				'label' => 'Autor',
+				'name' => 'autor',
+				'type' => 'text',
+				'instructions' => '',
+				'required' => 1,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'default_value' => '',
+				'placeholder' => '',
+				'prepend' => '',
+				'append' => '',
+				'maxlength' => '',
+			),
+			array(
+				'key' => 'field_5c0a6d5338a3d',
+				'label' => 'Cover',
+				'name' => 'cover',
+				'type' => 'image',
+				'instructions' => '',
+				'required' => 0,
+				'conditional_logic' => 0,
+				'wrapper' => array(
+					'width' => '',
+					'class' => '',
+					'id' => '',
+				),
+				'return_format' => 'url',
+				'preview_size' => 'thumbnail',
+				'library' => 'all',
+				'min_width' => 400,
+				'min_height' => 400,
+				'min_size' => '',
+				'max_width' => 500,
+				'max_height' => 500,
+				'max_size' => 1,
+				'mime_types' => '',
+			),
+		),
+		'location' => array(
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'books',
+				),
+			),
+			array(
+				array(
+					'param' => 'post_type',
+					'operator' => '==',
+					'value' => 'test',
+				),
+			),
+		),
+		'menu_order' => 0,
+		'position' => 'normal',
+		'style' => 'default',
+		'label_placement' => 'top',
+		'instruction_placement' => 'label',
+		'hide_on_screen' => '',
+		'active' => 1,
+		'description' => '',
+	));
+	
+	endif;
 
 
 
