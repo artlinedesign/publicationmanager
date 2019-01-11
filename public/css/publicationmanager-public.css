@@ -2,7 +2,6 @@
  * All of the CSS for your public-facing functionality should be
  * included in this file.
  */
-
 .publications-list, .articles-list {
     list-style: none;
     padding-left: 0;
@@ -83,4 +82,145 @@
 }
 .list-content p {
   margin-bottom: 7px !important;
+}
+
+
+
+
+
+
+
+/*
+########################
+########################
+#### LAWYER PROFILE ####
+########################
+########################
+  */
+
+#lawyer-profile {
+  border: 1px dotted black;
+}
+
+.lawyer-id {
+  border: 1px dotted blue;
+  padding: 20px;
+}
+
+.lawyer-id h1 {
+  position: relative !important;
+  float: left !important;
+  margin-bottom: 2px !important;
+  color: #000 !important;
+  font-size: 22px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.4;
+
+}
+
+.lawyer-id h1::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: -2px !important;
+  left: 0 !important;
+  right: 0 !important;
+  height: 5px !important;
+  background-color: #005da4 !important;
+}
+
+.lawyer-info {
+  border: 1px dotted green;
+  padding: 20px;
+}
+
+.mail-backoffice {
+  margin-top: 40px;
+  list-style: none;
+  padding-left: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.mail-backoffice p {
+  margin: 0;
+  padding: 0;
+}
+
+
+/* Books */
+.books-modul{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.books-modul ul {
+  list-style: none;
+}
+
+/* Publikationen */
+
+.pubs-modul-wrapper, .articles-modul-wrapper {
+  margin: 20px;
+  border: 1px dotted tomato;
+  display: flex;
+  align-items: center;
+}
+
+.pubs-modul-wrapper a {
+  display: flex;
+}
+
+.pub-list p, .article-list p {
+  margin:0;
+}
+
+.pubs-modul img, .articles-modul img {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+
+/* TEAM */
+
+#btp-team {
+  border: 2px dotted fuchsia;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: start;
+}
+.lawyer-id-team {
+  width: 200px;
+  margin: 0 25px 0 0;
+}
+.lawyer-id-team p {
+  margin: 0!important;
+}
+
+.lawyer-name-team {
+  color: #003b9b;
+}
+
+
+@media screen and (min-width: 550px) {
+
+  #lawyer-profile {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .lawyer-id {
+    width: 30%;
+
+  }
+
+  .lawyer-info {
+    width: 70%;
+
+  }
+
 }

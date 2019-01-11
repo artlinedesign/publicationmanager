@@ -82,7 +82,7 @@ function run_publicationmanager() {
 run_publicationmanager();
 
 
-//  #### NEW 
+//  #### NEW
 //  ###
 //	###
 
@@ -97,7 +97,7 @@ add_action('admin_menu', 'publicationmanager');
 
 function publicationmanager(){
 	add_menu_page('CM', 'CM', 'manage_options', 'cm', 'init', 'dashicons-portfolio', 65);
-	add_submenu_page('cm', 'Autoren', 'Autoren', 'manage_options', 'edit.php?post_type=authors', NULL );
+	add_submenu_page('cm', 'Anwälte', 'Anwälte', 'manage_options', 'edit.php?post_type=lawyers', NULL );
 	add_submenu_page('cm', 'Bücher', 'Bücher', 'manage_options', 'edit.php?post_type=books', NULL );
 	add_submenu_page('cm', 'Publikationen', 'Publikationen', 'manage_options', 'edit.php?post_type=publications', NULL );
 	add_submenu_page('cm', 'Beiträge', 'Beiträge', 'manage_options', 'edit.php?post_type=articles', NULL );
@@ -107,30 +107,30 @@ function publicationmanager(){
 
 
 /**
- * Register custom post type 
+ * Register custom post type
  *
- * Authors
- * @name	Authors
- * @type    authors
- * @slug	auhtors
+ * Lawyers
+ * @name	Anwälte
+ * @type    lawyers
+ * @slug	lawyers
  */
 
- function registerAuthor() {
+ function registerLawyer() {
 	$labels = array(
-		'name'               => _x( 'Authors', 'post type general name', 'your-plugin-textdomain' ),
-		'singular_name'      => _x( 'author', 'post type singular name', 'your-plugin-textdomain' ),
-		'menu_name'          => _x( 'Authors', 'admin menu', 'your-plugin-textdomain' ),
-		'name_admin_bar'     => _x( 'author', 'add new on admin bar', 'your-plugin-textdomain' ),
-		'add_new'            => _x( 'Add New', 'author', 'your-plugin-textdomain' ),
-		'add_new_item'       => __( 'Add New author', 'your-plugin-textdomain' ),
-		'new_item'           => __( 'New author', 'your-plugin-textdomain' ),
-		'edit_item'          => __( 'Edit author', 'your-plugin-textdomain' ),
-		'view_item'          => __( 'View author', 'your-plugin-textdomain' ),
-		'all_items'          => __( 'All Authors', 'your-plugin-textdomain' ),
-		'search_items'       => __( 'Search Authors', 'your-plugin-textdomain' ),
-		'parent_item_colon'  => __( 'Parent Authors:', 'your-plugin-textdomain' ),
-		'not_found'          => __( 'No Authors found.', 'your-plugin-textdomain' ),
-		'not_found_in_trash' => __( 'No Authors found in Trash.', 'your-plugin-textdomain' )
+		'name'               => _x( 'Anwälte', 'post type general name', 'your-plugin-textdomain' ),
+		'singular_name'      => _x( 'Anwalt', 'post type singular name', 'your-plugin-textdomain' ),
+		'menu_name'          => _x( 'Anwälte', 'admin menu', 'your-plugin-textdomain' ),
+		'name_admin_bar'     => _x( 'Anwalt', 'Hinzufügen on admin bar', 'your-plugin-textdomain' ),
+		'add_new'            => _x( 'Hinzufügen', 'Anwalt', 'your-plugin-textdomain' ),
+		'add_new_item'       => __( 'Anwalt anlegen', 'your-plugin-textdomain' ),
+		'new_item'           => __( 'Neuer Anwalt', 'your-plugin-textdomain' ),
+		'edit_item'          => __( 'Anwalt bearbeiten', 'your-plugin-textdomain' ),
+		'view_item'          => __( 'Anwalt ansehen', 'your-plugin-textdomain' ),
+		'all_items'          => __( 'Alle Anwälte', 'your-plugin-textdomain' ),
+		'search_items'       => __( 'Suche Anwälte', 'your-plugin-textdomain' ),
+		'parent_item_colon'  => __( 'Parent Anwälte:', 'your-plugin-textdomain' ),
+		'not_found'          => __( 'Keine Anwälte gefunde.', 'your-plugin-textdomain' ),
+		'not_found_in_trash' => __( 'Keine Anwälte im Papierkorb gefunden.', 'your-plugin-textdomain' )
 	);
 
 	$args = array(
@@ -140,22 +140,22 @@ function publicationmanager(){
 		'show_ui'            => true,
 		'show_in_menu'       => false, //<--- HERE
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => 'authors' ),
+		'rewrite'            => array( 'slug' => 'lawyers' ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,
 		'menu_position'      => null,
-		'supports'           => array( 'title', 'editor', 'thumbnail' )
+		'supports'           => array( 'title', 'thumbnail', 'custom-fields', 'page-attributes')
 	);
 
-	register_post_type( 'authors', $args );
+	register_post_type( 'lawyers', $args );
 }
 
-add_action( 'init', 'registerAuthor' );
+add_action( 'init', 'registerLawyer' );
 
 
 /**
- * Register custom post type 
+ * Register custom post type
  *
  * Books
  * @name	Books
@@ -203,7 +203,7 @@ add_action( 'init', 'registerBooks' );
 
 
 /**
- * Register custom post type 
+ * Register custom post type
  *
  * Publications
  * @name	Publications
@@ -249,7 +249,7 @@ function registerPublications() {
 add_action( 'init', 'registerPublications' );
 
 /**
- * Register custom post type 
+ * Register custom post type
  *
  * Articles
  * @name	Articles
@@ -295,7 +295,7 @@ function registerArticles() {
 add_action( 'init', 'registerArticles' );
 
 /**
- * Register custom post type 
+ * Register custom post type
  *
  * Publisher
  * @name	Publisher
@@ -349,7 +349,7 @@ add_action ('init', 'booksField');
 
 
 
-// ADD CUSTOM POST TYPE TAXONOMIES 
+// ADD CUSTOM POST TYPE TAXONOMIES
 function cptui_register_my_taxes() {
 
 	/**
@@ -379,34 +379,6 @@ function cptui_register_my_taxes() {
 		"show_in_quick_edit" => false,
 		);
 	register_taxonomy( "books", array( "books" ), $args );
-
-	/**
-	 * Taxonomy: Autoren.
-	 */
-
-	$labels = array(
-		"name" => __( "Autoren", "Avada" ),
-		"singular_name" => __( "autor", "Avada" ),
-	);
-
-	$args = array(
-		"label" => __( "Autoren", "Avada" ),
-		"labels" => $labels,
-		"public" => true,
-		"publicly_queryable" => true,
-		"hierarchical" => false,
-		"show_ui" => true,
-		"show_in_menu" => true,
-		"show_in_nav_menus" => true,
-		"query_var" => true,
-		"rewrite" => array( 'slug' => 'authors', 'with_front' => true, ),
-		"show_admin_column" => false,
-		"show_in_rest" => true,
-		"rest_base" => "authors",
-		"rest_controller_class" => "WP_REST_Terms_Controller",
-		"show_in_quick_edit" => false,
-		);
-	register_taxonomy( "authors", array( "authors" ), $args );
 
 	/**
 	 * Taxonomy: Verläge.
@@ -463,6 +435,62 @@ function cptui_register_my_taxes() {
 		"show_in_quick_edit" => false,
 		);
 	register_taxonomy( "articles", array( "articles" ), $args );
+
+	/**
+	 * Taxonomy: Bücherkategorien.
+	 */
+
+	$labels = array(
+		"name" => __( "Bücherkategorien", "Avada" ),
+		"singular_name" => __( "Bücherkategorie", "Avada" ),
+	);
+
+	$args = array(
+		"label" => __( "Bücherkategorien", "Avada" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'books_category', 'with_front' => true,  'hierarchical' => true, ),
+		"show_admin_column" => false,
+		"show_in_rest" => false,
+		"rest_base" => "books_category",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => false,
+		);
+	register_taxonomy( "books_category", array( "books" ), $args );
+
+	/**
+	 * Taxonomy: Anwälte-Position.
+	 */
+
+	$labels = array(
+		"name" => __( "Anwälte-Position", "Avada" ),
+		"singular_name" => __( "Anwalt-Position", "Avada" ),
+	);
+
+	$args = array(
+		"label" => __( "Anwälte-Position", "Avada" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'anwalt_position', 'with_front' => true, ),
+		"show_admin_column" => true,
+		"show_in_rest" => true,
+		"rest_base" => "anwalt_position",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => true,
+		);
+	register_taxonomy( "anwalt_position", array( "lawyers" ), $args );
 }
 add_action( 'init', 'cptui_register_my_taxes' );
 
@@ -474,142 +502,869 @@ add_action( 'init', 'cptui_register_my_taxes' );
 
 if( function_exists('acf_add_local_field_group') ):
 
-	acf_add_local_field_group(array(
-		'key' => 'group_5c0a6ca5397c3',
-		'title' => 'Books',
-		'fields' => array(
-			array(
-				'key' => 'field_5c0a6cb784af2',
-				'label' => 'Buchtitel',
-				'name' => 'buchtitel',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 1,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
+acf_add_local_field_group(array(
+	'key' => 'group_5c18dbb5789aa',
+	'title' => 'Anwalt',
+	'fields' => array(
+		array(
+			'key' => 'field_5c36f82db1f08',
+			'label' => 'Portrait',
+			'name' => 'portrait',
+			'type' => 'image',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
 			),
-			array(
-				'key' => 'field_5c0a6d0484af3',
-				'label' => 'Auflage',
-				'name' => 'auflage',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
+			'return_format' => 'url',
+			'preview_size' => 'thumbnail',
+			'library' => 'all',
+			'min_width' => '',
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => 800,
+			'max_height' => 800,
+			'max_size' => '0.5',
+			'mime_types' => 'jpg, png',
+		),
+		array(
+			'key' => 'field_5c18dbc429026',
+			'label' => 'Akademischer Titel vorangestellt',
+			'name' => 'akademischer_titel',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
 			),
-			array(
-				'key' => 'field_5c0a6d3084af4',
-				'label' => 'Verlag',
-				'name' => 'verlag',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 1,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => 50,
+		),
+		array(
+			'key' => 'field_5c18dbf529027',
+			'label' => 'Vorname',
+			'name' => 'vorname',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
 			),
-			array(
-				'key' => 'field_5c0a6d3d84af5',
-				'label' => 'Autor',
-				'name' => 'autor',
-				'type' => 'text',
-				'instructions' => '',
-				'required' => 1,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'default_value' => '',
-				'placeholder' => '',
-				'prepend' => '',
-				'append' => '',
-				'maxlength' => '',
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => 110,
+		),
+		array(
+			'key' => 'field_5c372895ce119',
+			'label' => 'Nachname',
+			'name' => 'nachname',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
 			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => 110,
+		),
+		array(
+			'key' => 'field_5c18dc3b29028',
+			'label' => 'Titel nachgestellt',
+			'name' => 'titel_nachgestellt',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => 80,
+		),
+		array(
+			'key' => 'field_5c36e7fc73cf6',
+			'label' => 'Position',
+			'name' => 'position',
+			'type' => 'taxonomy',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'taxonomy' => 'anwalt_position',
+			'field_type' => 'radio',
+			'allow_null' => 0,
+			'add_term' => 1,
+			'save_terms' => 1,
+			'load_terms' => 1,
+			'return_format' => 'object',
+			'multiple' => 0,
+		),
+		array(
+			'key' => 'field_5c36e87b73cf7',
+			'label' => 'Fachgebiet',
+			'name' => 'fachgebiet',
+			'type' => 'select',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'choices' => array(
+				'Kapitalmarktrecht' => 'Kapitalmarktrecht',
+				'Bank-, Versicherungs- und Wertpapieraufsichtsrecht' => 'Bank-, Versicherungs- und Wertpapieraufsichtsrecht',
+				'M&A/Unternehmensrecht' => 'M&A/Unternehmensrecht',
+				'Wirtschaftsstrafrecht' => 'Wirtschaftsstrafrecht',
+				'Prozessführung und Schiedsverfahren' => 'Prozessführung und Schiedsverfahren',
+				'Glücksspiel-, Europa und E-Commerce Recht' => 'Glücksspiel-, Europa und E-Commerce Recht',
+				'Compliance' => 'Compliance',
+			),
+			'default_value' => array(
+			),
+			'allow_null' => 0,
+			'multiple' => 0,
+			'ui' => 1,
+			'ajax' => 1,
+			'return_format' => 'value',
+			'placeholder' => '',
+		),
+		array(
+			'key' => 'field_5c36ebdbc8d8a',
+			'label' => 'Lebenslauf',
+			'name' => '',
+			'type' => 'accordion',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'open' => 0,
+			'multi_expand' => 0,
+			'endpoint' => 0,
+		),
+		array(
+			'key' => 'field_5c36f59311130',
+			'label' => 'Intro',
+			'name' => 'intro',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => '',
+			'new_lines' => 'wpautop',
+		),
+		array(
+			'key' => 'field_5c36f5b811131',
+			'label' => 'Berufserfahrung',
+			'name' => 'berufserfahrung',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => 3,
+			'new_lines' => 'wpautop',
+		),
+		array(
+			'key' => 'field_5c36f5d911132',
+			'label' => 'Studium & Ausbildung',
+			'name' => 'studium_&_ausbildung',
+			'type' => 'textarea',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'maxlength' => '',
+			'rows' => 2,
+			'new_lines' => 'wpautop',
+		),
+		array(
+			'key' => 'field_5c36f64393625',
+			'label' => 'Sonstiges',
+			'name' => 'sonstiges',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c36f3703a519',
+			'label' => 'E-Mail',
+			'name' => 'e-mail',
+			'type' => 'email',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+		),
+		array(
+			'key' => 'field_5c36f3913a51a',
+			'label' => 'Backoffice',
+			'name' => '',
+			'type' => 'accordion',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'open' => 0,
+			'multi_expand' => 0,
+			'endpoint' => 0,
+		),
+		array(
+			'key' => 'field_5c36f3f63a51b',
+			'label' => 'Backoffice Name',
+			'name' => 'backoffice_name',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c36f43c9d915',
+			'label' => 'Backoffice E-Mail',
+			'name' => 'backoffice_e-mail',
+			'type' => 'email',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+		),
+		array(
+			'key' => 'field_5c36f4679d917',
+			'label' => 'Backoffice Name 2',
+			'name' => 'backoffice_name_2',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c36f4759d918',
+			'label' => 'Backoffice E-Mail 2',
+			'name' => 'backoffice_e-mail_2',
+			'type' => 'email',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+		),
+		array(
+			'key' => 'field_5c372df126753',
+			'label' => 'Publikationen',
+			'name' => '',
+			'type' => 'accordion',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'open' => 0,
+			'multi_expand' => 0,
+			'endpoint' => 0,
+		),
+		array(
+			'key' => 'field_5c372d173de01',
+			'label' => 'Bücher',
+			'name' => 'buecher',
+			'type' => 'relationship',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'books',
+			),
+			'taxonomy' => '',
+			'filters' => array(
+				0 => 'search',
+				1 => 'post_type',
+				2 => 'taxonomy',
+			),
+			'elements' => '',
+			'min' => '',
+			'max' => '',
+			'return_format' => 'object',
+		),
+	),
+	'location' => array(
+		array(
 			array(
-				'key' => 'field_5c0a6d5338a3d',
-				'label' => 'Cover',
-				'name' => 'cover',
-				'type' => 'image',
-				'instructions' => '',
-				'required' => 0,
-				'conditional_logic' => 0,
-				'wrapper' => array(
-					'width' => '',
-					'class' => '',
-					'id' => '',
-				),
-				'return_format' => 'url',
-				'preview_size' => 'thumbnail',
-				'library' => 'all',
-				'min_width' => 400,
-				'min_height' => 400,
-				'min_size' => '',
-				'max_width' => 500,
-				'max_height' => 500,
-				'max_size' => 1,
-				'mime_types' => '',
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'lawyers',
 			),
 		),
-		'location' => array(
-			array(
-				array(
-					'param' => 'post_type',
-					'operator' => '==',
-					'value' => 'books',
-				),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => array(
+		0 => 'the_content',
+		1 => 'excerpt',
+		2 => 'discussion',
+		3 => 'comments',
+		4 => 'author',
+		5 => 'page_attributes',
+		6 => 'categories',
+		7 => 'tags',
+		8 => 'send-trackbacks',
+	),
+	'active' => 1,
+	'description' => '',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_5c177bb26cfaa',
+	'title' => 'Beitrag',
+	'fields' => array(
+		array(
+			'key' => 'field_5c177bc5026a7',
+			'label' => 'Titel',
+			'name' => 'article_titel',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
 			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c177bd2026a8',
+			'label' => 'Autor',
+			'name' => 'article_autor',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c177bed026a9',
+			'label' => 'Jahr',
+			'name' => 'article_jahr',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+	),
+	'location' => array(
+		array(
 			array(
-				array(
-					'param' => 'post_type',
-					'operator' => '==',
-					'value' => 'test',
-				),
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'articles',
 			),
 		),
-		'menu_order' => 0,
-		'position' => 'normal',
-		'style' => 'default',
-		'label_placement' => 'top',
-		'instruction_placement' => 'label',
-		'hide_on_screen' => '',
-		'active' => 1,
-		'description' => '',
-	));
-	
-	endif;
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => array(
+		0 => 'permalink',
+		1 => 'the_content',
+		2 => 'excerpt',
+		3 => 'discussion',
+		4 => 'comments',
+		5 => 'revisions',
+		6 => 'slug',
+		7 => 'author',
+		8 => 'format',
+		9 => 'page_attributes',
+		10 => 'featured_image',
+		11 => 'categories',
+		12 => 'tags',
+		13 => 'send-trackbacks',
+	),
+	'active' => 1,
+	'description' => '',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_5c1130561f94d',
+	'title' => 'Buch',
+	'fields' => array(
+		array(
+			'key' => 'field_5c11305c5cf0b',
+			'label' => 'Buchtitel',
+			'name' => 'buch_titel',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c127b17da4d3',
+			'label' => 'Auflage / Band',
+			'name' => 'buch_auflage',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c127b35da4d4',
+			'label' => 'Verlag',
+			'name' => 'buch_verlag',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c127b3fda4d5',
+			'label' => 'Autor',
+			'name' => 'buch_autor',
+			'type' => 'relationship',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'lawyers',
+			),
+			'taxonomy' => '',
+			'filters' => array(
+				0 => 'search',
+				1 => 'post_type',
+				2 => 'taxonomy',
+			),
+			'elements' => '',
+			'min' => '',
+			'max' => '',
+			'return_format' => 'object',
+		),
+		array(
+			'key' => 'field_5c128a27411ce',
+			'label' => 'Titelbild',
+			'name' => 'buch_bild',
+			'type' => 'image',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'return_format' => 'url',
+			'preview_size' => 'thumbnail',
+			'library' => 'all',
+			'min_width' => '',
+			'min_height' => '',
+			'min_size' => '',
+			'max_width' => '',
+			'max_height' => '',
+			'max_size' => '',
+			'mime_types' => '',
+		),
+		array(
+			'key' => 'field_5c37276b20057',
+			'label' => 'Website',
+			'name' => 'website',
+			'type' => 'url',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'books',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'acf_after_title',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => array(
+		0 => 'the_content',
+		1 => 'excerpt',
+		2 => 'discussion',
+		3 => 'comments',
+		4 => 'slug',
+		5 => 'author',
+		6 => 'send-trackbacks',
+	),
+	'active' => 1,
+	'description' => '',
+));
+
+acf_add_local_field_group(array(
+	'key' => 'group_5c1767c84d0d8',
+	'title' => 'Publikation',
+	'fields' => array(
+		array(
+			'key' => 'field_5c1767d2320a4',
+			'label' => 'Titel',
+			'name' => 'pub_titel',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c1767e2320a5',
+			'label' => 'Autor',
+			'name' => 'pub_autor',
+			'type' => 'relationship',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'post_type' => array(
+				0 => 'lawyers',
+			),
+			'taxonomy' => '',
+			'filters' => '',
+			'elements' => '',
+			'min' => '',
+			'max' => '',
+			'return_format' => 'object',
+		),
+		array(
+			'key' => 'field_5c1767fd320a6',
+			'label' => 'Herausgeber',
+			'name' => 'pub_herausgeber',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c17680f320a7',
+			'label' => 'Seite',
+			'name' => 'pub_seite',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 0,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+		array(
+			'key' => 'field_5c176821320a8',
+			'label' => 'Jahr',
+			'name' => 'pub_jahr',
+			'type' => 'number',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'min' => '',
+			'max' => '',
+			'step' => '',
+		),
+		array(
+			'key' => 'field_5c3751d64ba71',
+			'label' => 'PDF',
+			'name' => 'pdf_pub',
+			'type' => 'file',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'return_format' => 'url',
+			'library' => 'all',
+			'min_size' => '',
+			'max_size' => 5,
+			'mime_types' => 'pdf',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'publications',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => array(
+		0 => 'the_content',
+		1 => 'excerpt',
+		2 => 'discussion',
+		3 => 'comments',
+		4 => 'author',
+		5 => 'format',
+		6 => 'featured_image',
+		7 => 'send-trackbacks',
+	),
+	'active' => 1,
+	'description' => '',
+));
+
+endif;
+
+
+	/**
+	 * Change Title Placeholder for Custom Post Type
+	 *
+	 * Anwälte
+	 * @name	Anwälte
+	 * @type    lawyer
+	 * @slug	lawyers
+	 */
 
 
 
+	function wpb_change_title_text( $title ){
+	     $screen = get_current_screen();
 
+	     if  ( 'lawyers' == $screen->post_type ) {
+	          $title = 'Vorname Nachname';
+	     }
+
+	     return $title;
+	}
+
+	add_filter( 'enter_title_here', 'wpb_change_title_text' );
 
 
 
