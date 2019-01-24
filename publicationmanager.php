@@ -117,20 +117,20 @@ function publicationmanager(){
 
  function registerLawyer() {
 	$labels = array(
-		'name'               => _x( 'Anwälte', 'post type general name', 'your-plugin-textdomain' ),
-		'singular_name'      => _x( 'Anwalt', 'post type singular name', 'your-plugin-textdomain' ),
-		'menu_name'          => _x( 'Anwälte', 'admin menu', 'your-plugin-textdomain' ),
-		'name_admin_bar'     => _x( 'Anwalt', 'Hinzufügen on admin bar', 'your-plugin-textdomain' ),
-		'add_new'            => _x( 'Hinzufügen', 'Anwalt', 'your-plugin-textdomain' ),
-		'add_new_item'       => __( 'Anwalt anlegen', 'your-plugin-textdomain' ),
-		'new_item'           => __( 'Neuer Anwalt', 'your-plugin-textdomain' ),
-		'edit_item'          => __( 'Anwalt bearbeiten', 'your-plugin-textdomain' ),
-		'view_item'          => __( 'Anwalt ansehen', 'your-plugin-textdomain' ),
-		'all_items'          => __( 'Alle Anwälte', 'your-plugin-textdomain' ),
-		'search_items'       => __( 'Suche Anwälte', 'your-plugin-textdomain' ),
-		'parent_item_colon'  => __( 'Parent Anwälte:', 'your-plugin-textdomain' ),
-		'not_found'          => __( 'Keine Anwälte gefunde.', 'your-plugin-textdomain' ),
-		'not_found_in_trash' => __( 'Keine Anwälte im Papierkorb gefunden.', 'your-plugin-textdomain' )
+		'name'               => _x( 'Anwälte', 'post type general name', 'publicationmanager' ),
+		'singular_name'      => _x( 'Anwalt', 'post type singular name', 'publicationmanager' ),
+		'menu_name'          => _x( 'Anwälte', 'admin menu', 'publicationmanager' ),
+		'name_admin_bar'     => _x( 'Anwalt', 'Hinzufügen on admin bar', 'publicationmanager' ),
+		'add_new'            => _x( 'Hinzufügen', 'Anwalt', 'publicationmanager' ),
+		'add_new_item'       => __( 'Anwalt anlegen', 'publicationmanager' ),
+		'new_item'           => __( 'Neuer Anwalt', 'publicationmanager' ),
+		'edit_item'          => __( 'Anwalt bearbeiten', 'publicationmanager' ),
+		'view_item'          => __( 'Anwalt ansehen', 'publicationmanager' ),
+		'all_items'          => __( 'Alle Anwälte', 'publicationmanager' ),
+		'search_items'       => __( 'Suche Anwälte', 'publicationmanager' ),
+		'parent_item_colon'  => __( 'Parent Anwälte:', 'publicationmanager' ),
+		'not_found'          => __( 'Keine Anwälte gefunde.', 'publicationmanager' ),
+		'not_found_in_trash' => __( 'Keine Anwälte im Papierkorb gefunden.', 'publicationmanager' )
 	);
 
 	$args = array(
@@ -164,20 +164,20 @@ add_action( 'init', 'registerLawyer' );
  */
 function registerBooks() {
 	$labels = array(
-		'name'               => _x( 'Books', 'post type general name', 'your-plugin-textdomain' ),
-		'singular_name'      => _x( 'Book', 'post type singular name', 'your-plugin-textdomain' ),
-		'menu_name'          => _x( 'Books', 'admin menu', 'your-plugin-textdomain' ),
-		'name_admin_bar'     => _x( 'Book', 'add new on admin bar', 'your-plugin-textdomain' ),
-		'add_new'            => _x( 'Add New', 'Book', 'your-plugin-textdomain' ),
-		'add_new_item'       => __( 'Add New Book', 'your-plugin-textdomain' ),
-		'new_item'           => __( 'New Book', 'your-plugin-textdomain' ),
-		'edit_item'          => __( 'Edit Book', 'your-plugin-textdomain' ),
-		'view_item'          => __( 'View Book', 'your-plugin-textdomain' ),
-		'all_items'          => __( 'All Books', 'your-plugin-textdomain' ),
-		'search_items'       => __( 'Search Books', 'your-plugin-textdomain' ),
-		'parent_item_colon'  => __( 'Parent Books:', 'your-plugin-textdomain' ),
-		'not_found'          => __( 'No Books found.', 'your-plugin-textdomain' ),
-		'not_found_in_trash' => __( 'No Books found in Trash.', 'your-plugin-textdomain' )
+		'name'               => _x( 'Books', 'post type general name', 'publicationmanager' ),
+		'singular_name'      => _x( 'Book', 'post type singular name', 'publicationmanager' ),
+		'menu_name'          => _x( 'Books', 'admin menu', 'publicationmanager' ),
+		'name_admin_bar'     => _x( 'Book', 'add new on admin bar', 'publicationmanager' ),
+		'add_new'            => _x( 'Add New', 'Book', 'publicationmanager' ),
+		'add_new_item'       => __( 'Add New Book', 'publicationmanager' ),
+		'new_item'           => __( 'New Book', 'publicationmanager' ),
+		'edit_item'          => __( 'Edit Book', 'publicationmanager' ),
+		'view_item'          => __( 'View Book', 'publicationmanager' ),
+		'all_items'          => __( 'All Books', 'publicationmanager' ),
+		'search_items'       => __( 'Search Books', 'publicationmanager' ),
+		'parent_item_colon'  => __( 'Parent Books:', 'publicationmanager' ),
+		'not_found'          => __( 'No Books found.', 'publicationmanager' ),
+		'not_found_in_trash' => __( 'No Books found in Trash.', 'publicationmanager' )
 	);
 
 	$args = array(
@@ -212,20 +212,20 @@ add_action( 'init', 'registerBooks' );
  */
 function registerPublications() {
 	$labels = array(
-		'name'               => _x( 'Publications', 'post type general name', 'your-plugin-textdomain' ),
-		'singular_name'      => _x( 'Publication', 'post type singular name', 'your-plugin-textdomain' ),
-		'menu_name'          => _x( 'Publications', 'admin menu', 'your-plugin-textdomain' ),
-		'name_admin_bar'     => _x( 'Publication', 'add new on admin bar', 'your-plugin-textdomain' ),
-		'add_new'            => _x( 'Add New', 'Publication', 'your-plugin-textdomain' ),
-		'add_new_item'       => __( 'Add New Publication', 'your-plugin-textdomain' ),
-		'new_item'           => __( 'New Publication', 'your-plugin-textdomain' ),
-		'edit_item'          => __( 'Edit Publication', 'your-plugin-textdomain' ),
-		'view_item'          => __( 'View Publication', 'your-plugin-textdomain' ),
-		'all_items'          => __( 'All Publications', 'your-plugin-textdomain' ),
-		'search_items'       => __( 'Search Publications', 'your-plugin-textdomain' ),
-		'parent_item_colon'  => __( 'Parent Publications:', 'your-plugin-textdomain' ),
-		'not_found'          => __( 'No Publications found.', 'your-plugin-textdomain' ),
-		'not_found_in_trash' => __( 'No Publications found in Trash.', 'your-plugin-textdomain' )
+		'name'               => _x( 'Publications', 'post type general name', 'publicationmanager' ),
+		'singular_name'      => _x( 'Publication', 'post type singular name', 'publicationmanager' ),
+		'menu_name'          => _x( 'Publications', 'admin menu', 'publicationmanager' ),
+		'name_admin_bar'     => _x( 'Publication', 'add new on admin bar', 'publicationmanager' ),
+		'add_new'            => _x( 'Add New', 'Publication', 'publicationmanager' ),
+		'add_new_item'       => __( 'Add New Publication', 'publicationmanager' ),
+		'new_item'           => __( 'New Publication', 'publicationmanager' ),
+		'edit_item'          => __( 'Edit Publication', 'publicationmanager' ),
+		'view_item'          => __( 'View Publication', 'publicationmanager' ),
+		'all_items'          => __( 'All Publications', 'publicationmanager' ),
+		'search_items'       => __( 'Search Publications', 'publicationmanager' ),
+		'parent_item_colon'  => __( 'Parent Publications:', 'publicationmanager' ),
+		'not_found'          => __( 'No Publications found.', 'publicationmanager' ),
+		'not_found_in_trash' => __( 'No Publications found in Trash.', 'publicationmanager' )
 	);
 
 	$args = array(
@@ -258,20 +258,20 @@ add_action( 'init', 'registerPublications' );
  */
 function registerArticles() {
 	$labels = array(
-		'name'               => _x( 'Articles', 'post type general name', 'your-plugin-textdomain' ),
-		'singular_name'      => _x( 'Article', 'post type singular name', 'your-plugin-textdomain' ),
-		'menu_name'          => _x( 'Articles', 'admin menu', 'your-plugin-textdomain' ),
-		'name_admin_bar'     => _x( 'Article', 'add new on admin bar', 'your-plugin-textdomain' ),
-		'add_new'            => _x( 'Add New', 'Article', 'your-plugin-textdomain' ),
-		'add_new_item'       => __( 'Add New Article', 'your-plugin-textdomain' ),
-		'new_item'           => __( 'New Article', 'your-plugin-textdomain' ),
-		'edit_item'          => __( 'Edit Article', 'your-plugin-textdomain' ),
-		'view_item'          => __( 'View Article', 'your-plugin-textdomain' ),
-		'all_items'          => __( 'All Articles', 'your-plugin-textdomain' ),
-		'search_items'       => __( 'Search Articles', 'your-plugin-textdomain' ),
-		'parent_item_colon'  => __( 'Parent Articles:', 'your-plugin-textdomain' ),
-		'not_found'          => __( 'No Articles found.', 'your-plugin-textdomain' ),
-		'not_found_in_trash' => __( 'No Articles found in Trash.', 'your-plugin-textdomain' )
+		'name'               => _x( 'Articles', 'post type general name', 'publicationmanager' ),
+		'singular_name'      => _x( 'Article', 'post type singular name', 'publicationmanager' ),
+		'menu_name'          => _x( 'Articles', 'admin menu', 'publicationmanager' ),
+		'name_admin_bar'     => _x( 'Article', 'add new on admin bar', 'publicationmanager' ),
+		'add_new'            => _x( 'Add New', 'Article', 'publicationmanager' ),
+		'add_new_item'       => __( 'Add New Article', 'publicationmanager' ),
+		'new_item'           => __( 'New Article', 'publicationmanager' ),
+		'edit_item'          => __( 'Edit Article', 'publicationmanager' ),
+		'view_item'          => __( 'View Article', 'publicationmanager' ),
+		'all_items'          => __( 'All Articles', 'publicationmanager' ),
+		'search_items'       => __( 'Search Articles', 'publicationmanager' ),
+		'parent_item_colon'  => __( 'Parent Articles:', 'publicationmanager' ),
+		'not_found'          => __( 'No Articles found.', 'publicationmanager' ),
+		'not_found_in_trash' => __( 'No Articles found in Trash.', 'publicationmanager' )
 	);
 
 	$args = array(
@@ -304,20 +304,20 @@ add_action( 'init', 'registerArticles' );
  */
 function registerPublisher() {
 	$labels = array(
-		'name'               => _x( 'Publishers', 'post type general name', 'your-plugin-textdomain' ),
-		'singular_name'      => _x( 'Publisher', 'post type singular name', 'your-plugin-textdomain' ),
-		'menu_name'          => _x( 'Publishers', 'admin menu', 'your-plugin-textdomain' ),
-		'name_admin_bar'     => _x( 'Publisher', 'add new on admin bar', 'your-plugin-textdomain' ),
-		'add_new'            => _x( 'Add New', 'Publisher', 'your-plugin-textdomain' ),
-		'add_new_item'       => __( 'Add New Publisher', 'your-plugin-textdomain' ),
-		'new_item'           => __( 'New Publisher', 'your-plugin-textdomain' ),
-		'edit_item'          => __( 'Edit Publisher', 'your-plugin-textdomain' ),
-		'view_item'          => __( 'View Publisher', 'your-plugin-textdomain' ),
-		'all_items'          => __( 'All Publishers', 'your-plugin-textdomain' ),
-		'search_items'       => __( 'Search Publishers', 'your-plugin-textdomain' ),
-		'parent_item_colon'  => __( 'Parent Publishers:', 'your-plugin-textdomain' ),
-		'not_found'          => __( 'No Publishers found.', 'your-plugin-textdomain' ),
-		'not_found_in_trash' => __( 'No Publishers found in Trash.', 'your-plugin-textdomain' )
+		'name'               => _x( 'Publishers', 'post type general name', 'publicationmanager' ),
+		'singular_name'      => _x( 'Publisher', 'post type singular name', 'publicationmanager' ),
+		'menu_name'          => _x( 'Publishers', 'admin menu', 'publicationmanager' ),
+		'name_admin_bar'     => _x( 'Publisher', 'add new on admin bar', 'publicationmanager' ),
+		'add_new'            => _x( 'Add New', 'Publisher', 'publicationmanager' ),
+		'add_new_item'       => __( 'Add New Publisher', 'publicationmanager' ),
+		'new_item'           => __( 'New Publisher', 'publicationmanager' ),
+		'edit_item'          => __( 'Edit Publisher', 'publicationmanager' ),
+		'view_item'          => __( 'View Publisher', 'publicationmanager' ),
+		'all_items'          => __( 'All Publishers', 'publicationmanager' ),
+		'search_items'       => __( 'Search Publishers', 'publicationmanager' ),
+		'parent_item_colon'  => __( 'Parent Publishers:', 'publicationmanager' ),
+		'not_found'          => __( 'No Publishers found.', 'publicationmanager' ),
+		'not_found_in_trash' => __( 'No Publishers found in Trash.', 'publicationmanager' )
 	);
 
 	$args = array(
@@ -1365,6 +1365,33 @@ endif;
 	}
 
 	add_filter( 'enter_title_here', 'wpb_change_title_text' );
+
+
+
+
+
+
+/* GET ACF */
+
+include ('plugin/acf/acf.php');
+
+function my_ajax_getPublications_handler(){
+	$publications = get_posts(array(
+		'posts_per_page'   => 5,
+		'post_type'        => 'publications',
+		'offset'           =>  0
+	));
+
+	$json = array();
+	foreach( $publications as $post ){
+		setup_postdata($post);
+		$post->pub_autor = get_field('pub_autor', $post->ID);
+		$post->pdf_url = get_field('pdf_pub', $post->ID);
+	}
+	echo json_encode($publications);
+}
+
+add_action( 'wp_ajax_getPublications', 'my_ajax_getPublications_handler' );
 
 
 
