@@ -1394,6 +1394,7 @@ function my_ajax_getPublications_handler(){
 }
 
 add_action( 'wp_ajax_getArticles', 'my_ajax_getArticles_handler' );
+add_action( 'wp_ajax_nopriv_getArticles', 'my_ajax_getArticles_handler' );
 
 function my_ajax_getArticles_handler(){
 
@@ -1417,35 +1418,11 @@ function my_ajax_getArticles_handler(){
 }
 
 add_action( 'wp_ajax_getPublications', 'my_ajax_getPublications_handler' );
+add_action( 'wp_ajax_nopriv_getPublications', 'my_ajax_getPublications_handler' );
 
 
 
 
-
-
-
-
-/* GET ACF */
-
-include ('plugin/acf/acf.php');
-
-function my_ajax_getPublications_handler(){
-	$publications = get_posts(array(
-		'posts_per_page'   => 5,
-		'post_type'        => 'publications',
-		'offset'           =>  0
-	));
-
-	$json = array();
-	foreach( $publications as $post ){
-		setup_postdata($post);
-		$post->pub_autor = get_field('pub_autor', $post->ID);
-		$post->pdf_url = get_field('pdf_pub', $post->ID);
-	}
-	echo json_encode($publications);
-}
-
-add_action( 'wp_ajax_getPublications', 'my_ajax_getPublications_handler' );
 
 
 
