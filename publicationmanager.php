@@ -15,8 +15,8 @@
  * @wordpress-plugin
  * Plugin Name:       Publication Manager v2
  * Plugin URI:        https://www.artline-design.at
- * Description:       This is a short description of what the plugin does. It's displayed in the WordPress admin area.
- * Version:           1.0.0
+ * Description:       Create and handle Publications, Authors, Articles, Publishers and Books
+ * Version:           1.0.1
  * Author:            ARTLINE Design
  * Author URI:        https://www.artline-design.at
  * License:           GPL-2.0+

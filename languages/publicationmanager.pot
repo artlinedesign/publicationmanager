@@ -30,6 +30,5 @@ msgstr ""
 
 #. Description of the plugin
 msgid ""
-"This is a short description of what the plugin does. It's displayed in the "
-"WordPress admin area."
+"Create and handle Publications, Authors, Articles, Publishers and Books"
 msgstr ""
