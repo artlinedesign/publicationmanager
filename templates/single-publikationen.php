@@ -77,7 +77,7 @@ get_header();
     <?php while ( have_posts() ) : the_post(); ?>
 
     <?php
-    $publicationsSite = isset($_GET['pubs']) ? $_GET['pubs'] : 0;
+    $publicationsSite = isset($_GET['publications']) ? $_GET['publications'] : 0;
     $publicationOffset = $publicationsSite * 5;
 
     $posts = get_posts(array(
@@ -128,7 +128,7 @@ get_header();
 <?php endforeach; ?>
     </div>
     <button data-offset="0" class="pubs-prev-btn"><?php _e('Previous'); ?></button>
-    <span class="pubs-site-indicator"><span class="pubs-current-site">1</span> von <?php echo ceil(count($allPosts) / 5); ?></span>
+    <span class="pubs-site-indicator"><span class="pubs-current-site">1</span> von <span class="pubs-last-site-indicator"><?php echo ceil(count($allPosts) / 5); ?></span></span>
 <?php if(count($allPosts) > 5): ?>
     <button data-offset="<?php echo $publicationOffset === 0 ? 5 : $publicationOffset; ?>" class="pubs-cont-btn"><?php _e('Next'); ?></button>
 <?php endif; ?>
@@ -176,7 +176,7 @@ get_header();
         <?php endforeach; ?>
         </div>
         <button data-offset="0" class="articles-prev-btn"><?php _e('Previous'); ?></button>
-        <span class="articles-site-indicator"><span class="articles-current-site">1</span> von <?php echo ceil(count($allArticles) / 5); ?></span>
+        <span class="articles-site-indicator"><span class="articles-current-site">1</span> von <span class="articles-last-site-indicator"><?php echo ceil(count($allArticles) / 5); ?></span></span>
         <?php if(count($allArticles) > 5): ?>
             <button data-offset="<?php echo $articlesOffset === 0 ? 5 : $articlesOffset; ?>" class="articles-cont-btn"><?php _e('Next'); ?></button>
         <?php endif; ?>
