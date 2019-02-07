@@ -74,101 +74,176 @@ add_filter('acf/settings/current_language', '__return_false');
             if( $posts ): ?>
                 <div class="lawyer-books">
                     <h1><?php _e('Books', 'btp-cm') ?></h1>
-                    <div class="lawyer-id">
 
-                        <div class="books-modul">
-
-
-                            <?php foreach( $posts as $post ):
-                                setup_postdata( $post );
-                                ?>
-
-                                <ul>
-                                    <a href="<?php the_field('website')?>">
-                                        <?php if( get_field('buch_bild') ): ?>
-                                            <img src="<?php the_field('buch_bild'); ?>" />
-
-                                        <?php endif; ?>
-
-                                        <li class="buch-titel"><?php the_field('buch_titel') ?></li></a>
-                                    <li><?php the_field('buch_auflage') ?></li>
-                                    <li><?php the_field('buch_verlag') ?></li>
+                    <div class="books-modul">
 
 
-                                    <!-- get author  -->
-                                    <?php
-                                    $posts = get_field('buch_autor');
-                                    if( $posts ): ?>
-                                        <?php foreach( $posts as $post):  ?>
-                                            <?php setup_postdata($post); ?>
-                                            <li><?php the_title(); ?>  </li>
-                                        <?php endforeach; ?>
-                                        <?php wp_reset_postdata(); ?>
+                        <?php foreach( $posts as $post ):
+                            setup_postdata( $post );
+                            ?>
+
+                            <ul>
+                                <a href="<?php the_field('website')?>">
+                                    <?php if( get_field('buch_bild') ): ?>
+                                        <img src="<?php the_field('buch_bild'); ?>" />
+
                                     <?php endif; ?>
 
-                                    <!--  author end -->
+                                    <li class="buch-titel"><?php the_field('buch_titel') ?></li></a>
+                                <li><?php the_field('buch_auflage') ?></li>
+                                <li><?php the_field('buch_verlag') ?></li>
 
 
-                                </ul>
-                            <?php endforeach; ?>
+                                <!-- get author  -->
+                                <?php
+                                $posts = get_field('buch_autor');
+                                if( $posts ): ?>
+                                    <?php foreach( $posts as $post):  ?>
+                                        <?php setup_postdata($post); ?>
+                                        <li><?php the_title(); ?>  </li>
+                                    <?php endforeach; ?>
+                                    <?php wp_reset_postdata(); ?>
+                                <?php endif; ?>
+
+                                <!--  author end -->
 
 
-                        </div>
-                        <?php wp_reset_postdata(); ?>
+                            </ul>
+                        <?php endforeach; ?>
+
 
                     </div>
+                    <?php wp_reset_postdata(); ?>
+
                 </div>
             <?php endif; ?>
 
 
+            <?php
 
-            <div class="lawyer-articles">
-                <h1><?php _e('Articles', 'btp-cm') ?></h1>
-                <div class="lawyer-id">
+            $articleSite = isset($_GET['articles']) ? $_GET['articles'] : 0;
+            $articlesOffset = $articleSite * 5;
 
-                    <?php
-                    $posts = get_posts(array(
-                        'posts_per_page'	=> -1,
-                        'post_type'			=> 'articles'
-                    ));
-                    if( $posts ): ?>
-                        <ul>
+
+
+            $allArticles = get_posts(array(
+                'posts_per_page'	=> -1,
+                'post_type'			=> 'articles',
+            ));
+
+            $posts = get_posts(array(
+                'posts_per_page'	=> -1,
+                'post_type'			=> 'articles',
+                'offset'            => $articlesOffset === 1 ? 0 : $articlesOffset,
+                'meta_query' => array(
+                    array(
+                        'key' => 'article_autor',
+                        'value' => '"' . get_the_ID() . '"',
+                        'compare' => 'LIKE'
+                    )
+                )));
+            if( $posts ): ?>
+                <div class="lawyer-articles">
+                    <h1><?php _e('Articles', 'btp-cm') ?></h1>
+                    <div class="lawyer-id">
+
+
+                        <div class="articles-modul">
                             <?php foreach( $posts as $post ):
-                                setup_postdata( $post );
-                                ?>
-                                <li>
-                                    <?php the_title(); ?>
+                            setup_postdata( $post );
+                            ?>
+                            <a href="<?php the_field('article_pdf') ?>" target="_blank">
+                                <div class="articles-modul-wrapper">
+                                    <img src="https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg" alt="">
 
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <?php wp_reset_postdata(); ?>
-                    <?php endif; ?>
+                                    <div class="article-list">
+
+                                        <p class="article-titel"> <?php the_field('article_titel') ?></p></a>
+                            <p class="article-infos"><?php the_field('article_autor') ?>, <?php the_field('article_herausgeber') ?> <?php the_field('article_seite') ?> <?php the_field('article_jahr') ?>   </p>
+                        </div>
+                    </div>
+                    <?php endforeach; ?>
                 </div>
+                <button data-offset="0" class="articles-prev-btn"><?php _e('Previous'); ?></button>
+                <span class="articles-site-indicator"><span class="articles-current-site">1</span> von <span class="articles-last-site-indicator"><?php echo ceil(count($allArticles) / 5); ?></span></span>
+                <?php if(count($allArticles) > 5): ?>
+                    <button data-offset="<?php echo $articlesOffset === 0 ? 5 : $articlesOffset; ?>" class="articles-cont-btn"><?php _e('Next'); ?></button>
+                <?php endif; ?>
+                <?php wp_reset_postdata(); ?>
+                </div>
+                </div>
+            <?php endif; ?>
+
+
+            <?php
+            $publicationsSite = isset($_GET['publications']) ? $_GET['publications'] : 0;
+            $publicationOffset = $publicationsSite * 5;
+
+            $posts = get_posts(array(
+                'posts_per_page'	=> -1,
+                'post_type'			=> 'publications',
+                'offset'            =>  $publicationOffset === 1 ? 0 : $publicationOffset,
+                'meta_query' => array(
+                    array(
+                        'key' => 'pub_autorpub_autor',
+                        'value' => '"' . get_the_ID() . '"',
+                        'compare' => 'LIKE'
+                    )
+                )));
+
+            $allPosts = get_posts(array(
+                'posts_per_page'	=> -1,
+                'post_type'			=> 'publications',
+            ));
+            if( $posts ): ?>
+                <div class="lawyer-publications">
+                    <h1><?php _e('Publications', 'btp-cm') ?></h1>
+                    <div class="lawyer-id">
+
+                        <div class="pubs-modul">
+                            <?php foreach( $posts as $post ):
+                            setup_postdata( $post );
+                            ?>
+                            <a href="<?php the_field('pdf_pub') ?>" target="_blank">
+                                <div class="pubs-modul-wrapper">
+                                    <img src="https://btp.at/btp-content/uploads/2017/08/pdf_sujet.jpg" alt="">
+
+                                    <div class="pub-list">
+
+                                        <p class="pub-titel"> <?php the_field('pub_titel') ?></p></a>
+                            <p class="pub-infos">
+
+
+                                <?php the_field('pub_herausgeber') ?> <?php the_field('pub_seite') ?>, <?php the_field('pub_jahr') ?>,
+
+
+                                <?php
+                                $posts = get_field('pub_autor');
+                                if( $posts ): ?>
+                                    <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
+                                        <?php setup_postdata($post); ?>
+                                        <?php the_title(); ?>
+                                        <?php the_field('pub_autor'); ?>
+                                    <?php endforeach; ?>
+                                    <?php wp_reset_postdata(); // IMPORTANT - reset the $post object so the rest of the page works correctly ?>
+                                <?php endif; ?>
+
+
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <?php endforeach; ?>
+                </div>
+                <button data-offset="0" class="pubs-prev-btn"><?php _e('Previous'); ?></button>
+                <span class="pubs-site-indicator"><span class="pubs-current-site">1</span> von <span class="pubs-last-site-indicator"><?php echo ceil(count($allPosts) / 5); ?></span></span>
+                <?php if(count($allPosts) > 5): ?>
+                    <button data-offset="<?php echo $publicationOffset === 0 ? 5 : $publicationOffset; ?>" class="pubs-cont-btn"><?php _e('Next'); ?></button>
+                <?php endif; ?>
+                <?php wp_reset_postdata(); ?>
+            <?php endif; ?>
             </div>
-
-            <div class="lawyer-publications">
-                <h1><?php _e('Publications', 'btp-cm') ?></h1>
-                <div class="lawyer-id">
-                    <?php
-                    $posts = get_posts(array(
-                        'posts_per_page'	=> -1,
-                        'post_type'			=> 'publications'
-                    ));
-                    if( $posts ): ?>
-                        <ul>
-                            <?php foreach( $posts as $post ):
-                                setup_postdata( $post );
-                                ?>
-                                <li>
-                                    <?php the_title(); ?>
-
-                                </li>
-                            <?php endforeach; ?>
-                        </ul>
-                        <?php wp_reset_postdata(); ?>
-                    <?php endif; ?>
-                </div>
             </div>
 
 
