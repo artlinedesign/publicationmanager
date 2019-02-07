@@ -495,6 +495,8 @@ function cptui_register_my_taxes() {
 add_action( 'init', 'cptui_register_my_taxes' );
 
 
+
+
 if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array(
@@ -947,48 +949,6 @@ acf_add_local_field_group(array(
 			'min' => '',
 			'max' => '',
 			'return_format' => 'object',
-		),
-		array(
-			'key' => 'field_5c5c03f5d9243',
-			'label' => '',
-			'name' => '',
-			'type' => 'accordion',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'open' => 0,
-			'multi_expand' => 0,
-			'endpoint' => 1,
-		),
-		array(
-			'key' => 'field_5c5c036bb3dad',
-			'label' => 'Objekt',
-			'name' => 'objekt',
-			'type' => 'post_object',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array(
-				0 => 'lawyers',
-				1 => 'publications',
-				2 => 'articles',
-				3 => 'books',
-			),
-			'taxonomy' => '',
-			'allow_null' => 0,
-			'multiple' => 1,
-			'return_format' => 'object',
-			'ui' => 1,
 		),
 	),
 	'location' => array(
@@ -1490,7 +1450,65 @@ acf_add_local_field_group(array(
 	'description' => '',
 ));
 
+acf_add_local_field_group(array(
+	'key' => 'group_5c3893a9914f8',
+	'title' => 'Verläge *TEST*',
+	'fields' => array(
+		array(
+			'key' => 'field_5c3893b068ff6',
+			'label' => 'Name',
+			'name' => 'name',
+			'type' => 'text',
+			'instructions' => '',
+			'required' => 1,
+			'conditional_logic' => 0,
+			'wrapper' => array(
+				'width' => '',
+				'class' => '',
+				'id' => '',
+			),
+			'default_value' => '',
+			'placeholder' => '',
+			'prepend' => '',
+			'append' => '',
+			'maxlength' => '',
+		),
+	),
+	'location' => array(
+		array(
+			array(
+				'param' => 'post_type',
+				'operator' => '==',
+				'value' => 'publisher',
+			),
+		),
+	),
+	'menu_order' => 0,
+	'position' => 'normal',
+	'style' => 'default',
+	'label_placement' => 'top',
+	'instruction_placement' => 'label',
+	'hide_on_screen' => array(
+		0 => 'the_content',
+		1 => 'excerpt',
+		2 => 'discussion',
+		3 => 'comments',
+		4 => 'author',
+		5 => 'format',
+		6 => 'page_attributes',
+		7 => 'featured_image',
+		8 => 'categories',
+		9 => 'tags',
+		10 => 'send-trackbacks',
+	),
+	'active' => 1,
+	'description' => '',
+));
+
 endif;
+
+
+
 
 
 /**
