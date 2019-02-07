@@ -41,69 +41,103 @@ add_filter('acf/settings/current_language', '__return_false');
 			<?php the_field('sonstiges') ?>
 				<div class="mail-backoffice">
 					<a href="mailto:<?php the_field('e-mail') ?>"><?php the_field('e-mail') ?></a>
-					<p>Backoffice: <?php the_field('backoffice_name') ?> <br>
-					<a href="mailto:<?php the_field('backoffice_e-mail') ?>"><?php the_field('backoffice_e-mail') ?></a></p>
-					<p>Backoffice: <?php the_field('backoffice_name_2') ?> <br>
-					<a href="mailto:<?php the_field('backoffice_e-mail_2') ?>"><?php the_field('backoffice_e-mail_2') ?></a></p>
+
+					<?php if ( get_field('backoffice_name') && get_field('backoffice_e-mail')) :?>
+						<p>Backoffice: <?php the_field('backoffice_name') ?> <br>
+						<a href="mailto:<?php the_field('backoffice_e-mail') ?>"><?php the_field('backoffice_e-mail') ?></a></p>
+					<?php endif; ?>
+
+
+					<?php if ( get_field('backoffice_name_2') && get_field('backoffice_e-mail_2')) :?>
+						<p>Backoffice: <?php the_field('backoffice_name_2') ?> <br>
+						<a href="mailto:<?php the_field('backoffice_e-mail_2') ?>"><?php the_field('backoffice_e-mail_2') ?></a></p>
+					<?php endif; ?>
+
 					</div>
 		</div>
 	</div>
 
-			<div class="lawyer-books">
-				<h1><?php _e('Books', 'btp-cm') ?></h1>
 
-				<div class="lawyer-id">
-					<?php if( get_field('buch_bild') ): ?>
-					<img src="<?php the_field('buch_bild'); ?>" />
-					<?php endif; ?>
-					<?php the_field('buch_titel') ?>
-					<?php the_field('buch_auflage') ?>
-					<?php the_field('buch_verlag') ?>
-					<?php the_field('buch_autor') ?>
-						<!-- get author  -->
+
+		<div class="lawyer-books">
+			<h1><?php _e('Books', 'btp-cm') ?></h1>
+			<div class="lawyer-id">
 				<?php
-					$posts = get_field('buecher');
+					$posts = get_posts(array(
+						'posts_per_page'	=> -1,
+						'post_type'			=> 'books',
+					));
 					if( $posts ): ?>
-							<?php foreach( $posts as $post):  ?>
-								<?php setup_postdata($post); ?>
-									<li><?php the_title(); ?>  </li>
-									<?php the_field('buch_auflage') ?>
-					<?php the_field('buch_verlag') ?>
-					<?php the_field('buch_autor') ?>
-							<?php endforeach; ?>
+						<ul>
+						<?php foreach( $posts as $post ):
+							setup_postdata( $post );
+							?>
+							<li>
+									<?php the_title(); ?>
+							</li>
+						<?php endforeach; ?>
+						</ul>
 						<?php wp_reset_postdata(); ?>
 				<?php endif; ?>
-
-				<!--  author end -->
-				</div>
 			</div>
+		</div>
 
 
 		<div class="lawyer-articles">
 			<h1><?php _e('Articles', 'btp-cm') ?></h1>
-
 			<div class="lawyer-id">
 
-				<?php the_field('article_titel') ?>
-				<?php the_field('article_autor') ?>
-				<?php the_field('article_jahr') ?>
+				<?php
+					$posts = get_posts(array(
+						'posts_per_page'	=> -1,
+						'post_type'			=> 'articles'
+					));
+					if( $posts ): ?>
+						<ul>
+						<?php foreach( $posts as $post ):
+							setup_postdata( $post );
+							?>
+							<li>
+								<?php the_title(); ?>
 
+							</li>
+						<?php endforeach; ?>
+						</ul>
+						<?php wp_reset_postdata(); ?>
+				<?php endif; ?>
 			</div>
-
 		</div>
 
 		<div class="lawyer-publications">
 			<h1><?php _e('Publications', 'btp-cm') ?></h1>
-
 			<div class="lawyer-id">
+				<?php
+					$posts = get_posts(array(
+						'posts_per_page'	=> -1,
+						'post_type'			=> 'publications'
+					));
+					if( $posts ): ?>
+						<ul>
+						<?php foreach( $posts as $post ):
+							setup_postdata( $post );
+							?>
+							<li>
+								<?php the_title(); ?>
 
-				<?php the_field('pub_titel') ?>
-				<?php the_field('pub_autor') ?>
-				<?php the_field('pub_herausgeber') ?>
-				<?php the_field('pub_seite') ?>
-				<?php the_field('pub_jahr') ?>
+							</li>
+						<?php endforeach; ?>
+						</ul>
+						<?php wp_reset_postdata(); ?>
+				<?php endif; ?>
 			</div>
 		</div>
+
+
+
+
+
+
+
 
 
 <?php endwhile; ?>
