@@ -496,7 +496,6 @@ add_action( 'init', 'cptui_register_my_taxes' );
 
 
 
-
 if( function_exists('acf_add_local_field_group') ):
 
 acf_add_local_field_group(array(
@@ -857,98 +856,6 @@ acf_add_local_field_group(array(
 			'placeholder' => '',
 			'prepend' => '',
 			'append' => '',
-		),
-		array(
-			'key' => 'field_5c5bfd503f2ab',
-			'label' => 'Bücher - Beiträge - Publikationen',
-			'name' => '',
-			'type' => 'accordion',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'open' => 0,
-			'multi_expand' => 0,
-			'endpoint' => 0,
-		),
-		array(
-			'key' => 'field_5c372d173de01',
-			'label' => 'Bücher',
-			'name' => 'buecher',
-			'type' => 'relationship',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array(
-				0 => 'books',
-			),
-			'taxonomy' => '',
-			'filters' => array(
-				0 => 'search',
-			),
-			'elements' => '',
-			'min' => '',
-			'max' => '',
-			'return_format' => 'object',
-		),
-		array(
-			'key' => 'field_5c5bfd843f2ac',
-			'label' => 'Beiträge',
-			'name' => 'beitrage',
-			'type' => 'relationship',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array(
-				0 => 'articles',
-			),
-			'taxonomy' => '',
-			'filters' => array(
-				0 => 'search',
-			),
-			'elements' => '',
-			'min' => '',
-			'max' => '',
-			'return_format' => 'object',
-		),
-		array(
-			'key' => 'field_5c372df126753',
-			'label' => 'Publikationen',
-			'name' => 'publikationen',
-			'type' => 'relationship',
-			'instructions' => '',
-			'required' => 0,
-			'conditional_logic' => 0,
-			'wrapper' => array(
-				'width' => '',
-				'class' => '',
-				'id' => '',
-			),
-			'post_type' => array(
-				0 => 'publications',
-			),
-			'taxonomy' => '',
-			'filters' => array(
-				0 => 'search',
-			),
-			'elements' => '',
-			'min' => '',
-			'max' => '',
-			'return_format' => 'object',
 		),
 	),
 	'location' => array(
@@ -1506,7 +1413,6 @@ acf_add_local_field_group(array(
 ));
 
 endif;
-
 
 
 
