@@ -58,24 +58,24 @@ add_filter('acf/settings/current_language', '__return_false');
             </div>
 
 
+            <?php
+            $posts = get_posts(array(
+                'posts_per_page'	=> -1,
+                'post_type'			=> 'books',
+                'meta_query' => array(
+                    array(
+                        'key' => 'buch_autor',
+                        'value' => '"' . get_the_ID() . '"',
+                        'compare' => 'LIKE'
+                    )
+                )
 
-            <div class="lawyer-books">
-                <h1><?php _e('Books', 'btp-cm') ?></h1>
-                <div class="lawyer-id">
-                    <?php
-                    $posts = get_posts(array(
-                        'posts_per_page'	=> -1,
-                        'post_type'			=> 'books',
-                        'meta_query' => array(
-                            array(
-                                'key' => 'buch_autor',
-                                'value' => '"' . get_the_ID() . '"',
-                                'compare' => 'LIKE'
-                            )
-                        )
+            ));
+            if( $posts ): ?>
+                <div class="lawyer-books">
+                    <h1><?php _e('Books', 'btp-cm') ?></h1>
+                    <div class="lawyer-id">
 
-                    ));
-                    if( $posts ): ?>
                         <div class="books-modul">
 
 
@@ -116,9 +116,10 @@ add_filter('acf/settings/current_language', '__return_false');
                         </div>
                         <?php wp_reset_postdata(); ?>
 
-                    <?php endif; ?>
+                    </div>
                 </div>
-            </div>
+            <?php endif; ?>
+
 
 
             <div class="lawyer-articles">
