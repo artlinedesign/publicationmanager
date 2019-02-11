@@ -96,7 +96,17 @@ function publicationmanager(){
 	add_submenu_page('cm', 'Publikationen', 'Publikationen', 'manage_options', 'edit.php?post_type=publications', NULL );
 	add_submenu_page('cm', 'Beiträge', 'Beiträge', 'manage_options', 'edit.php?post_type=articles', NULL );
 	add_submenu_page('cm', 'Verläge', 'Verläge', 'manage_options', 'edit.php?post_type=publisher', NULL );
+	add_submenu_page('cm', 'Settings', 'Settings', 'manage_options', 'settings', 'showSettings' );
+	
 }
+
+function init() {
+	require plugin_dir_path( __FILE__ ) . 'admin/landing.phtml';
+}
+
+function showSettings() {
+ 	require plugin_dir_path( __FILE__ ) . 'admin/settings/settings.phtml';
+ }
 
 # Load Custom Post Type
 include 'includes/config/register-cpt.php';

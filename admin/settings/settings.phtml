@@ -1,0 +1,59 @@
+<section id="settings-page" class="cm-page">
+    <h1><?php _e('Settings', 'btp-cm') ?></h1><br>
+        
+    <div class="settings-page-section">
+      <h2><?php _e('Check Template Files', 'btp-cm') ?></h2>
+        <p> <?php _e('check WordPress template file ...', 'cm') ?></p>
+
+        <button onclick=getData()>Check Files</button>
+            <div id="get-content" />
+            
+            </div>
+    </div>
+
+
+    <div class="settings-page-section">
+      <h2><?php _e('Push Template Files', 'btp-cm') ?></h2>
+
+       <p> <?php _e('push <strong>CM</strong> template files to WordPress Theme Tempalte Folder', 'cm') ?></p>
+
+<button onclick=pushTemplate()>Push Templates</button>
+    <div id="push-content" />
+
+    </div>
+    
+</section>
+
+<script>
+
+function getData(){
+      var display = document.getElementById("get-content");
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", "http://localhost/ALD/BTP/wp-content/plugins/publicationmanager/admin/settings/get.php");
+      xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xmlhttp.send();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          display.innerHTML = this.responseText;
+        } else {
+          display.innerHTML = "Loading...";
+        };
+      }
+    }
+
+    function pushTemplate(){
+      var display = document.getElementById("push-content");
+      var xmlhttp = new XMLHttpRequest();
+      xmlhttp.open("GET", "http://localhost/ALD/BTP/wp-content/plugins/publicationmanager/admin/settings/push.php");
+      xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+      xmlhttp.send();
+      xmlhttp.onreadystatechange = function() {
+        if (this.readyState === 4 && this.status === 200) {
+          display.innerHTML = this.responseText;
+        } else {
+          display.innerHTML = "Loading...";
+        };
+      }
+    }
+
+</script>
