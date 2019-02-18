@@ -1,18 +1,26 @@
 <?php
-
 /**
- * Template Name: Team
+ * Template Name: Team 
+ * A full-width template.
+ *
+ * @package Avada
+ * @subpackage Templates
  */
-
-get_header();
-
+// Do not allow directly accessing this file.
+if ( ! defined( 'ABSPATH' ) ) {
+    exit( 'Direct script access denied.' );
+}
+add_filter('acf/settings/current_language', '__return_false');
 ?>
+<?php get_header(); ?>
+
+<section id="content" <?php Avada()->layout->add_style( 'content_style' ); ?>>
 
 
-	<div id="content" class="full-width">
 
-	<div id="btp-team">
+		<h1> <?php _e( 'RechtsanwältInnen', 'btp-cm' ) ?> </h1>
 
+		<div id="btp-team">
 			<?php while ( have_posts() ) : the_post(); ?>
 				<?php
 					$posts = get_posts(array(
@@ -20,6 +28,7 @@ get_header();
 						'post_type'			=> 'lawyers'
 					));
 					if( $posts ): ?>
+					
 							<?php foreach( $posts as $post ):
 								setup_postdata( $post );
 								?>
@@ -28,11 +37,14 @@ get_header();
 									<a href=' <?php echo get_the_permalink(); ?>'>
 										<img src="<?php the_field('portrait'); ?>" />
 										<?php endif; ?>
-										<p class="lawyer-name-team"><?php the_field('vorname_nachname') ?></p></a>
+										<p class="lawyer-name-team">
+										<?php the_field('vorname')?> 
+										<?php the_field('nachname') ?>
+										</p></a>
 										<?php
 										$position = get_field('position');
 										if( $position ): ?>
-										 <p><?php echo $position->name; ?> </p>
+										<p><?php echo $position->name; ?> </p>
 										<?php endif; ?>
 										<a href="mailto:<?php the_field('e-mail') ?>"><?php the_field('e-mail') ?></a>
 								</div>
@@ -41,10 +53,26 @@ get_header();
 						<?php wp_reset_postdata(); ?>
 					<?php endif; ?>
 			<?php endwhile; // end of the loop. ?>
+
+			<h1> <?php _e( 'RechtsanwaltsanwärterInnen', 'btp-cm' ) ?> </h1>
+
+							
+			<h1> <?php _e( 'ExpertInnen', 'btp-cm' ) ?> </h1>
+
+			<h1> <?php _e( 'Backoffice', 'btp-cm' ) ?> </h1>
+
+			<h1> <?php _e( 'Juristische MitarbeiterInnen', 'btp-cm' ) ?> </h1>
+
 		</div>
 
+	<?php wp_reset_postdata(); ?>
+	
+</section>
 
-	</div><!-- #content -->
 
+<?php do_action( 'avada_after_content' ); ?>
+<?php
+get_footer();
+remove_filter('acf/settings/current_language', '__return_false');
+/* Omit closing PHP tag to avoid "Headers already sent" issues. */
 
-<?php get_footer(); ?>

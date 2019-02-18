@@ -16,7 +16,7 @@
  * Plugin Name:       Publication Manager v2
  * Plugin URI:        https://www.artline-design.at
  * Description:       Create and handle Publications, Authors, Articles, Publishers and Books
- * Version:           1.0.1
+ * Version:           1.1.0
  * Author:            ARTLINE Design
  * Author URI:        https://www.artline-design.at
  * License:           GPL-2.0+

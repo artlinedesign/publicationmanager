@@ -121,7 +121,7 @@ add_filter('acf/settings/current_language', '__return_false');
 
             <?php
 
-            $articleSite = isset($_GET['arts']) ? $_GET['arts'] : 0;
+            $articleSite = isset($_GET['articles']) ? $_GET['articles'] : 0;
             $articlesOffset = $articleSite * 5;
 
 
@@ -132,7 +132,7 @@ add_filter('acf/settings/current_language', '__return_false');
             ));
 
             $posts = get_posts(array(
-                'posts_per_page'	=> 5,
+                'posts_per_page'	=> -1,
                 'post_type'			=> 'articles',
                 'offset'            => $articlesOffset === 1 ? 0 : $articlesOffset,
                 'meta_query' => array(
@@ -145,7 +145,7 @@ add_filter('acf/settings/current_language', '__return_false');
             if( $posts ): ?>
                 <div class="lawyer-articles">
                     <h1><?php _e('Articles', 'btp-cm') ?></h1>
-                    <div class="lawyer-wrapper">
+                    <div class="lawyer-id">
 
 
                         <div class="articles-modul">
@@ -164,10 +164,10 @@ add_filter('acf/settings/current_language', '__return_false');
                     </div>
                     <?php endforeach; ?>
                 </div>
+                <button data-offset="0" class="articles-prev-btn"><?php _e('Previous'); ?></button>
+                <span class="articles-site-indicator"><span class="articles-current-site">1</span> von <span class="articles-last-site-indicator"><?php echo ceil(count($allArticles) / 5); ?></span></span>
                 <?php if(count($allArticles) > 5): ?>
-                    <button data-offset="<?php echo $articlesOffset === 0 ? 0 : $articlesOffset - 5; ?>" class="articles-prev-btn"><?php _e('Previous'); ?></button>
-                    <span class="articles-site-indicator"><span class="articles-current-site"><?php echo $articleSite; ?></span> von <span class="articles-last-site-indicator"><?php echo ceil(count($allArticles) / 5); ?></span></span>
-                    <button data-offset="<?php echo $articlesOffset === 0 ? 5 : $articlesOffset + 5; ?>" class="articles-cont-btn"><?php _e('Next'); ?></button>
+                    <button data-offset="<?php echo $articlesOffset === 0 ? 5 : $articlesOffset; ?>" class="articles-cont-btn"><?php _e('Next'); ?></button>
                 <?php endif; ?>
                 <?php wp_reset_postdata(); ?>
                 </div>
@@ -176,16 +176,16 @@ add_filter('acf/settings/current_language', '__return_false');
 
 
             <?php
-            $publicationsSite = isset($_GET['pubs']) ? $_GET['pubs'] : 0;
+            $publicationsSite = isset($_GET['publications']) ? $_GET['publications'] : 0;
             $publicationOffset = $publicationsSite * 5;
 
             $posts = get_posts(array(
-                'posts_per_page'	=>  5,
+                'posts_per_page'	=> -1,
                 'post_type'			=> 'publications',
                 'offset'            =>  $publicationOffset === 1 ? 0 : $publicationOffset,
                 'meta_query' => array(
                     array(
-                        'key' => 'pub_autor',
+                        'key' => 'pub_autorpub_autor',
                         'value' => '"' . get_the_ID() . '"',
                         'compare' => 'LIKE'
                     )
@@ -198,7 +198,7 @@ add_filter('acf/settings/current_language', '__return_false');
             if( $posts ): ?>
                 <div class="lawyer-publications">
                     <h1><?php _e('Publications', 'btp-cm') ?></h1>
-                    <div class="lawyer-wrapper">
+                    <div class="lawyer-id">
 
                         <div class="pubs-modul">
                             <?php foreach( $posts as $post ):
@@ -236,10 +236,10 @@ add_filter('acf/settings/current_language', '__return_false');
 
                     <?php endforeach; ?>
                 </div>
+                <button data-offset="0" class="pubs-prev-btn"><?php _e('Previous'); ?></button>
+                <span class="pubs-site-indicator"><span class="pubs-current-site">1</span> von <span class="pubs-last-site-indicator"><?php echo ceil(count($allPosts) / 5); ?></span></span>
                 <?php if(count($allPosts) > 5): ?>
-                    <button data-offset="<?php echo $publicationOffset === 0 ? 0 : $publicationOffset - 5; ?>" class="pubs-prev-btn"><?php _e('Previous'); ?></button>
-                    <span class="pubs-site-indicator"><span class="pubs-current-site"><?php echo $publicationsSite; ?></span> von <span class="pubs-last-site-indicator"><?php echo ceil(count($allPosts) / 5); ?></span></span>
-                    <button data-offset="<?php echo $publicationOffset === 0 ? 5 : $publicationOffset + 5; ?>" class="pubs-cont-btn"><?php _e('Next'); ?></button>
+                    <button data-offset="<?php echo $publicationOffset === 0 ? 5 : $publicationOffset; ?>" class="pubs-cont-btn"><?php _e('Next'); ?></button>
                 <?php endif; ?>
                 <?php wp_reset_postdata(); ?>
             <?php endif; ?>

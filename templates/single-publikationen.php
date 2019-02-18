@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Template Name: Publikationen y
+ * Template Name: Publikationen 
  */
 
 get_header();
@@ -77,8 +77,8 @@ get_header();
     <?php while ( have_posts() ) : the_post(); ?>
 
     <?php
-    $publicationsSite = isset($_GET['pubs']) ? $_GET['pubs'] : 0;
-    $publicationOffset = $publicationsSite !== 0 ? ($publicationsSite * 5) - 5 : 0;
+    $publicationsSite = isset($_GET['publications']) ? $_GET['publications'] : 0;
+    $publicationOffset = $publicationsSite * 5;
 
     $posts = get_posts(array(
         'posts_per_page'	=> 5,
@@ -107,12 +107,12 @@ get_header();
 
             <?php the_field('pub_herausgeber') ?> <?php the_field('pub_seite') ?>, <?php the_field('pub_jahr') ?>,
 
+
             <?php
             $posts = get_field('pub_autor');
             if( $posts ): ?>
                 <?php foreach( $posts as $post): // variable must be called $post (IMPORTANT) ?>
-                    <?php setup_postdata($post);?>
-
+                    <?php setup_postdata($post); ?>
                     <?php the_title(); ?>
                     <?php the_field('pub_autor'); ?>
                 <?php endforeach; ?>
@@ -127,10 +127,10 @@ get_header();
 
 <?php endforeach; ?>
     </div>
-    <button data-offset="<?php echo $publicationOffset === 0 ? 0 : $publicationOffset - 5; ?>" class="pubs-prev-btn"><?php _e('Previous'); ?></button>
-    <span class="pubs-site-indicator"><span class="pubs-current-site"><?php echo $publicationsSite === 0 ? 1 : $publicationsSite; ?></span> von <span class="pubs-last-site-indicator"><?php echo ceil(count($allPosts) / 5); ?></span></span>
+    <button data-offset="0" class="pubs-prev-btn"><?php _e('Previous'); ?></button>
+    <span class="pubs-site-indicator"><span class="pubs-current-site">1</span> von <span class="pubs-last-site-indicator"><?php echo ceil(count($allPosts) / 5); ?></span></span>
 <?php if(count($allPosts) > 5): ?>
-    <button data-offset="<?php echo $publicationOffset === 0 ? 5 : $publicationOffset + 5; ?>" class="pubs-cont-btn"><?php _e('Next'); ?></button>
+    <button data-offset="<?php echo $publicationOffset === 0 ? 5 : $publicationOffset; ?>" class="pubs-cont-btn"><?php _e('Next'); ?></button>
 <?php endif; ?>
 <?php wp_reset_postdata(); ?>
 <?php endif; ?>
@@ -143,9 +143,8 @@ get_header();
 
     <?php
 
-    $articleSite = isset($_GET['arts']) ? $_GET['arts'] : 0;
-    $articlesOffset = $articlesOffset !== 0 ? ($articlesOffset * 5) - 5 : 0;
-
+    $articleSite = isset($_GET['articles']) ? $_GET['articles'] : 0;
+    $articlesOffset = $articleSite * 5;
 
 
     $posts = get_posts(array(
@@ -171,15 +170,15 @@ get_header();
                     <div class="article-list">
 
                         <p class="article-titel"> <?php the_field('article_titel') ?></p></a>
-            <p class="article-infos"><a href="<?php echo the_permalink(); ?>"><?php the_field('article_autor') ?></a>, <?php the_field('article_herausgeber') ?> <?php the_field('article_seite') ?> <?php the_field('article_jahr') ?>   </p>
+            <p class="article-infos"><?php the_field('article_autor') ?>, <?php the_field('article_herausgeber') ?> <?php the_field('article_seite') ?> <?php the_field('article_jahr') ?>   </p>
             </div>
             </div>
         <?php endforeach; ?>
         </div>
+        <button data-offset="0" class="articles-prev-btn"><?php _e('Previous'); ?></button>
+        <span class="articles-site-indicator"><span class="articles-current-site">1</span> von <span class="articles-last-site-indicator"><?php echo ceil(count($allArticles) / 5); ?></span></span>
         <?php if(count($allArticles) > 5): ?>
-            <button data-offset="<?php echo $articlesOffset === 0 ? 0 : $articlesOffset - 5; ?>" class="articles-prev-btn"><?php _e('Previous'); ?></button>
-            <span class="articles-site-indicator"><span class="articles-current-site"><?php echo $articleSite === 0 ? 1 : $articleSite; ?></span> von <span class="articles-last-site-indicator"><?php echo ceil(count($allArticles) / 5); ?></span></span>
-            <button data-offset="<?php echo $articlesOffset === 0 ? 5 : $articlesOffset + 5; ?>" class="articles-cont-btn"><?php _e('Next'); ?></button>
+            <button data-offset="<?php echo $articlesOffset === 0 ? 5 : $articlesOffset; ?>" class="articles-cont-btn"><?php _e('Next'); ?></button>
         <?php endif; ?>
         <?php wp_reset_postdata(); ?>
     <?php endif; ?>
