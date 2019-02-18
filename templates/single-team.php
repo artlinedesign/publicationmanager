@@ -18,7 +18,7 @@ add_filter('acf/settings/current_language', '__return_false');
 
 
 
-		<h1> <?php _e( 'RechtsanwältInnen', 'btp-cm' ) ?> </h1>
+		<h1> <?php _e( 'Lawyers', 'btp-cm' ) ?> </h1>
 
 		<div id="btp-team">
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -54,14 +54,14 @@ add_filter('acf/settings/current_language', '__return_false');
 					<?php endif; ?>
 			<?php endwhile; // end of the loop. ?>
 
-			<h1> <?php _e( 'RechtsanwaltsanwärterInnen', 'btp-cm' ) ?> </h1>
+			<h1> <?php _e( 'Associates', 'btp-cm' ) ?> </h1>
 
 							
-			<h1> <?php _e( 'ExpertInnen', 'btp-cm' ) ?> </h1>
+			<h1> <?php _e( 'Experts', 'btp-cm' ) ?> </h1>
 
 			<h1> <?php _e( 'Backoffice', 'btp-cm' ) ?> </h1>
 
-			<h1> <?php _e( 'Juristische MitarbeiterInnen', 'btp-cm' ) ?> </h1>
+			<h1> <?php _e( 'Research Assistants', 'btp-cm' ) ?> </h1>
 
 		</div>
 
