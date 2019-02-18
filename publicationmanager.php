@@ -115,6 +115,7 @@ include 'includes/config/register-cpt.php';
 # PHP Style
 include 'includes/config/acf-config.php';
 
+
 # JSON style
 // function loadCustomField() {
 //         wp_enqueue_script( 'json_settings', plugins_url('includes/config/acf-config.json', __FILE__,true) );
