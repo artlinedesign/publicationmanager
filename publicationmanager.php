@@ -146,11 +146,13 @@ function wpb_change_title_text( $title ){
 add_filter( 'enter_title_here', 'wpb_change_title_text' );
 
 
+require plugin_dir_path( __FILE__ ) . 'public/shortcode/lawyers.phtml';
+
+add_shortcode('lawyers', 'lawyersShortcode');
+
 require plugin_dir_path( __FILE__ ) . 'public/shortcode/publications.phtml';
 
-add_shortcode('pubs', 'pubsShortcode');
-
-
+add_shortcode('publications', 'publicationsShortcode');
 /* Get ACF */
 
 
