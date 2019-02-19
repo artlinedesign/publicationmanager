@@ -146,6 +146,11 @@ function wpb_change_title_text( $title ){
 add_filter( 'enter_title_here', 'wpb_change_title_text' );
 
 
+require plugin_dir_path( __FILE__ ) . 'public/shortcode/publications.phtml';
+
+add_shortcode('pubs', 'pubsShortcode');
+
+
 /* Get ACF */
 
 
@@ -294,10 +299,6 @@ add_action( 'wp_ajax_nopriv_getPublications', 'my_ajax_getPublications_handler' 
 // }
 // add_action( 'showAdminSuccess', 'showAdminSuccessMessage' );
 
-
-// add_shortcode('publications', 'publicationsShortcode');
-
-// require plugin_dir_path( __FILE__ ) . 'public/shortcode/publications.phtml';
 
 
 // add_shortcode('articles', 'articlesShortcode');
