@@ -239,6 +239,8 @@ add_action( 'init', 'registerPublisher' );
 
 
 
+
+
 // add_action ('init', 'booksField');
 
 
@@ -271,7 +273,7 @@ function cptui_register_my_taxes() {
 		"rest_base" => "books",
 		"rest_controller_class" => "WP_REST_Terms_Controller",
 		"show_in_quick_edit" => false,
-	);
+		);
 	register_taxonomy( "books", array( "books" ), $args );
 
 	/**
@@ -299,7 +301,7 @@ function cptui_register_my_taxes() {
 		"rest_base" => "verlag",
 		"rest_controller_class" => "WP_REST_Terms_Controller",
 		"show_in_quick_edit" => false,
-	);
+		);
 	register_taxonomy( "verlag", array( "publisher" ), $args );
 
 	/**
@@ -327,7 +329,7 @@ function cptui_register_my_taxes() {
 		"rest_base" => "articles",
 		"rest_controller_class" => "WP_REST_Terms_Controller",
 		"show_in_quick_edit" => false,
-	);
+		);
 	register_taxonomy( "articles", array( "articles" ), $args );
 
 	/**
@@ -355,7 +357,7 @@ function cptui_register_my_taxes() {
 		"rest_base" => "books_category",
 		"rest_controller_class" => "WP_REST_Terms_Controller",
 		"show_in_quick_edit" => false,
-	);
+		);
 	register_taxonomy( "books_category", array( "books" ), $args );
 
 	/**
@@ -383,12 +385,10 @@ function cptui_register_my_taxes() {
 		"rest_base" => "anwalt_position",
 		"rest_controller_class" => "WP_REST_Terms_Controller",
 		"show_in_quick_edit" => true,
-	);
+		);
 	register_taxonomy( "anwalt_position", array( "lawyers" ), $args );
 }
 add_action( 'init', 'cptui_register_my_taxes' );
-
-
 
 
  ?>

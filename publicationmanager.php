@@ -97,6 +97,7 @@ function publicationmanager(){
 	add_submenu_page('cm', 'Beiträge', 'Beiträge', 'manage_options', 'edit.php?post_type=articles', NULL );
 	add_submenu_page('cm', 'Verläge', 'Verläge', 'manage_options', 'edit.php?post_type=publisher', NULL );
 	add_submenu_page('cm', 'Settings', 'Settings', 'manage_options', 'settings', 'showSettings' );
+
 	
 }
 
