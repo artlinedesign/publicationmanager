@@ -387,8 +387,33 @@ function cptui_register_my_taxes() {
 		"show_in_quick_edit" => true,
 		);
 	register_taxonomy( "anwalt_position", array( "lawyers" ), $args );
+
+	/**
+	 * Taxonomy: Fachgebiete.
+	 */
+
+	$labels = array(
+		"name" => __( "Fachgebiete", "Avada" ),
+		"singular_name" => __( "Fachgebiet", "Avada" ),
+	);
+
+	$args = array(
+		"label" => __( "Fachgebiete", "Avada" ),
+		"labels" => $labels,
+		"public" => true,
+		"publicly_queryable" => true,
+		"hierarchical" => true,
+		"show_ui" => true,
+		"show_in_menu" => true,
+		"show_in_nav_menus" => true,
+		"query_var" => true,
+		"rewrite" => array( 'slug' => 'fachgebiet_anwalt', 'with_front' => true,  'hierarchical' => true, ),
+		"show_admin_column" => true,
+		"show_in_rest" => true,
+		"rest_base" => "fachgebiet_anwalt",
+		"rest_controller_class" => "WP_REST_Terms_Controller",
+		"show_in_quick_edit" => true,
+		);
+	register_taxonomy( "fachgebiet_anwalt", array( "lawyers" ), $args );
 }
 add_action( 'init', 'cptui_register_my_taxes' );
-
-
- ?>

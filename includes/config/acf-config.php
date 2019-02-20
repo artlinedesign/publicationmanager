@@ -1,6 +1,5 @@
 <?php
 
-
 if( function_exists('acf_add_local_field_group') ):
 
 	acf_add_local_field_group(array(
@@ -142,7 +141,7 @@ if( function_exists('acf_add_local_field_group') ):
 					'class' => '',
 					'id' => '',
 				),
-				'taxonomy' => 'fachgebiete',
+				'taxonomy' => 'fachgebiet_anwalt',
 				'field_type' => 'checkbox',
 				'add_term' => 1,
 				'save_terms' => 0,
