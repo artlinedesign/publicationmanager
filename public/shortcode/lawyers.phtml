@@ -15,7 +15,6 @@ function lawyersShortcode(){
             foreach($terms as $term){
                 $positions[$term->slug] = $term->term_id;
             }
-
             $posts = get_posts(array(
                 'posts_per_page'	=> -1,
                 'post_type'			=> 'lawyers',

@@ -35,9 +35,9 @@
             currentUrl = currentUrl[currentUrl.length-1];
             if (currentUrl.indexOf('publications') === -1) {
                 if (currentUrl.indexOf('?') === -1) {
-                    history.pushState({}, "publications", "?publications=1");
+                    history.pushState({}, "pubs", "?pubs=1");
                 } else {
-                    history.pushState({}, "publications", "&publications=1");
+                    history.pushState({}, "pubs", "&pubs=1");
                 }
             }
             $('.pubs-prev-btn, .pubs-cont-btn').on('click', function () {
@@ -68,8 +68,8 @@
                                 jQuery('.pubs-cont-btn').data('offset', offset + 5);
                                 jQuery('.pubs-prev-btn').data('offset', offset - 5);
                             }
-                            let pushStateRegex = /publications=[0-9][0-9]*/gi;
-                            history.pushState({}, "publications", window.location.href.replace(pushStateRegex, "publications=" + site));
+                            let pushStateRegex = /pubs=[0-9][0-9]*/gi;
+                            history.pushState({}, "pubs", window.location.href.replace(pushStateRegex, "pubs=" + site));
 
                         });
                 }
@@ -82,9 +82,9 @@
             newUrl = newUrl[newUrl.length-1];
             if (newUrl.indexOf('articles') === -1) {
                 if (newUrl.indexOf('?') === -1) {
-                    history.pushState({}, "articles", "?articles=1");
+                    history.pushState({}, "arts", "?arts=1");
                 } else {
-                    history.pushState({}, "articles", window.location.href + "&articles=1");
+                    history.pushState({}, "arts", window.location.href + "&arts=1");
                 }
             }
 
@@ -116,8 +116,8 @@
                                 jQuery('.articles-cont-btn').data('offset', offset + 5);
                                 jQuery('.articles-prev-btn').data('offset', offset - 5);
                             }
-                            let pushStateRegex = /articles=[0-9][0-9]*/gi;
-                            history.pushState({}, "articles", window.location.href.replace(pushStateRegex, "articles=" + site));
+                            let pushStateRegex = /arts=[0-9][0-9]*/gi;
+                            history.pushState({}, "arts", window.location.href.replace(pushStateRegex, "arts=" + site));
                         });
                 }
             });

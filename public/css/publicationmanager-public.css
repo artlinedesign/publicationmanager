@@ -99,11 +99,9 @@
   */
 
 #lawyer-profile {
-  border: 1px dotted black;
 }
 
 .lawyer-id {
-  border: 1px dotted blue;
   padding: 20px;
 }
 
@@ -130,7 +128,6 @@
 }
 
 .lawyer-info {
-  border: 1px dotted green;
   padding: 20px;
 }
 
@@ -164,7 +161,6 @@
 
 .pubs-modul-wrapper, .articles-modul-wrapper {
   margin: 20px;
-  border: 1px dotted tomato;
   display: flex;
   align-items: center;
 }
@@ -183,11 +179,19 @@
   margin-right: 10px;
 }
 
+.pagination-btn {
+    border: 1.4px solid #004893;
+    border-radius: 50%;
+    padding: .5em .72em;
+    color: #4478b9;
+    font-family: 'Calibri', 'Arial', 'PT Sans', sans-serif;
+    font-weight: 400;
+    font-size:14px;
+}
 
 /* TEAM */
 
 #btp-team {
-  border: 2px dotted fuchsia;
   display: flex;
   flex-wrap: wrap;
   justify-content: start;
