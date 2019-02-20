@@ -1,0 +1,64 @@
+<?php
+
+
+function professionsShortcode($atts){
+    $profession = isset($atts['profession']) ? $atts['profession'] : null;
+    ?>
+    <?php
+
+    $terms = get_terms( array(
+        'hide_empty' => false,
+    ) );
+    foreach($terms as $term){
+        if($term->slug === $profession){
+            $profession = $term->term_id;
+        }
+    }
+
+    $posts = get_posts(array(
+        'posts_per_page'	=> -1,
+        'post_type'			=> 'lawyers',
+        'suppress_filters'  => 0,
+        'meta_query' => array(
+            array(
+                'key' => 'fachgebiet',
+                'value' => $profession,
+                'compare' => 'LIKE'
+            )
+        )
+    ));
+
+    if( $posts ): ?>
+        <div id="btp-team">
+            <?php foreach( $posts as $post ):
+                setup_postdata( $post );
+                ?>
+                <div class="lawyer-id-team">
+                    <?php if( get_field('portrait', $post->ID) ): ?>
+                    <a href='<?php echo get_the_permalink($post->ID); ?>'>
+                        <img src="<?php the_field('portrait', $post->ID); ?>" />
+                        <?php endif; ?>
+                        <p class="lawyer-name-team">
+                            <?php the_field('vorname', $post->ID)?>
+                            <?php the_field('nachname', $post->ID) ?>
+                        </p></a>
+                    <?php
+                    $position = get_field('position', $post->ID);
+
+                    if( $position ): ?>
+                        <p><?php echo $position->name; ?> </p>
+                    <?php endif; ?>
+                    <a href="mailto:<?php the_field('e-mail', $post->ID) ?>"><?php the_field('e-mail', $post->ID) ?></a>
+                </div>
+            <?php endforeach; ?>
+            <?php wp_reset_postdata(); ?>
+        </div>
+    <?php endif; ?>
+
+<?php
+
+}
+//
+/*   <a class="article-pagination-btn" data-site="<?php echo $site === 1 ? 1 : $site - 1 ?>">previous site</a>*/
+/*    <a class="article-pagination-btn" data-site="<?php echo $site + 1 ?>">next site</a>*/
+?>

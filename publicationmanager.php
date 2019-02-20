@@ -154,6 +154,13 @@ add_shortcode('lawyers', 'lawyersShortcode');
 require plugin_dir_path( __FILE__ ) . 'public/shortcode/publications.phtml';
 
 add_shortcode('publications', 'publicationsShortcode');
+
+require plugin_dir_path( __FILE__ ) . 'public/shortcode/professions.phtml';
+
+add_shortcode('professions', 'professionsShortcode');
+
+
+
 /* Get ACF */
 
 
@@ -304,9 +311,6 @@ add_action( 'wp_ajax_nopriv_getPublications', 'my_ajax_getPublications_handler' 
 
 
 
-// add_shortcode('articles', 'articlesShortcode');
-
-// require plugin_dir_path( __FILE__ ) . 'public/shortcode/articles.phtml';
 
 
 // add_shortcode('books', 'booksShortcode');
