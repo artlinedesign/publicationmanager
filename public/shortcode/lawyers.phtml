@@ -7,6 +7,15 @@ function lawyersShortcode(){
     <section class="lawyers-shortcode-wrapper" style="position: relative;">
 
             <?php
+
+            $terms = get_terms( array(
+                'hide_empty' => false,
+            ) );
+            $positions = [];
+            foreach($terms as $term){
+                $positions[$term->slug] = $term->term_id;
+            }
+
             $posts = get_posts(array(
                 'posts_per_page'	=> -1,
                 'post_type'			=> 'lawyers',
@@ -14,11 +23,12 @@ function lawyersShortcode(){
                 'meta_query' => array(
                     array(
                         'key' => 'position',
-                        'value' => '11',
+                        'value' => $positions['rechtsanwaeltinnen'],
                         'compare' => 'LIKE'
                     )
                 )
             ));
+
             if( $posts ): ?>
                 <h1> <?php _e( 'Lawyers', 'btp-cm' ) ?> </h1>
 
@@ -37,6 +47,7 @@ function lawyersShortcode(){
                                 </p></a>
                             <?php
                             $position = get_field('position', $post->ID);
+
                             if( $position ): ?>
                                 <p><?php echo $position->name; ?> </p>
                             <?php endif; ?>
@@ -56,7 +67,7 @@ function lawyersShortcode(){
                 'meta_query' => array(
                     array(
                         'key' => 'position',
-                        'value' => 'field_5c36e87b73cf7',
+                        'value' => $positions['rechtsanwaltsanwaerterinnen'],
                         'compare' => 'LIKE'
                     )
                 )
@@ -101,7 +112,7 @@ function lawyersShortcode(){
                 'meta_query' => array(
                     array(
                         'key' => 'position',
-                        'value' => '13',
+                        'value' => $positions['expertinnen'],
                         'compare' => 'LIKE'
                     )
                 )
@@ -143,7 +154,7 @@ function lawyersShortcode(){
                 'meta_query' => array(
                     array(
                         'key' => 'position',
-                        'value' => '14',
+                        'value' => $positions['backoffice'],
                         'compare' => 'LIKE'
                     )
                 )
@@ -185,7 +196,7 @@ function lawyersShortcode(){
                 'meta_query' => array(
                     array(
                         'key' => 'position',
-                        'value' => '15',
+                        'value' => $positions['juristische-mitarbeiterinnen'],
                         'compare' => 'LIKE'
                     )
                 )
